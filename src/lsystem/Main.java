@@ -22,6 +22,8 @@ public class Main {
                 rules.add(scanner.next());
             }
             rules.remove(rules.size() - 1);
+            System.out.println("Nombre d'itérations: ");
+            nbIterations = scanner.nextInt();
             parser = new Parser(axiom, rules,nbIterations);
         }
 
