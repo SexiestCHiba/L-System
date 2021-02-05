@@ -2,6 +2,8 @@ package lsystem.engine;
 
 import java.util.List;
 
+import lsystem.Type;
+
 public class Parser {
 
     private final String axiom;
@@ -20,14 +22,14 @@ public class Parser {
     		System.out.println("Erreur, nombre d'itérations insuffisant (plus petit que 1)");
     		return false;
     	}
-    	 boolean bl = isCorrect(axiom);
+    	 boolean bl = isCorrect(axiom, Type.AXIOM);
     	 for(String rule : this.rules){
-    		 bl = bl && isCorrect(rule);
+    		 bl = bl && isCorrect(rule, Type.RULE);
     	 }
     	 return bl;
     }
 
-    private boolean isCorrect(String stringToCheck) {
+    private boolean isCorrect(String stringToCheck, Type type) {
     	char old = ' ';
         int bracket = 0;
         for (int i = 0; i > stringToCheck.length(); i++){
@@ -37,7 +39,7 @@ public class Parser {
             if(temp ==']')
             	bracket--;
             if(old == '.'){
-                for(int y = 0; y < 12; y++){
+                for(int y = (type == Type.RULE ? 0 : 1); y < 12; y++){
                     if(temp == validChars[y])
                         return false;
                 }
