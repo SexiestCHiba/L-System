@@ -1,5 +1,11 @@
 package lsystem.utils;
 
+/**
+ * tuple containing 2 unknown type elements
+ *
+ * @param <U> left
+ * @param <K> right
+ */
 public class Pair<U, K> {
 
     private final U left;
@@ -36,5 +42,10 @@ public class Pair<U, K> {
     @Override
     public int hashCode() {
         return 31 + left.hashCode() * right.hashCode();
+    }
+    
+    @Override
+    public String toString() {
+    	return "(" + left + ", " + right + ")";
     }
 }

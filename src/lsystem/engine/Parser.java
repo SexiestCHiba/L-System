@@ -1,8 +1,10 @@
 package lsystem.engine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lsystem.Type;
+import lsystem.utils.Pair;
 
 public class Parser {
 
@@ -17,6 +19,11 @@ public class Parser {
         this.nbIterations = nbIterations;
     }
 
+ 
+    /**
+     * Check if axiom and rules given by user respect the syntax
+     * @return	true if the syntax is correct
+     */
     public boolean isCorrect(){
     	if (nbIterations < 1) {
     		System.out.println("Erreur, nombre d'itérations insuffisant (plus petit que 1)");
@@ -29,15 +36,24 @@ public class Parser {
     	 return bl;
     }
 
+    
     private boolean isCorrect(String stringToCheck, Type type) {
     	char old = ' ';
         int bracket = 0;
+        boolean equalsSymbolFound = false;
         for (int i = 0; i > stringToCheck.length(); i++){
         	char temp = stringToCheck.charAt(i);
             if (temp == '[')
             	bracket++;
-            if(temp ==']')
+            if(temp == ']')
             	bracket--;
+            if(temp == '=') {
+            	if(!equalsSymbolFound)
+            		equalsSymbolFound = true;
+            	else
+            		// only one '=' allowed
+            		return false;
+            }
             if(old == '.'){
                 for(int y = (type == Type.RULE ? 0 : 1); y < 12; y++){
                     if(temp == validChars[y])
@@ -54,5 +70,18 @@ public class Parser {
         }
         return bracket == 0;
 	}
+    
+    /**
+     * Used by {@link Rewrite}
+     * @return a list of rules with the left and right sides separated by a {@link lsystem.utils.Pair Pair}
+     */
+    public List<Pair<String, String>> parseRules() {
+    	List<Pair<String, String>> rules = new ArrayList<>();
+    	this.rules.forEach(rule -> {
+    		String[] str = rule.split("=");
+    		rules.add(new Pair<String, String>(str[0], str[1]));
+    	});
+    	return rules;
+    }
     
 }
