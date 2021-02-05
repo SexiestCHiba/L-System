@@ -1,4 +1,4 @@
-package lsystem.engine.parser;
+package lsystem.engine;
 
 import java.util.List;
 
@@ -16,8 +16,8 @@ public class Parser {
     }
 
     public boolean isCorrect(){
-    	if (nbIterations == 0) {
-    		System.out.println("Erreur, nombre d'itérations inssufissant (plus petit que 1)");
+    	if (nbIterations < 1) {
+    		System.out.println("Erreur, nombre d'itérations insuffisant (plus petit que 1)");
     		return false;
     	}
     	 boolean bl = isCorrect(axiom);
@@ -26,33 +26,31 @@ public class Parser {
     	 }
     	 return bl;
     }
-    private boolean isCorrect(String stringToCheck) {
 
+    private boolean isCorrect(String stringToCheck) {
     	char old = ' ';
         int bracket = 0;
-        for (int i =0; i>stringToCheck.length();i++){
+        for (int i = 0; i > stringToCheck.length(); i++){
         	char temp = stringToCheck.charAt(i);
-            for(char validChar : validChars){
-            	if (temp == '[')
-            		bracket += 1;
-            	if(temp ==']')
-            		bracket -=1;
-                if(old == '.'){
-                    for(int y = 0;y<12;y++){
-                        if(temp == validChars[y])
-                            return false;
-                    }
+            if (temp == '[')
+            	bracket++;
+            if(temp ==']')
+            	bracket--;
+            if(old == '.'){
+                for(int y = 0; y < 12; y++){
+                    if(temp == validChars[y])
+                        return false;
                 }
-                old = temp;
+            }
+            old = temp;
+            for(char validChar : validChars){
                 if(temp == validChar)
                     break;
-                if(validChar == ' ' && temp != validChar)
+                if(validChar == ' ')
                     return false;
             }
         }
-    	if (bracket != 0)
-    		return false;
-    	return true;
+        return bracket == 0;
 	}
     
 }

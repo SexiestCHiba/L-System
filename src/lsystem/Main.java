@@ -1,6 +1,6 @@
 package lsystem;
 
-import lsystem.engine.parser.Parser;
+import lsystem.engine.Parser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -26,7 +26,6 @@ public class Main {
             nbIterations = scanner.nextInt();
             parser = new Parser(axiom, rules,nbIterations);
         }
-
         scanner.close();
     }
 
