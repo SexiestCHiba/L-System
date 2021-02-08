@@ -1,0 +1,75 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\title{Conception Logicielle - L-système}
+\author{Antonin Boyon,  Thomas Lalong,  Quentin Legot,  Arthur Page}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\setcounter{page}{0}
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\subsection{}
+Le but de notre projet était de concevoir un générateur de flores vidéo-ludiques. Ce genre de logiciel à pour but de créer de manière procédurale des modèles végétaux qui pourront notamment être utilisés dans les jeux vidéos. Nous devions pour cela nous baser sur un L-système \ref{l-system}, un parser \ref{parser}, un moteur de réécriture\ref{rw-engine} et un moteur graphique\ref{g-engine}. Le rôle de ses différents éléments sera expliqué dans les sections suivantes. 
+
+
+\section{Le logiciel}
+\subsection{Organigramme}
+%inclure à la fin quand le logiciel sera terminé
+
+\subsection{Le l-system}
+\label{l-system}
+\subsubsection{Qu'est-ce qu'un L-system}
+Un L-system (ou L-système en français) est un langage de réécriture permettant de modéliser l'évolution de modèles végétaux ou bactériologiques. (Wikipédia : \url{https://fr.wikipedia.org/wiki/L-Syst%C3%A8me}).
+\\
+Un L-system se base sur plusieurs paramètres:
+\begin{itemize}
+\item L'alphabet.\ref{alpha}\\
+C'est le "langage" du L-system, il est propre à chaque L-system et c'est à nous de le définir.
+\item L'axiome.\ref{axiome}\\
+C'est l'élément qui servira de base à la génération. 
+\item Les règles.\ref{rules}\\
+Elles servent à définir comment le modèle va évoluer en partant de l'axiome.
+\item Le nombre d'itérations.\ref{nbIt}\\
+Ce nombre indique le nombre de fois que les règles peuvent être appliquées.
+\end{itemize}
+\subsubsection{Notre L-system}
+Voici, expliqué en détail, les composants de notre L-système. 
+\paragraph{L'alphabet}\label{alpha} étant propre à chaque L-system, nous avons du créer le notre.
+Il est constitué de 6 lettres , 10 chiffres et 6 caractères.
+Les lettres comprennent 3 majuscules $(X,Y,Z)$ et 3 minuscules $(x,y,z)$.
+Les trois majuscules servent à représenter un mouvement d'une unité dans le sens positif de leur axe.
+Ainsi $X = $ mouvement d'une unité dans le sens positif sur l'axe $X$.
+Les trois minuscules quant à elles, permettent d'effectuer une rotation de +25° sur leurs axes respectifs.
+Ainsi, $x = $ rotation de 25° par rapport à l'axe des $X$.
+Les chiffres permettent, avec les symboles $(.,+,-)$ de faire varier les valeurs de base des lettres de l'alphabet.
+Ainsi, $-0.5X$ représentera un mouvement négatif de 0.5 unités sur l'axe $X$.
+De même, $+2x$ représentera un mouvement positif de 50° sur l'axe des $X$.
+Les symboles, $([,])$ permettent de différer l'exécution d'une règle, nous expliquerons leur utilité dans cette ce paragraphe \ref{rules}. Pour le dernier symbole, $=$, son utilité sera expliquée dans ce paragraphe \ref{axiome}.
+\paragraph{L'axiome}\label{axiome}
+\paragraph{Les règles}\label{rules}
+\paragraph{Le nombre d'itérations}\label{nbIt}
+\subsection{Le parser}
+\label{parser}
+\subsection{Le moteur de réécriture}
+\label{rw-engine}
+\subsection{Le moteur graphique}
+\label{g-engine}
+
+
+
+
+
+\section{Conclusion}
+\end{document}
