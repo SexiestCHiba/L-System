@@ -5,6 +5,7 @@ out/
 .classpath
 .bin
 .settings/
+.metadata
 rapport/rapport.out
 rapport/rapport.aux
 rapport/rapport.pdf
