@@ -1,1 +1,13 @@
 .idea/
+out/
+/bin/
+.project
+.classpath
+.bin
+.settings/
+rapport/rapport.out
+rapport/rapport.aux
+rapport/rapport.pdf
+rapport/rapport.log
+rapport/rapport.toc
+rapport/rapport.synctex.gz
