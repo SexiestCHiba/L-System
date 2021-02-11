@@ -115,7 +115,7 @@ public class MainFrame extends JFrame implements ActionListener{
 			case 1:
 				list.setText("Règles : \n");
 			default:
-				throw new Error("Wrong argument given to method changeList");			
+				throw new IllegalArgumentException("Wrong argument given to method changeList");
 			}	
 		}else{
 			list.append("-> "+stringToAdd + "\n");
