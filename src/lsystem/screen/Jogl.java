@@ -1,4 +1,4 @@
-package jogl;
+package lsystem.screen;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -18,34 +18,24 @@ import com.jogamp.opengl.util.Animator;
  *
  */
 
-public class Article1 implements GLEventListener {
+public class Jogl implements GLEventListener {
 
-	public static void main(String[] args) {
+	public static void initialize(String[] args) {
 		// Création de la fenêtre
-		Frame frame = new Frame("Article1");
-
+		Frame frame = new Frame("L-système 3D");
 		// Création du canvas pour dessiner dessus
 		GLCanvas canvas = new GLCanvas();
-
 		// Nous attachons ensuite le méchanisme de callback à notre surface dessinable
-		canvas.addGLEventListener((GLEventListener) new Article1());
-
+		canvas.addGLEventListener((GLEventListener) new Jogl());
 		// dessin -> fenêtre
 		frame.add(canvas);
-
 		// Création de l'animator
 		final Animator animator = new Animator(canvas);
-
 		// croix rouge = fermeture de la fenêtre
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
 				// Thread pour arrêter l'animator avant la fenêtre
-				new Thread(new Runnable() {
-					public void run() {
-						animator.stop();
-						System.exit(0);
-					}
-				}).start();
+				new Thread(animator::stop).start();
 			}
 		});
 
@@ -60,15 +50,12 @@ public class Article1 implements GLEventListener {
 	// init() sera appelée une fois au début de l'animation. C'est dans cette méthode
 	// que nous nous chargerons de toutes les opérations d'initialisation
 	public void init(GLAutoDrawable drawable) {
-
 		// GLEventListener renvoie un contexte (drawable) 
 		// que nous allons utiliser pour instancier un objet de type GL
 		// qui nous permettra d'utiliser les fonctions OpenGL
 		GL gl = drawable.getGL();
-
 		// désactiver la synchronisation verticale indépendamment de la plateforme utilisée
 		gl.setSwapInterval(1);
-
 	}
 
 	// Appelée que si la fenêtre d'affichage est redimensionnée

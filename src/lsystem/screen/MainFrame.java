@@ -1,11 +1,12 @@
-package jogl;
+package lsystem.screen;
 
+
+import lsystem.screen.listener.HelpListener;
+import lsystem.screen.listener.NewGenListener;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +20,7 @@ import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 
 
-public class MainFrame extends JFrame implements ActionListener{ 
+public class MainFrame extends JFrame {
 
 
 	private static final long serialVersionUID = -7898079642230075807L;
@@ -31,9 +32,7 @@ public class MainFrame extends JFrame implements ActionListener{
 	private JButton close;
 	private int nbRules;
 
-	public MainFrame(){ 
-		
-		
+	public MainFrame(){
 		nbRules = 1;
     	nbTabs = 0;
     	basePanel = new JPanel();
@@ -42,57 +41,43 @@ public class MainFrame extends JFrame implements ActionListener{
     	
     	JToolBar toolBar = new JToolBar();
         newGen = new JButton("Nouvelle génération");
-        newGen.addActionListener(this);
+        newGen.addActionListener(new NewGenListener());
         toolBar.add(newGen);
         help = new JButton("Aide");
-        help.addActionListener(this);
+        help.addActionListener(new HelpListener());
         toolBar.add(help);
     	
         this.setTitle("L-system interface"); 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(600,400); 
+        this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
         this.add(tabs);
         this.add(toolBar, BorderLayout.NORTH);
-
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == newGen)
-			newTab();
-		else if(e.getSource() == help)
-			newHelp();
-		else if(e.getSource() == close)
-			closeTab();
-		else
-			throw new Error("This event does not trigger any action");
-
-	} 
 	public void newHelp() {
 		JPanel helpTab = new JPanel();
 		JTextArea helpText = new JTextArea();
+		helpText.setText(Constants.HELP);
 		helpText.setEditable(false);
-		helpText.setText(new Help().getHelp());
 		helpTab.add(helpText);
 		tabs.addTab("Aide",(new JScrollPane(helpTab)));
 		
 	}
 	public void newTab() {
-		
 		nbTabs ++;
 		JPanel tab = new JPanel();
 		
 		JTextArea axiomList = new JTextArea();
-		axiomList.setEditable(false);
 		axiomList.setText("Axiome : \n");
+		axiomList.setEditable(false);
 		
 		JTextArea rulesList = new JTextArea();
-		rulesList.setEditable(false);
 		rulesList.setText("Règles : \n");
+		rulesList.setEditable(false);
 		
 		JLabel axiome = new JLabel("Axiome");
-		JLabel rules = new JLabel("Règle "+nbRules);
+		JLabel rules = new JLabel("Règle "+ nbRules);
 		JTextField axiomeField = new JTextField();
 		JTextField rulesField = new JTextField();
 		tab.add(axiome);
