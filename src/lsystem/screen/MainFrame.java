@@ -41,10 +41,10 @@ public class MainFrame extends JFrame {
     	
     	JToolBar toolBar = new JToolBar();
         newGen = new JButton("Nouvelle génération");
-        newGen.addActionListener(new NewGenListener());
+        newGen.addActionListener(new NewGenListener(this));
         toolBar.add(newGen);
         help = new JButton("Aide");
-        help.addActionListener(new HelpListener());
+        help.addActionListener(new HelpListener(this));
         toolBar.add(help);
     	
         this.setTitle("L-system interface"); 
@@ -106,8 +106,30 @@ public class MainFrame extends JFrame {
 			list.append("-> "+stringToAdd + "\n");
 		}
 	}
-	public void sendRule(){
-		//TODO : send the string contain into a JTextField into the JTextAre ruleList or axiomList
+	public String getAxiom(){
+		String str = "";
+		// TODO : return the axiom
+		return str;
+	}
+	public ArrayList<String> getRules(){
+		ArrayList<String> list= new ArrayList<>();
+		//TODO return the rules
+		return list;
+	}
+	public void incorrect() {
+		JFrame alert = new JFrame();
+		alert.setTitle("Erreur");
+		alert.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		alert.setSize(60,40);
+		alert.setLocationRelativeTo(null);
+
+		JLabel text = new JLabel("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
+		alert.add(text);
+		alert.setVisible(true);
+
+		changeList(null,(byte) 0,null);
+		changeList(null,(byte)1,null);
+
 	}
 }
 
