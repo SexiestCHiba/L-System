@@ -27,6 +27,7 @@
             <fileset dir="src" defaultexcludes="yes">
                 <include name="**"/>
             </fileset>
+	    <classpath refid="project.classpath"/>
         </javadoc>
     </target>
     <target name="packaging" depends="compile">

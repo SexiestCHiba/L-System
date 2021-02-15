@@ -1,3 +1,4 @@
+# ide files (eclipse, intellij...)
 .idea/
 out/
 /bin/
@@ -7,5 +8,13 @@ out/
 .settings/
 .metadata
 *.iml
+
+# log files
 rapport/
 !rapport/rapport.tex
+
+# javadoc files
+doc/
+
+# generated jar files
+build/
