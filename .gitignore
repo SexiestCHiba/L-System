@@ -6,9 +6,6 @@ out/
 .bin
 .settings/
 .metadata
-rapport/rapport.out
-rapport/rapport.aux
-rapport/rapport.pdf
-rapport/rapport.log
-rapport/rapport.toc
-rapport/rapport.synctex.gz
+*.iml
+rapport/
+!rapport/rapport.tex

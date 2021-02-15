@@ -1,0 +1,42 @@
+<project name="l-system" default="packaging" basedir=".">
+    <property name="project.sources.dir" value="src"/>
+    <property name="project.bin.dir" value="bin"/>
+    <property name="project.lib.dir" value="lib"/>
+    <path id="project.classpath">
+        <fileset dir="${project.lib.dir}">
+            <include name="*/*.jar"/>
+        </fileset>
+        <pathelement location="${project.bin.dir}"/>
+    </path>
+    <target name="compile" description="Compilation des classes" depends="init">
+        <javac srcdir="${project.sources.dir}" destdir="${project.bin.dir}" debug="on" optimize="off" deprecation="on" includeantruntime="false">
+            <classpath refid="project.classpath"/>
+        </javac>
+    </target>
+    <target name="init">
+        <echo message="Initialisation de ${ant.project.name}"/>
+        <mkdir dir="${basedir}/bin"/>
+    </target>
+    <target name="run" description="execution" depends="compile">
+        <java classname="lsystem.Main" fork="true">
+            <classpath refid="project.classpath"/>
+        </java>
+    </target>
+    <target name="javadoc">
+        <javadoc sourcepath="src" destdir="doc">
+            <fileset dir="src" defaultexcludes="yes">
+                <include name="**"/>
+            </fileset>
+        </javadoc>
+    </target>
+    <target name="packaging" depends="compile">
+        <mkdir dir="${project.bin.dir}/META-INF" />
+        <mkdir dir="build"/>
+        <manifest file="${project.bin.dir}/META-INF/MANIFEST.MF">
+            <attribute name="Class-Path" value="." />
+            <attribute name="Main-Class" value="lsystem.Main" />
+            <attribute name="Built-By" value="${user.name} with Apache Ant"/>
+        </manifest>
+        <jar jarfile="build/l-system.jar" basedir="${project.bin.dir}" manifest="${project.bin.dir}/META-INF/MANIFEST.MF"/>
+    </target>
+</project>
