@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
     	basePanel = new JPanel();
     	basePanel.setLayout(new FlowLayout(FlowLayout.CENTER));
     	tabs = new JTabbedPane(SwingConstants.TOP);
-    	
+
     	JToolBar toolBar = new JToolBar();
         newGen = new JButton("Nouvelle génération");
         newGen.addActionListener(new NewGenListener(this));
@@ -40,8 +40,8 @@ public class MainFrame extends JFrame {
         help = new JButton("Aide");
         help.addActionListener(new HelpListener(this));
         toolBar.add(help);
-    	
-        this.setTitle("L-system interface"); 
+
+        this.setTitle("L-system interface");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(Constants.WIDTH, Constants.HEIGHT);
         this.setLocationRelativeTo(null);
@@ -57,7 +57,18 @@ public class MainFrame extends JFrame {
 	}
 
 	public void newHelp() {
-		new Help(tabs);
+		JFrame aide = new JFrame();
+		aide.setTitle("Aide");
+		aide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		aide.setSize(700,800);
+		aide.setLocationRelativeTo(null);
+		aide.setVisible(true);
+
+		JTextArea helpText = new JTextArea();
+        helpText.setText(Constants.HELP);
+        helpText.setEditable(false);
+
+        aide.add(helpText);
 	}
 	public void newTab() {
 		if(nbTabs>2)
@@ -80,7 +91,7 @@ public class MainFrame extends JFrame {
 				list.setText("Règles : \n");
 			default:
 				throw new IllegalArgumentException("Wrong argument given to method changeList");
-			}	
+			}
 		}else{
 			list.append(stringToAdd);
 		}
@@ -111,4 +122,3 @@ public class MainFrame extends JFrame {
 
 	}
 }
-
