@@ -6,10 +6,17 @@ import lsystem.engine.Rewrite;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import lsystem.screen.MainFrame;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        MainFrame frame = new MainFrame();
+        frame.pack();
+        frame.setVisible(true);
+
+
         final Scanner scanner = new Scanner(System.in);
         String axiom = null;
         Parser parser = null;
