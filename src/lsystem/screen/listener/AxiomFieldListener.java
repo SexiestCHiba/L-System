@@ -19,17 +19,19 @@ public class AxiomFieldListener implements KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent ke) {
-        if(ke.getKeyCode() != 10)
+        if(ke.getKeyCode() != KeyEvent.VK_ENTER)
             frame.changeList(String.valueOf(ke.getKeyChar()),(byte)0, (JTextArea) frame.textAreaList.get(index));
         else{
-            String str = ";\n";
+            String str = ";\r\n";
             frame.changeList(str,(byte)0, (JTextArea) frame.textAreaList.get(index));
-            frame.textFieldList.get(index).setText("");
+            frame.textFieldList.get(index).setText(null);
         }
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_ENTER)
+            frame.textFieldList.get(index).setText(null);
     }
 
     @Override
