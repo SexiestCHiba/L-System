@@ -1,5 +1,7 @@
 package lsystem.screen;
 
+import lsystem.screen.listener.AxiomFieldListener;
+
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.JTabbedPane;
@@ -12,22 +14,27 @@ public class Tab {
         JTextArea axiomList = new JTextArea();
         axiomList.setText("Axiome : \n");
         axiomList.setEditable(false);
+        frame.addToTextAreaList(axiomList,nbTabs);
 
         JTextArea rulesList = new JTextArea();
         rulesList.setText("Règles : \n");
         rulesList.setEditable(false);
+        frame.addToTextAreaList(rulesList,nbTabs+10);
 
         JButton closeButton = new JButton("x");
 
 
         JLabel axiome = new JLabel("Axiome");
         JLabel rules = new JLabel("Règle "+ nbRules);
+
         JTextField axiomeField = new JTextField();
-        frame.addToComponentList(axiomeField,nbTabs);
+        axiomeField.addKeyListener(new AxiomFieldListener(frame,nbTabs));
         axiomeField.setPreferredSize(new Dimension(20,20));
+        frame.addToTextFieldList(axiomeField,nbTabs);
+
         JTextField rulesField = new JTextField();
-        frame.addToComponentList(rulesField,nbTabs+10);
         rulesField.setPreferredSize(new Dimension(20,20));
+
         tab.add(axiome);
         tab.add(axiomeField);
         tab.add(axiomList);
