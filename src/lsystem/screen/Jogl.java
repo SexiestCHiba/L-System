@@ -8,7 +8,9 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.awt.GLCanvas;
+import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.Animator;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 /**
  * Article1.java author: InfoRital
@@ -45,7 +47,7 @@ public class Jogl implements GLEventListener {
 		});
 
 		// Taille de la fenêtre
-		frame.setSize(300, 300);
+		frame.setSize(800, 800);
 		frame.setVisible(true);
 
 		// Démarrage de l'animator qui va se charger de faire des appels à la méthode
@@ -65,24 +67,30 @@ public class Jogl implements GLEventListener {
 
 	// Appelée que si la fenêtre d'affichage est redimensionnée
 	public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-		GL gl = drawable.getGL();
+
 
 	}
 
 	// display() sera appelée en boucle tout au long de l'application par la classe Animator. 
 	// C'est dans cette fonction qu'on fera tout ce qui doit être affiché
 	public void display(GLAutoDrawable drawable) {
-
-		GL gl = drawable.getGL();
-		((GL2) gl).glBegin( GL2.GL_LINES );
-	      ((GL2) gl).glVertex3f( -0.75f,0f,3f );// 3 units into the window
-	      ((GL2) gl).glVertex3f( 0f,-0.75f,3f );
-	      ((GL2) gl).glEnd();
+			final GL2 gl = drawable.getGL().getGL2();
+			
+			gl.glBegin(GL2.GL_LINES);
+			// 2eme argument : angle
+			gl.glVertex2f(-0.25f, -0.25f);
+			gl.glVertex2f(0.5f, 0.15f);
+			gl.glEnd();
+			
+			gl.glBegin(GL2.GL_LINES);
+			gl.glVertex2f(0.5f, 0.15f);
+			gl.glVertex2f(0.8f, 0.8f);
+			gl.glEnd();
+			
 	}
 
 	/**
 	 * displayChanged() est appelée si le mode d'affichage par exemple est modifié.
-	 * Cependant nous n'implémenterons pas cette méthode.
 	 */
 	/*
 	 * public void displayChanged(GLAutoDrawable drawable, boolean modeChanged,
@@ -93,6 +101,11 @@ public class Jogl implements GLEventListener {
 	public void dispose(GLAutoDrawable arg0) {
 		// TODO Auto-generated method stub
 
+	}
+	
+	public static void main(String[] args) {
+		Jogl jogl = new Jogl();
+		jogl.initialize(args);
 	}
 
 }
