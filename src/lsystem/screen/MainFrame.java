@@ -4,21 +4,11 @@ package lsystem.screen;
 import lsystem.screen.listener.HelpListener;
 import lsystem.screen.listener.NewGenListener;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JToolBar;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 
 
 public class MainFrame extends JFrame {
@@ -30,10 +20,11 @@ public class MainFrame extends JFrame {
 	private JTabbedPane tabs;
 	private JButton newGen;
 	private JButton help;
-	private JButton close;
 	private int nbRules;
+	public HashMap<Integer,Component> componentList;
 
 	public MainFrame(){
+		componentList = new HashMap<>();
 		nbRules = 1;
     	nbTabs = 0;
     	basePanel = new JPanel();
@@ -54,46 +45,28 @@ public class MainFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.add(tabs);
         this.add(toolBar, BorderLayout.NORTH);
+        this.setPreferredSize(new Dimension(640,600));
     }
+    public void addToComponentList(Component c ,Integer i){
+		componentList.put(i,c);
+	}
 
 	public void newHelp() {
-		JPanel helpTab = new JPanel();
-		JTextArea helpText = new JTextArea();
-		helpText.setText(Constants.HELP);
-		helpText.setEditable(false);
-		helpTab.add(helpText);
-		tabs.addTab("Aide",(new JScrollPane(helpTab)));
-		
+		new Help(tabs);
 	}
 	public void newTab() {
-		nbTabs ++;
-		JPanel tab = new JPanel();
-		
-		JTextArea axiomList = new JTextArea();
-		axiomList.setText("Axiome : \n");
-		axiomList.setEditable(false);
-		
-		JTextArea rulesList = new JTextArea();
-		rulesList.setText("Règles : \n");
-		rulesList.setEditable(false);
-		
-		JLabel axiome = new JLabel("Axiome");
-		JLabel rules = new JLabel("Règle "+ nbRules);
-		JTextField axiomeField = new JTextField();
-		JTextField rulesField = new JTextField();
-		tab.add(axiome);
-		tab.add(axiomeField);
-		tab.add(axiomList);
-		tab.add(rules);
-		tab.add(rulesField);
-		tab.add(rulesList);
-		tab.setLayout(new GridLayout(2,3));
-		tabs.addTab("Génération"+String.valueOf(nbTabs), tab);
+		if(nbTabs>2)
+			JOptionPane.showMessageDialog(null, "Nombre maximal de générations atteintes");
+		else {
+			nbTabs++;
+			new Tab(this, nbTabs, nbRules, tabs);
+		}
+
 	}
 	public void closeTab() {
 		//TODO : Pour fermer un onglet, nécessite l'implémentation d'un button fermer grâce à la méthode newTab().
 	}
-	public void changeList(String stringToAdd, byte messageType, JTextArea list) {
+	public void changeList(Character stringToAdd, byte messageType, JTextArea list) {
 		if (stringToAdd == null) {
 			switch(messageType) {
 			case 0:
@@ -104,7 +77,7 @@ public class MainFrame extends JFrame {
 				throw new IllegalArgumentException("Wrong argument given to method changeList");
 			}	
 		}else{
-			list.append("-> "+stringToAdd + "\n");
+			list.append(String.valueOf(stringToAdd));
 		}
 	}
 	public String getAxiom(){
