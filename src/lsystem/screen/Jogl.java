@@ -23,14 +23,19 @@ public class Jogl implements GLEventListener {
 	public static void initialize(String[] args) {
 		// Création de la fenêtre
 		Frame frame = new Frame("L-système 3D");
+		
 		// Création du canvas pour dessiner dessus
 		GLCanvas canvas = new GLCanvas();
+		
 		// Nous attachons ensuite le méchanisme de callback à notre surface dessinable
 		canvas.addGLEventListener((GLEventListener) new Jogl());
+		
 		// dessin -> fenêtre
 		frame.add(canvas);
+		
 		// Création de l'animator
 		final Animator animator = new Animator(canvas);
+		
 		// croix rouge = fermeture de la fenêtre
 		frame.addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
