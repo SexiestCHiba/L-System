@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import lsystem.screen.MainFrame;
+import lsystem.screen.SwingGLCanvas;
 
 public class Main {
 
@@ -16,6 +17,7 @@ public class Main {
         frame.pack();
         frame.setVisible(true);
 
+        SwingGLCanvas canvas = new SwingGLCanvas();
 
         final Scanner scanner = new Scanner(System.in);
         String axiom = null;

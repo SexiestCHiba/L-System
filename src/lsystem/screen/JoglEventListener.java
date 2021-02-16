@@ -66,11 +66,21 @@ public class JoglEventListener implements GLEventListener {
                 0.0f, 1.0f, 0.0f
         );
 
-        gl.glRotatef(angle, 0f, 1f, 0f);
+        /* gl.glRotatef(angle, 0f, 1f, 0f);
 
         gl.glColor3f(1.0f, 0.0f, 0.0f);
-        glut.glutSolidSphere(1.0f, 20, 20);
-
+        glut.glutSolidSphere(1.0f, 20, 20); */
+        gl.glColor3f(1f, 1f, 1f);
+        gl.glBegin(GL2.GL_LINES);
+        gl.glVertex3f(0f, 0f, 0f);
+        gl.glVertex3f(1f, 0f, 0f);
+        gl.glVertex3f(0f, 0f, 0f);
+        gl.glVertex3f(0f, 1f, 0f);
+        gl.glVertex3f(0f, 0f, 0f);
+        gl.glVertex3f(0f, 0f, 1f);
+        gl.glEnd();
+        gl.glRasterPos3f(1.1f, 0.0f, 0.0f);
+        glut.glutBitmapCharacter(GLUT.BITMAP_HELVETICA_18, 'X');
         angle += 0.1f;
         angle %= 360f;
     }
