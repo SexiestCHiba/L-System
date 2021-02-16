@@ -34,6 +34,7 @@ public class Main {
         final String word = rewriter.rewrite();
         System.out.println(word);
         scanner.close();
+        
     }
 
 }
