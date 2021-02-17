@@ -11,30 +11,31 @@ public class FieldListener implements KeyListener {
 
     MainFrame frame;
     int index;
-    byte i;
+    int nbAxioms;
+    byte type;
 
-    public FieldListener(MainFrame frame, int index, byte i){
+    public FieldListener(MainFrame frame, int index,byte type){
         this.frame = frame;
         this.index = index;
-        this.i = i;
-
-
+        nbAxioms = 0;
+        this.type = type;
     }
     @Override
     public void keyTyped(KeyEvent ke) {
-        if(ke.getKeyCode() != KeyEvent.VK_ENTER)
-            frame.changeList(String.valueOf(ke.getKeyChar()),i, (JTextArea) frame.textAreaList.get(index));
-        else{
-            String str = ";\r\n";
-            frame.changeList(str,i, (JTextArea) frame.textAreaList.get(index));
-            frame.textFieldList.get(index).setText(null);
-        }
+
+        if(ke.getKeyCode() != KeyEvent.VK_ENTER && nbAxioms==0)
+            frame.changeList(String.valueOf(ke.getKeyChar()), (JTextArea) frame.textAreaList.get(index),nbAxioms);
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
-        if(ke.getKeyCode() == KeyEvent.VK_ENTER)
+        if(ke.getKeyCode() == KeyEvent.VK_ENTER) {
             frame.textFieldList.get(index).setText(null);
+            String str = ";";
+            frame.changeList(str, (JTextArea) frame.textAreaList.get(index),nbAxioms);
+            if(type == 0)
+                nbAxioms ++;
+        }
     }
 
     @Override

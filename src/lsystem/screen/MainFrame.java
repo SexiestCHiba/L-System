@@ -82,19 +82,16 @@ public class MainFrame extends JFrame {
 	public void closeTab() {
 		//TODO : Pour fermer un onglet, nécessite l'implémentation d'un button fermer grâce à la méthode newTab().
 	}
-	public void changeList(String stringToAdd, byte messageType, JTextArea list) {
-		if (stringToAdd == null) {
-			switch(messageType) {
-			case 0:
-				list.setText("Axiome : \n");
-			case 1:
-				list.setText("Règles : \n");
-			default:
-				throw new IllegalArgumentException("Wrong argument given to method changeList");
-			}
-		}else{
+	public void changeList(String stringToAdd, JTextArea list,int nbAxioms) {
+		if(nbAxioms>0)
+			JOptionPane.showMessageDialog(null, "Nombre maximal d'axiomes créés");
+		else {
 			list.append(stringToAdd);
+			if (stringToAdd == ";")
+				nbAxioms++;
 		}
+
+
 	}
 	public String getAxiom(){
 		String str = "";
@@ -106,19 +103,5 @@ public class MainFrame extends JFrame {
 		//TODO return the rules
 		return list;
 	}
-	public void incorrect() {
-		JFrame alert = new JFrame();
-		alert.setTitle("Erreur");
-		alert.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		alert.setSize(60,40);
-		alert.setLocationRelativeTo(null);
 
-		JLabel text = new JLabel("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
-		alert.add(text);
-		alert.setVisible(true);
-
-		changeList(null,(byte) 0,null);
-		changeList(null,(byte)1,null);
-
-	}
 }
