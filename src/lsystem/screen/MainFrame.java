@@ -1,8 +1,7 @@
 package lsystem.screen;
 
 
-import lsystem.screen.listener.HelpListener;
-import lsystem.screen.listener.NewGenListener;
+import lsystem.screen.listener.Listener;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -36,10 +35,10 @@ public class MainFrame extends JFrame {
 
     	JToolBar toolBar = new JToolBar();
         newGen = new JButton("Nouvelle génération");
-        newGen.addActionListener(new NewGenListener(this));
+        newGen.addActionListener(new Listener(this,null,"Tab"));
         toolBar.add(newGen);
         help = new JButton("Aide");
-        help.addActionListener(new HelpListener(this));
+        help.addActionListener(new Listener(this,null,"Help"));
         toolBar.add(help);
 
         this.setTitle("L-system interface");

@@ -1,8 +1,6 @@
 package lsystem.screen;
 
-import lsystem.screen.listener.ClearListener;
-import lsystem.screen.listener.FieldListener;
-import lsystem.screen.listener.GenerateListener;
+import lsystem.screen.listener.Listener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,19 +28,19 @@ public class Tab {
         JLabel rules = new JLabel("Règle "+ nbRules+" :");
 
         JTextField axiomeField = new JTextField();
-        axiomeField.addKeyListener(new FieldListener(frame,nbTabs,(byte)0));
+        axiomeField.addKeyListener(new Listener(frame,nbTabs,"Axiom"));
         axiomeField.setPreferredSize(new Dimension(120,20));
         frame.addToTextFieldList(axiomeField,nbTabs);
 
         JTextField rulesField = new JTextField();
-        rulesField.addKeyListener(new FieldListener(frame,nbTabs+10,(byte)1));
+        rulesField.addKeyListener(new Listener(frame,nbTabs+10,"Rules"));
         rulesField.setPreferredSize(new Dimension(120,20));
         frame.addToTextFieldList(rulesField,nbTabs+10);
 
         JButton submitButton = new JButton("Générer");
         JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(new ClearListener(frame,nbTabs));
-        submitButton.addActionListener(new GenerateListener(frame,nbTabs));
+        clearButton.addActionListener(new Listener(frame,nbTabs,"Clear"));
+        submitButton.addActionListener(new Listener(frame,nbTabs,"Generate"));
         JPanel southComponents = subPanel(clearButton,submitButton,null);
 
         GridBagConstraints gc = new GridBagConstraints();
