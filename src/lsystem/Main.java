@@ -14,9 +14,8 @@ public class Main {
     public static void main(String[] args) {
 
         MainFrame frame = new MainFrame();
-        frame.pack();
         frame.setVisible(true);
-
+        /*
         SwingGLCanvas canvas = new SwingGLCanvas();
 
         final Scanner scanner = new Scanner(System.in);
@@ -42,7 +41,7 @@ public class Main {
         Rewrite rewriter = new Rewrite(axiom, parser.parseRules(), nbIterations);
         final String word = rewriter.rewrite();
         System.out.println(word);
-        scanner.close();
+        scanner.close();*/
         
     }
 
