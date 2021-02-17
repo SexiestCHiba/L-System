@@ -57,8 +57,14 @@ public class Listener  implements ActionListener, KeyListener {
     }
     @Override
     public void keyTyped(KeyEvent ke) {
-        if(ke.getKeyCode() != KeyEvent.VK_ENTER && nbAxioms==0)
+        if(nbAxioms==0 && ke.getKeyChar() !='\b')
             frame.changeList(String.valueOf(ke.getKeyChar()), (JTextArea) frame.textAreaList.get(index),nbAxioms);
+        if(ke.getKeyChar() == '\b'){
+            String str = frame.textAreaList.get(index).getText();
+            str = str.substring(10,str.length()-1);
+            frame.textAreaList.get(index).setText(type+" : \n"+str);
+
+        }
     }
 
     @Override
@@ -67,7 +73,7 @@ public class Listener  implements ActionListener, KeyListener {
             frame.textFieldList.get(index).setText(null);
             String str = ";";
             frame.changeList(str, (JTextArea) frame.textAreaList.get(index),nbAxioms);
-            if(type == "Axiom")
+            if(type == "Axiome")
                 nbAxioms ++;
         }
     }

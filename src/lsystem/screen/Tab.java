@@ -28,12 +28,12 @@ public class Tab {
         JLabel rules = new JLabel("Règle "+ nbRules+" :");
 
         JTextField axiomeField = new JTextField();
-        axiomeField.addKeyListener(new Listener(frame,nbTabs,"Axiom"));
+        axiomeField.addKeyListener(new Listener(frame,nbTabs,"Axiome"));
         axiomeField.setPreferredSize(new Dimension(120,20));
         frame.addToTextFieldList(axiomeField,nbTabs);
 
         JTextField rulesField = new JTextField();
-        rulesField.addKeyListener(new Listener(frame,nbTabs+10,"Rules"));
+        rulesField.addKeyListener(new Listener(frame,nbTabs+10,"Règles"));
         rulesField.setPreferredSize(new Dimension(120,20));
         frame.addToTextFieldList(rulesField,nbTabs+10);
 
