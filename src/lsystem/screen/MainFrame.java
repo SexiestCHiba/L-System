@@ -7,6 +7,7 @@ import lsystem.screen.listener.NewGenListener;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -93,14 +94,19 @@ public class MainFrame extends JFrame {
 
 
 	}
-	public String getAxiom(){
-		String str = "";
-		// TODO : return the axiom
+	public String getAxiom(int index){
+		String str = textAreaList.get(index).getText();
+		str = str.substring(10,str.length());
 		return str;
 	}
-	public ArrayList<String> getRules(){
-		ArrayList<String> list= new ArrayList<>();
-		//TODO return the rules
+	public List<String> getRules(int index){
+		List<String> list = new ArrayList<>();
+		String str = textAreaList.get(index).getText();
+		str = str.substring(10,str.length());
+		String[] strsplit =  str.split("\n");
+		for(int y = 0;y<strsplit.length;y++){
+			list.add(strsplit[y]);
+		}
 		return list;
 	}
 

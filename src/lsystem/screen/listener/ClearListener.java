@@ -13,7 +13,9 @@ public class ClearListener implements ActionListener {
         this.frame =frame;
         this.nbTabs = nbTabs;
     }
-
+    public void forceAction(){
+        actionPerformed(null);
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         frame.textAreaList.get(nbTabs).setText("Axiome : \n");
