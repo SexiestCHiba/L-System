@@ -61,8 +61,12 @@ public class Listener  implements ActionListener, KeyListener {
             frame.changeList(String.valueOf(ke.getKeyChar()), (JTextArea) frame.textAreaList.get(index),nbAxioms);
         if(ke.getKeyChar() == '\b'){
             String str = frame.textAreaList.get(index).getText();
-            str = str.substring(10,str.length()-1);
-            frame.textAreaList.get(index).setText(type+" : \n"+str);
+            if(str.length()>11) {
+                str = str.substring(10, str.length() - 1);
+                System.out.println(str.substring(str.length() - 1, str.length()));
+            }
+            else
+                frame.textAreaList.get(index).setText(type+" : \n");
 
         }
     }
