@@ -21,12 +21,10 @@ public class MainFrame extends JFrame {
 	private JButton newGen;
 	private JButton help;
 	private int nbRules;
-	public HashMap<Integer,JTextArea> textAreaList;
-	public HashMap<Integer,JTextField> textFieldList;
+
 
 	public MainFrame(){
-		textAreaList = new HashMap<>();
-		textFieldList = new HashMap<>();
+
 		nbRules = 1;
     	nbTabs = 0;
     	basePanel = new JPanel();
@@ -35,10 +33,10 @@ public class MainFrame extends JFrame {
 
     	JToolBar toolBar = new JToolBar();
         newGen = new JButton("Nouvelle génération");
-        newGen.addActionListener(new Listener(this,null,"Tab"));
+        newGen.addActionListener(new Listener(this,null,"Tab",null));
         toolBar.add(newGen);
         help = new JButton("Aide");
-        help.addActionListener(new Listener(this,null,"Help"));
+        help.addActionListener(new Listener(this,null,"Help",null));
         toolBar.add(help);
 
         this.setTitle("L-system interface");
@@ -49,12 +47,6 @@ public class MainFrame extends JFrame {
         this.add(toolBar, BorderLayout.NORTH);
         this.setPreferredSize(new Dimension(640,600));
     }
-    public void addToTextAreaList(JTextArea c ,Integer i){
-		textAreaList.put(i,c);
-	}
-	public void addToTextFieldList(JTextField c ,Integer i){
-		textFieldList.put(i,c);
-	}
 
 	public void newHelp() {
 		JFrame aide = new JFrame();
@@ -75,38 +67,15 @@ public class MainFrame extends JFrame {
 			JOptionPane.showMessageDialog(null, "Nombre maximal de générations atteintes");
 		else {
 			nbTabs++;
-			new Tab(this, nbTabs, nbRules, tabs);
+			new Tab(nbTabs, nbRules, tabs);
 		}
 
 	}
 	public void closeTab() {
 		//TODO : Pour fermer un onglet, nécessite l'implémentation d'un button fermer grâce à la méthode newTab().
 	}
-	public void changeList(String stringToAdd, JTextArea list,int nbAxioms) {
-		if(nbAxioms>0)
-			JOptionPane.showMessageDialog(null, "Nombre maximal d'axiomes créés");
-		else {
-			list.append(stringToAdd);
-			if (stringToAdd == ";")
-				nbAxioms++;
-		}
 
 
-	}
-	public String getAxiom(int index){
-		String str = textAreaList.get(index).getText();
-		str = str.substring(10,str.length());
-		return str;
-	}
-	public List<String> getRules(int index){
-		List<String> list = new ArrayList<>();
-		String str = textAreaList.get(index).getText();
-		str = str.substring(10,str.length());
-		String[] strsplit =  str.split("\n");
-		for(int y = 0;y<strsplit.length;y++){
-			list.add(strsplit[y]);
-		}
-		return list;
-	}
+
 
 }

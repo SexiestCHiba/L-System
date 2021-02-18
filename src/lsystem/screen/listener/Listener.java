@@ -3,6 +3,7 @@ package lsystem.screen.listener;
 import lsystem.engine.Parser;
 import lsystem.engine.Rewrite;
 import lsystem.screen.MainFrame;
+import lsystem.screen.Tab;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -11,14 +12,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
 
-public class Listener  implements ActionListener, KeyListener {
-
+public class Listener implements ActionListener, KeyListener {
+    Tab tab;
     MainFrame frame;
     Integer index;
     String type;
     Integer nbAxioms;
 
-    public Listener(MainFrame frame, Integer index, String type){
+    public Listener(MainFrame frame, Integer index, String type, Tab tab){
+        this.tab = tab;
         this.frame = frame;
         this.index = index;
         this.type = type;
@@ -27,40 +29,52 @@ public class Listener  implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (type) {
-            case "Help" -> frame.newHelp();
-            case "Tab" -> frame.newTab();
-            case "Clear" -> {
-                frame.textAreaList.get(index).setText("Axiome : \n");
-                frame.textAreaList.get(index + 10).setText("Règles : \n");
-                frame.textFieldList.get(index).setText("");
-                frame.textFieldList.get(index + 10).setText("");
-            }
-            case "Generate" -> {
-                String axiom = frame.getAxiom(index);
-                List<String> rules = frame.getRules(index + 10);
-                Parser parser = new Parser(axiom, rules, 12);
+            case "Help":
+                frame.newHelp();
+                break;
+            case "Tab":
+                frame.newTab();
+                break;
+            case "Clear":
+                tab.getTextArea((byte) 0).setText("Axiome : \n");
+                tab.getTextArea((byte) 1).setText("Règles : \n");
+                tab.getTextField((byte) 0).setText("");
+                tab.getTextField((byte) 1).setText("");
+                Listener kl = (Listener) tab.getTextField((byte) 0).getKeyListeners()[0];
+                kl.resetNbAxioms();
+
+                break;
+
+            case "Generate":
+                String axiom = tab.getAxiom();
+                List<String> rules = tab.getRules();
+                Parser parser = new Parser(axiom, rules, tab.getNbIterations());
                 if (!parser.isCorrect()) {
                     JOptionPane.showMessageDialog(null, "Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
-                    new Listener(frame, index, "Clear");
+                    new Listener(null, index, "Clear",tab);
                 } else {
-                    Rewrite rewriter = new Rewrite(axiom, parser.parseRules(), 12);
+                    Rewrite rewriter = new Rewrite(axiom, parser.parseRules(), tab.getNbIterations());
                     final String word = rewriter.rewrite();
                     System.out.println(word);
                 }
-            }
+                break;
+
         }
 
     }
     @Override
     public void keyTyped(KeyEvent ke) {
+
+        byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
+
         if(nbAxioms==0 && ke.getKeyChar() !='\b')
-            frame.changeList(String.valueOf(ke.getKeyChar()), frame.textAreaList.get(index),nbAxioms);
+            tab.changeList(String.valueOf(ke.getKeyChar()), tab.getTextArea(i),nbAxioms);
         if(ke.getKeyChar() == '\b'){
-            String str = frame.textAreaList.get(index).getText();
+            String str = tab.getTextArea(i).getText();
             if(str.length()>10) {
                 if (!(str.endsWith(";\n") || str.endsWith(";"))){
                     str = str.substring(10, str.length() - 1);
-                    frame.textAreaList.get(index).setText(type + " : \n" + str);
+                    tab.getTextArea(i).setText(type + " : \n" + str);
                 }
             }
         }
@@ -68,11 +82,14 @@ public class Listener  implements ActionListener, KeyListener {
 
     @Override
     public void keyPressed(KeyEvent ke) {
+
+        byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
+
         if(ke.getKeyCode() == KeyEvent.VK_ENTER) {
-            frame.textFieldList.get(index).setText(null);
+            tab.getTextField(i).setText(null);
             String str = ";";
-            frame.changeList(str, frame.textAreaList.get(index),nbAxioms);
-            if(type.equals("Axiome"))
+            tab.changeList(str, tab.getTextArea(i),nbAxioms);
+            if(i == 0)
                 nbAxioms ++;
         }
     }
@@ -80,5 +97,8 @@ public class Listener  implements ActionListener, KeyListener {
     @Override
     public void keyReleased(KeyEvent ke) {
 
+    }
+    public void resetNbAxioms(){
+        nbAxioms = 0;
     }
 }
