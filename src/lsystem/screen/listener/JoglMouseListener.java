@@ -1,7 +1,6 @@
 package lsystem.screen.listener;
 
 import com.jogamp.opengl.glu.GLU;
-import lsystem.screen.Constants;
 import lsystem.screen.SwingGLCanvas;
 
 import java.awt.*;
@@ -52,23 +51,21 @@ public class JoglMouseListener implements MouseListener, MouseMotionListener, Mo
     @Override
     public void mouseDragged(MouseEvent e) {
         if(origine != null) {
-            double xDiff = (origine.getX() - e.getPoint().getX()) % 360;
-            double yDiff = (origine.getY() - e.getPoint().getY()) % 360;
-            if(button == 2) {
-                canvas.camera[0] += Math.cos(canvas.camera[4] % 360 - Math.PI / 2) * xDiff * 0.01;
-                canvas.camera[1] += Math.cos(canvas.camera[3] % 360) * yDiff * 0.01;
-                canvas.camera[2] += Math.sin(canvas.camera[4] % 360) * xDiff * 0.01;
-            }
+            double xDiff = origine.getX() - e.getPoint().getX();
+            double yDiff = origine.getY() - e.getPoint().getY();
+            /* if(button == 2) {
+                canvas.camera[0] += Math.cos(canvas.camera[3]) * xDiff * 0.01;
+                canvas.camera[1] += Math.cos(canvas.camera[4]) * yDiff * 0.01;
+                canvas.camera[2] += Math.sin(canvas.camera[3]) * xDiff * 0.01;
+            } */
             if(button == 3) {
                 canvas.camera[3] += xDiff * 0.1;
                 canvas.camera[4] += yDiff * 0.1;
             }
-            if(button == 1) {
-                // canvas.camera[0] += Math.cos(xDiff / Constants.WIDTH + Math.PI / 2) * 1.2;
-                // canvas.camera[1] += Math.sin(-yDiff / Constants.WIDTH);
-                // canvas.camera[2] += Math.sin(yDiff / Constants.HEIGHT) * 1.2;
-            }
             origine = e.getPoint();
+        }
+        for (int i = 0; i < canvas.camera.length; i++) {
+            canvas.camera[i] = canvas.camera[i] % 360;
         }
     }
 

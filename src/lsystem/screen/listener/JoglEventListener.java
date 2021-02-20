@@ -15,7 +15,7 @@ public class JoglEventListener implements GLEventListener {
     private final float[] light_0_ambient = {0.01f, 0.01f, 0.01f, 0.01f};
     private final float[] light_0_diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
     private final float[] light_0_specular = {1.0f,1.0f, 1.0f, 1.0f};
-    private final float[] light_0_position = {100f, 0f, 10f, 1f};
+    private final float[] light_0_position = {1000f, 1000f, 1000f, 1f};
 
     private float[] material_specular = {0.8f, 0.8f, 0.8f, 0.8f};
 
@@ -25,6 +25,7 @@ public class JoglEventListener implements GLEventListener {
     private final GLUT glut;
     private int width;
     private int height;
+    private int fps;
 
     public JoglEventListener(SwingGLCanvas swingGLCanvas) {
         this.canvas = swingGLCanvas;
@@ -38,7 +39,6 @@ public class JoglEventListener implements GLEventListener {
         GL2 gl = glAutoDrawable.getGL().getGL2();
 
         gl.glClearColor(0f, 0f, 0f, 1.0f);
-
         gl.glEnable(GL2.GL_DEPTH_TEST);
         gl.glEnable(GL2.GL_LIGHT0);
         gl.glEnable(GL2.GL_LIGHTING);
@@ -54,6 +54,19 @@ public class JoglEventListener implements GLEventListener {
 
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
+        new Thread(() -> {
+            while (true) {
+                synchronized (this){
+                    try {
+                        wait(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(fps);
+                    fps = 0;
+                }
+            }
+        }).start();
 
     }
 
@@ -72,6 +85,10 @@ public class JoglEventListener implements GLEventListener {
         // x, y, z, x of where the camera looks at, y of where the camera looks at, z of where the camera looks at
         glu.gluLookAt(canvas.camera[0], canvas.camera[1], canvas.camera[2], canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1, 0f, 1f, 0f);
         DrawHelper.prepareDraw3D(gl, glut, canvas);
+        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, light_0_position, 0);
+        gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
+        gl.glMateriali(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, 90);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, material_specular, 0);
 
         gl.glPushMatrix();
         gl.glTranslatef(0f, 0f, -4f);
@@ -89,16 +106,15 @@ public class JoglEventListener implements GLEventListener {
 
         angle += 0.1f;
         angle %= 360f;
-        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, light_0_position, 0);
 
+        gl.glColor3f(0, 144, 255);
+        canvas.prismPosition.forEach(pair ->
+                DrawHelper.drawRectangular0Prism(gl, pair.getLeft(), 0f, pair.getRight(), pair.getLeft() + 1, 1f, pair.getRight() + 1));
 
-        gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
-        gl.glMateriali(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, 90);
-        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, material_specular, 0);
-        DrawHelper.drawAxes(gl, glut);
-        DrawHelper.prepareDraw2D(gl, glut, canvas);
+        DrawHelper.drawAxes(gl, glut, canvas);
         DrawHelper.drawDebugInformation(gl, glu, glut, canvas, glAutoDrawable.getSurfaceHeight(), glAutoDrawable.getSurfaceWidth());
         gl.glFlush();
+        fps++;
     }
 
     @Override

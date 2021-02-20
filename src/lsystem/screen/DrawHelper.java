@@ -12,7 +12,7 @@ public class DrawHelper {
         gl.glRotatef(canvas.camera[5], 0f, 0f, 1f);
     }
 
-    public static void drawAxes(GL2 gl, GLUT glut){
+    public static void drawAxes(GL2 gl, GLUT glut, SwingGLCanvas canvas){
         gl.glDisable(GL2.GL_LIGHTING);
         gl.glDisable(GL2.GL_LIGHT0);
         gl.glRasterPos3f(0f, 0f, 0f);
@@ -28,12 +28,12 @@ public class DrawHelper {
         gl.glVertex3f(0f, 0f, 1f);
 
         gl.glColor3f(1f, 1f, 1f);
-        for(int i = -5; i < 6; i++) {
-            gl.glVertex3f(-5f, 0f, i);
-            gl.glVertex3f(5f, 0f, i);
+        for(int i = -50; i < 51; i++) {
+            gl.glVertex3f(-50f, 0f, i);
+            gl.glVertex3f(50f, 0f, i);
 
-            gl.glVertex3f(i, 0, -5f);
-            gl.glVertex3f(i, 0, 5f);
+            gl.glVertex3f(i, 0, -50f);
+            gl.glVertex3f(i, 0, 50f);
         }
         gl.glEnd();
         gl.glRasterPos3f(1.1f, 0.0f, 0.0f);
@@ -44,8 +44,46 @@ public class DrawHelper {
         glut.glutBitmapCharacter(GLUT.BITMAP_HELVETICA_18, 'Z'); //draw the z axis
     }
 
+    public static void drawRectangular0Prism(GL2 gl, float leftBottomX, float leftBottomY, float leftBottomZ, float rightUpX, float rightUpY, float rightUpZ) {
+        gl.glPushMatrix();
+        gl.glBegin(GL2.GL_TRIANGLES);
+        gl.glVertex3f(leftBottomX, leftBottomY, leftBottomZ);
+        gl.glVertex3f(rightUpX, leftBottomY, leftBottomZ);
+        gl.glVertex3f(rightUpX, rightUpY, leftBottomZ);
+
+        gl.glVertex3f(leftBottomX, leftBottomY, leftBottomZ);
+        gl.glVertex3f(leftBottomX, rightUpY, leftBottomZ);
+        gl.glVertex3f(rightUpX, rightUpY, leftBottomZ);
+
+        gl.glVertex3f(leftBottomX, leftBottomY, leftBottomZ);
+        gl.glVertex3f(leftBottomX, rightUpY, leftBottomZ);
+        gl.glVertex3f(leftBottomX, leftBottomY, rightUpZ);
+
+        gl.glVertex3f(leftBottomX, rightUpY, leftBottomZ);
+        gl.glVertex3f(leftBottomX, rightUpY, rightUpZ);
+        gl.glVertex3f(leftBottomX, leftBottomY, rightUpZ);
+
+        gl.glVertex3f(rightUpX, leftBottomY, leftBottomZ);
+        gl.glVertex3f(rightUpX, rightUpY, leftBottomZ);
+        gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
+
+        gl.glVertex3f(rightUpX, rightUpY, leftBottomZ);
+        gl.glVertex3f(rightUpX, rightUpY, rightUpZ);
+        gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
+
+        gl.glVertex3f(leftBottomX, leftBottomY, rightUpZ);
+        gl.glVertex3f(leftBottomX, rightUpY, rightUpZ);
+        gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
+
+        gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
+        gl.glVertex3f(rightUpX, rightUpY, rightUpZ);
+        gl.glVertex3f(leftBottomX, rightUpY, rightUpZ);
+        gl.glEnd();
+        gl.glPopMatrix();
+    }
+
     public static void drawDebugInformation(GL2 gl, GLU glu, GLUT glut, SwingGLCanvas canvas, int window_height, int window_width) {
-        gl.glRasterPos3f(0f, 0f, 2f);
+        gl.glRasterPos3f(canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1);
         gl.glColor3f(1f,1f, 1f);
         glut.glutBitmapString(GLUT.BITMAP_HELVETICA_18,
                 "x=" + canvas.camera[0] + ", y=" + canvas.camera[1] + ", z=" + canvas.camera[2]);

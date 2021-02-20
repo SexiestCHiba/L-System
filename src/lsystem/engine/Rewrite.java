@@ -2,7 +2,6 @@ package lsystem.engine;
 
 import lsystem.utils.Pair;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Rewrite {

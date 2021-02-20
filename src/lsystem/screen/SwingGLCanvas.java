@@ -9,19 +9,23 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.screen.listener.JoglEventListener;
 import lsystem.screen.listener.JoglMouseListener;
 import lsystem.screen.listener.KeyboardListener;
+import lsystem.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class SwingGLCanvas {
 
     public final GLCanvas glCanvas;
-    public float camera[] = {0f, 1f, 5f, // camera pos x,y, z
-            0f, 0f, 0f}; // camera rotation yaw(y-axis), pitch(z-axis), roll(x-axis)
+    public float[] camera = {0f, 1f, 5f, // camera pos x,y, z
+            0f, 0f, 0f}; // camera rotation yaw(x-axis), pitch(y-axis), roll(z-axis)
     public GLU glu = new GLU();
     public GLUT glut = new GLUT();
+    public LinkedList<Pair<Integer, Integer>> prismPosition = new LinkedList<>();
 
     public SwingGLCanvas() {
         GLProfile glProfile = GLProfile.getDefault();
@@ -44,6 +48,15 @@ public class SwingGLCanvas {
 
         jframe.getContentPane().add(glCanvas, BorderLayout.CENTER);
         jframe.setSize(Constants.WIDTH, Constants.HEIGHT);
+
+        for(int i = -50; i < 51; ++i) {
+            for(int j = -50; j < 51; ++j) {
+                if(new Random().nextFloat() < 0.05) {
+                    prismPosition.add(new Pair<Integer, Integer>(i, j));
+                }
+            }
+        }
+
         animator.start();
         jframe.setVisible(true);
     }

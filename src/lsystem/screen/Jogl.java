@@ -1,16 +1,15 @@
 package lsystem.screen;
 
-import java.awt.*;
-import java.awt.event.*;
-
 import com.jogamp.opengl.GL;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.awt.GLCanvas;
-import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.Animator;
-import com.jogamp.opengl.util.gl2.GLUT;
+
+import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Article1.java author: InfoRital

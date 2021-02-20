@@ -1,10 +1,10 @@
 package lsystem.engine;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import lsystem.Type;
 import lsystem.utils.Pair;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Parser {
 

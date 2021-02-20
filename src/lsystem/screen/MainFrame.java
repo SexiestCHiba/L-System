@@ -3,12 +3,8 @@ package lsystem.screen;
 
 import lsystem.screen.listener.Listener;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
 import javax.swing.*;
+import java.awt.*;
 
 
 public class MainFrame extends JFrame {
