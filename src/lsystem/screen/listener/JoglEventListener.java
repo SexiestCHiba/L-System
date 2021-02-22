@@ -1,15 +1,16 @@
 package lsystem.screen.listener;
 
-import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.*;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.screen.DrawHelper;
 import lsystem.screen.SwingGLCanvas;
+import lsystem.utils.Pair;
+
+import java.util.LinkedList;
+import java.util.Random;
 
 public class JoglEventListener implements GLEventListener {
-
 
     private final SwingGLCanvas canvas;
     private final float[] light_0_ambient = {0.01f, 0.01f, 0.01f, 0.01f};
@@ -17,14 +18,13 @@ public class JoglEventListener implements GLEventListener {
     private final float[] light_0_specular = {1.0f,1.0f, 1.0f, 1.0f};
     private final float[] light_0_position = {1000f, 1000f, 1000f, 1f};
 
-    private float[] material_specular = {0.8f, 0.8f, 0.8f, 0.8f};
+    private final float[] material_specular = {0.8f, 0.8f, 0.8f, 0.8f};
 
     private float angle = 0f;
+    private final LinkedList<Pair<Integer, Integer>> prismPosition = new LinkedList<>();
 
     private final GLU glu;
     private final GLUT glut;
-    private int width;
-    private int height;
     private int fps;
 
     public JoglEventListener(SwingGLCanvas swingGLCanvas) {
@@ -54,6 +54,14 @@ public class JoglEventListener implements GLEventListener {
 
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
+        for(int i = -50; i < 51; ++i) {
+            for(int j = -50; j < 51; ++j) {
+                if(new Random().nextFloat() < 0.05) {
+                    prismPosition.add(new Pair<>(i, j));
+                }
+            }
+        }
+        System.out.println(prismPosition.size() * 8);
         new Thread(() -> {
             while (true) {
                 synchronized (this){
@@ -67,7 +75,6 @@ public class JoglEventListener implements GLEventListener {
                 }
             }
         }).start();
-
     }
 
     @Override
@@ -82,13 +89,7 @@ public class JoglEventListener implements GLEventListener {
         gl.glLoadIdentity();
         gl.glTranslatef(0, 0, 0);
         DrawHelper.placeCamera(gl, canvas);
-        // x, y, z, x of where the camera looks at, y of where the camera looks at, z of where the camera looks at
         glu.gluLookAt(canvas.camera[0], canvas.camera[1], canvas.camera[2], canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1, 0f, 1f, 0f);
-        DrawHelper.prepareDraw3D(gl, glut, canvas);
-        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, light_0_position, 0);
-        gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
-        gl.glMateriali(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, 90);
-        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, material_specular, 0);
 
         gl.glPushMatrix();
         gl.glTranslatef(0f, 0f, -4f);
@@ -104,29 +105,35 @@ public class JoglEventListener implements GLEventListener {
         glut.glutSolidSphere(0.75f, 20, 20);
         gl.glPopMatrix();
 
-        angle += 0.1f;
-        angle %= 360f;
+        angle = (angle + 0.1f) % 360;
 
-        gl.glColor3f(0, 144, 255);
-        canvas.prismPosition.forEach(pair ->
-                DrawHelper.drawRectangular0Prism(gl, pair.getLeft(), 0f, pair.getRight(), pair.getLeft() + 1, 1f, pair.getRight() + 1));
+        gl.glColor3f(0f, 0.5f, 1f);
+        gl.glPushMatrix();
+        for(Pair<Integer, Integer> pair : prismPosition) {
+            DrawHelper.drawRectangularPrism(gl, pair.getLeft(), 0f, pair.getRight(), pair.getLeft() + 1, 1f, pair.getRight() + 1);
+        }
+        gl.glPopMatrix();
+        gl.glTranslatef(0f, 0f, 0f);
 
-        DrawHelper.drawAxes(gl, glut, canvas);
-        DrawHelper.drawDebugInformation(gl, glu, glut, canvas, glAutoDrawable.getSurfaceHeight(), glAutoDrawable.getSurfaceWidth());
+        DrawHelper.drawAxes(gl, glut);
+        DrawHelper.drawDebugInformation(gl, glut, canvas);
         gl.glFlush();
         fps++;
     }
 
     @Override
     public void reshape(GLAutoDrawable glAutoDrawable, int x, int y, int width, int height) {
-        this.width = width;
-        this.height = height;
         GL2 gl = glAutoDrawable.getGL().getGL2();
         gl.glViewport(x, y, width, height);
 
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(60.0f, (float) width/height, 0.1f, 1000.0f);
+        glu.gluPerspective(60.0f, (float) width / height, 0.1f, 1000.0f);
+
+        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, light_0_position, 0);
+        gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
+        gl.glMateriali(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, 90);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, material_specular, 0);
 
         gl.glMatrixMode(GL2.GL_MODELVIEW);
     }

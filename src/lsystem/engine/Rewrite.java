@@ -21,7 +21,7 @@ public class Rewrite {
         String toRewrite = rewritted;
         for(int j = 0; j < rules.size(); ++j){
             Pair<String, String> pair = rules.get(j);
-            toRewrite = toRewrite.replace(pair.getLeft(), "$" + j);
+            toRewrite = toRewrite.replace(pair.getLeft(), "${" + j + "}");
         }
         return toRewrite;
     }
@@ -29,7 +29,7 @@ public class Rewrite {
     private String replaceIDByRuleApplication(final String toRewrite) {
         String rewritted = toRewrite;
         for(int j = 0; j < rules.size(); ++j){
-            rewritted = rewritted.replace("$" + j, rules.get(j).getRight());
+            rewritted = rewritted.replace("${" + j + "}", rules.get(j).getRight());
         }
         return rewritted;
     }
