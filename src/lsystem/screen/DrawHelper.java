@@ -71,6 +71,6 @@ public class DrawHelper {
         gl.glRasterPos3f(canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1);
         gl.glColor3f(1f,1f, 1f);
         glut.glutBitmapString(GLUT.BITMAP_HELVETICA_18,
-                "x=" + canvas.camera[0] + ", y=" + canvas.camera[1] + ", z=" + canvas.camera[2]);
+                "x=" + canvas.camera[0] + ", y=" + canvas.camera[1] + ", z=" + canvas.camera[2]+"\n yaw = " + canvas.camera[3] + "  pitch = " + canvas.camera[4] + " roll = " + canvas.camera[5]);
     }
 }

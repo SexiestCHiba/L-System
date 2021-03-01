@@ -9,7 +9,7 @@ public class Main {
 
         MainFrame frame = new MainFrame();
         frame.setVisible(true);
-        //SwingGLCanvas canvas = new SwingGLCanvas();
+        SwingGLCanvas canvas = new SwingGLCanvas();
         
     }
 
