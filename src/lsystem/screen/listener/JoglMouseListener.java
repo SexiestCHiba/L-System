@@ -75,16 +75,12 @@ public class JoglMouseListener implements MouseListener, MouseMotionListener, Mo
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        if( 45 > Math.abs(canvas.camera[3]))
-            canvas.camera[0] += e.getWheelRotation()*Math.tan(Math.toRadians(-canvas.camera[3]))*0.25;
+        if( 45 > Math.abs(canvas.camera[3]) && 45>Math.abs(canvas.camera[4]))
+            canvas.camera[0] += e.getWheelRotation() * Math.tan(Math.toRadians(-canvas.camera[3])) * 0.25;
         else
-            canvas.camera[0] += e.getWheelRotation()*Math.tan(Math.toRadians(canvas.camera[3]))*0.25;
-        if(45>Math.abs(canvas.camera[4]))
-            canvas.camera[1] += e.getWheelRotation()*Math.tan(Math.toRadians(canvas.camera[4]))*0.25;
-        else
-            canvas.camera[1] += e.getWheelRotation()*Math.tan(Math.toRadians(-canvas.camera[4]))*0.25;
-
-        if( 45 < Math.abs(canvas.camera[3]) || 45<Math.abs(canvas.camera[4]))
+            canvas.camera[0] += e.getWheelRotation() * Math.tan(Math.toRadians(canvas.camera[3])) * 0.25;
+        canvas.camera[1] += e.getWheelRotation() * Math.tan(Math.toRadians(canvas.camera[4])) * 0.25;
+        if( 45 < Math.abs(canvas.camera[3]) || 45 < Math.abs(canvas.camera[4]))
             canvas.camera[2] += -e.getWheelRotation()*0.25;
         else
             canvas.camera[2] += e.getWheelRotation()*0.25;
