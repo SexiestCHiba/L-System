@@ -64,9 +64,6 @@ public class JoglMouseListener implements MouseListener, MouseMotionListener, Mo
             }
             origine = e.getPoint();
         }
-        for (int i = 0; i < canvas.camera.length; i++) {
-            canvas.camera[i] = canvas.camera[i] % 360;
-        }
     }
 
     @Override
@@ -75,15 +72,41 @@ public class JoglMouseListener implements MouseListener, MouseMotionListener, Mo
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        if( 45 > Math.abs(canvas.camera[3]) && 45>Math.abs(canvas.camera[4]))
+        // Gestion de la position x:
+        if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3]) > 270 ) {
             canvas.camera[0] += e.getWheelRotation() * Math.tan(Math.toRadians(-canvas.camera[3])) * 0.25;
-        else
+        }
+        else if(Math.abs(canvas.camera[3]) > 90 || Math.abs(canvas.camera[3]) < 270){
             canvas.camera[0] += e.getWheelRotation() * Math.tan(Math.toRadians(canvas.camera[3])) * 0.25;
-        canvas.camera[1] += e.getWheelRotation() * Math.tan(Math.toRadians(canvas.camera[4])) * 0.25;
-        if( 45 < Math.abs(canvas.camera[3]) || 45 < Math.abs(canvas.camera[4]))
-            canvas.camera[2] += -e.getWheelRotation()*0.25;
-        else
+        }
+        // Gestion de la position y:
+        if(Math.abs(canvas.camera[4]) < 90 || Math.abs(canvas.camera[4]) > 270) {
+            canvas.camera[1] += e.getWheelRotation() * Math.tan(Math.toRadians(canvas.camera[4])) * 0.25;
+        }
+        else if(Math.abs(canvas.camera[4]) > 90 || Math.abs(canvas.camera[4]) < 270){
+            canvas.camera[1] += e.getWheelRotation() * Math.tan(Math.toRadians(-canvas.camera[4])) * 0.25;
+        }
+
+        if( 90 == canvas.camera[3]){
+            canvas.camera[0] +=e.getWheelRotation()*0.25;
+            canvas.camera[2] += 0;
+        }
+        if( 90 == canvas.camera[4]){
+            canvas.camera[1] +=e.getWheelRotation()*0.25;
+            canvas.camera[2] += 0;
+        }
+        if( -90 == canvas.camera[3]){
+            canvas.camera[0] +=-e.getWheelRotation()*0.25;
+            canvas.camera[2] += 0;
+        }
+        if( -90 == canvas.camera[4]){
+            canvas.camera[1] +=e.getWheelRotation()*0.25;
+            canvas.camera[2] += 0;
+        }
+        if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3]) > 270 && Math.abs(canvas.camera[4]) < 90 || Math.abs(canvas.camera[4]) > 270){
             canvas.camera[2] += e.getWheelRotation()*0.25;
+        }else
+            canvas.camera[2] += -e.getWheelRotation()*0.25;
 
     }
 }
