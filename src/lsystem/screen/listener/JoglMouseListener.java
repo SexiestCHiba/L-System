@@ -53,7 +53,7 @@ public class JoglMouseListener implements MouseListener, MouseMotionListener, Mo
         if(origine != null) {
             double xDiff = origine.getX() - e.getPoint().getX();
             double yDiff = origine.getY() - e.getPoint().getY();
-            /* if(button == 2) {
+            /* if(button == 1) {
                 canvas.camera[0] += Math.cos(canvas.camera[3]) * xDiff * 0.01;
                 canvas.camera[1] += Math.cos(canvas.camera[4]) * yDiff * 0.01;
                 canvas.camera[2] += Math.sin(canvas.camera[3]) * xDiff * 0.01;
