@@ -12,6 +12,7 @@ public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = -7898079642230075807L;
 	private int nbTabs;
+	private int nbHelpWindow;
 	private JPanel basePanel;
 	private JTabbedPane tabs;
 	private JButton newGen;
@@ -45,18 +46,29 @@ public class MainFrame extends JFrame {
     }
 
 	public void newHelp() {
-		JFrame aide = new JFrame();
-		aide.setTitle("Aide");
-		aide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		aide.setSize(700,800);
-		aide.setLocationRelativeTo(null);
-		aide.setVisible(true);
+		if(nbHelpWindow>0){
+			JOptionPane.showMessageDialog(null, "Une fenêtre d'aide est déjà ouverte.");
+		}
+		else {
+			nbHelpWindow++;
 
-		JTextArea helpText = new JTextArea();
-        helpText.setText(Constants.HELP);
-        helpText.setEditable(false);
+			JFrame aide = new JFrame();
+			aide.setTitle("Aide");
+			aide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			aide.setSize(700,500);
+			aide.setLocationRelativeTo(null);
+			aide.setVisible(true);
 
-        aide.add(helpText);
+			JTextArea helpText = new JTextArea();
+    	helpText.setText(Constants.HELP);
+    	helpText.setEditable(false);
+
+			JScrollPane scrollbar = new JScrollPane(helpText);
+			scrollbar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+			scrollbar.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+			aide.add(scrollbar);
+		}
 	}
 	public void newTab() {
 		if(nbTabs>2)
