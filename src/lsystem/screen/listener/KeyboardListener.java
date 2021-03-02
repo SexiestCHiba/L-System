@@ -19,16 +19,40 @@ public class KeyboardListener implements KeyListener {
 
         switch (e.getKeyChar()) {
             case 'z':
-                canvas.camera[2] -= 0.1f;
+                if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3])>270 ){
+                    canvas.camera[2] -= 0.1f;
+                    canvas.camera[0] += 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
+                }else{
+                    canvas.camera[2] += 0.1f;
+                    canvas.camera[0] -= 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
+                }
                 break;
             case 's':
-                canvas.camera[2] += 0.1f;
+                if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3])>270 ){
+                    canvas.camera[2] += 0.1f;
+                    canvas.camera[0] -= 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
+                }else{
+                    canvas.camera[2] -= 0.1f;
+                    canvas.camera[0] += 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
+                }
                 break;
             case 'q':
-                canvas.camera[0] -= 0.1f;
+                if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3])>270 ){
+                    canvas.camera[0] -= 0.1f;
+                    canvas.camera[2] -= 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
+                }else{
+                    canvas.camera[0] += 0.1f;
+                    canvas.camera[2] -= 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
+                }
                 break;
             case 'd':
-                canvas.camera[0] += 0.1f;
+                if(Math.abs(canvas.camera[3]) < 180 || Math.abs(canvas.camera[3])>0 ){
+                    canvas.camera[0] += 0.1f;
+                    canvas.camera[2] += 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
+                }else{
+                    canvas.camera[0] -= 0.1f;
+                    canvas.camera[2] += 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
+                }
                 break;
             case 'a':
                 canvas.camera[3] -= 1;

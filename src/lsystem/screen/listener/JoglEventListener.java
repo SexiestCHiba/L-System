@@ -84,6 +84,9 @@ public class JoglEventListener implements GLEventListener {
 
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
+        for (int i = 0; i < canvas.camera.length; i++) {
+            canvas.camera[i] = canvas.camera[i] % 360;
+        }
         GL2 gl = glAutoDrawable.getGL().getGL2();
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
