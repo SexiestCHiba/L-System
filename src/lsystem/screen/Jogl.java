@@ -7,6 +7,8 @@ import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.Animator;
 
+import lsystem.screen.listener.JoglEventListener2D;
+
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -105,8 +107,10 @@ public class Jogl implements GLEventListener {
 	}
 	
 	public static void main(String[] args) {
-		Jogl jogl = new Jogl();
-		jogl.initialize(args);
+		//Jogl jogl = new Jogl();
+		//jogl.initialize(args);
+		SwingGLCanvas2D canvas = new SwingGLCanvas2D();
+		JoglEventListener2D a = new JoglEventListener2D(canvas);
 	}
 
 }
