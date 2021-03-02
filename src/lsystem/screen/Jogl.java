@@ -73,19 +73,21 @@ public class Jogl implements GLEventListener {
 	// display() sera appelée en boucle tout au long de l'application par la classe Animator. 
 	// C'est dans cette fonction qu'on fera tout ce qui doit être affiché
 	public void display(GLAutoDrawable drawable) {
-			final GL2 gl = drawable.getGL().getGL2();
-			
-			gl.glBegin(GL2.GL_LINES);
-			// 2eme argument : angle
-			gl.glVertex2f(-0.25f, -0.25f);
-			gl.glVertex2f(0.5f, 0.15f);
-			gl.glEnd();
-			
-			gl.glBegin(GL2.GL_LINES);
-			gl.glVertex2f(0.5f, 0.15f);
-			gl.glVertex2f(0.8f, 0.8f);
-			gl.glEnd();
-			
+		GL2 gl = drawable.getGL().getGL2();
+    	
+    	float xDefault = -1.0f, yDefault = -1.0f;
+    	
+    	/*gl.glBegin(GL2.GL_LINES);
+		gl.glVertex2f(xDefault, yDefault);
+		gl.glVertex2f(xDefault + (0.1f * 1), yDefault + (0.1f * 1));
+		gl.glEnd();
+		
+		gl.glBegin(GL2.GL_LINES);
+		gl.glVertex2f(xDefault + (0.1f * 1), -1.1f);
+		gl.glVertex2f(xDefault + (0.1f * 1) + (0.2f*1), yDefault + (0.1f * 1) + (0.2f*-1));
+		gl.glEnd();*/
+    	DrawHelper.drawStick(gl, 0.1f, xDefault, yDefault, 0);
+    	DrawHelper.drawStick(gl, 0.2f, -0.9f, -0.9f, 90);
 	}
 
 	/**
