@@ -1,16 +1,14 @@
-package lsystem.screen.listener;
-
-import lsystem.screen.SwingGLCanvas;
+package lsystem.screen.gl3d;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class KeyboardListener implements KeyListener {
+public class GLKeyboardListener implements KeyListener {
 
-    private final SwingGLCanvas canvas;
+    private final GLCanvas canvas;
 
 
-    public KeyboardListener(SwingGLCanvas swingGLCanvas) {
+    public GLKeyboardListener(GLCanvas swingGLCanvas) {
         this.canvas = swingGLCanvas;
     }
 

@@ -1,7 +1,4 @@
-package lsystem.screen.listener;
-
-import lsystem.screen.SwingGLCanvas;
-import lsystem.screen.SwingGLCanvas2D;
+package lsystem.screen.gl2d;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -1,19 +1,17 @@
-package lsystem.screen.listener;
+package lsystem.screen.gl3d;
 
-import com.jogamp.opengl.*;
+import com.jogamp.opengl.GL2;
+import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
-import lsystem.screen.DrawHelper;
-import lsystem.screen.SwingGLCanvas;
-import lsystem.screen.SwingGLCanvas2D;
 import lsystem.utils.Pair;
 
 import java.util.LinkedList;
 import java.util.Random;
 
-public class JoglEventListener2D implements GLEventListener {
+public class GLEventListener implements com.jogamp.opengl.GLEventListener {
 
-    private final SwingGLCanvas2D canvas;
+    private final GLCanvas canvas;
     private final float[] light_0_ambient = {0.01f, 0.01f, 0.01f, 0.01f};
     private final float[] light_0_diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
     private final float[] light_0_specular = {1.0f,1.0f, 1.0f, 1.0f};
@@ -28,7 +26,7 @@ public class JoglEventListener2D implements GLEventListener {
     private final GLUT glut;
     private int fps;
 
-    public JoglEventListener2D(SwingGLCanvas2D swingGLCanvas) {
+    public GLEventListener(GLCanvas swingGLCanvas) {
         this.canvas = swingGLCanvas;
         this.glu = canvas.glu;
         this.glut = canvas.glut;
@@ -64,34 +62,62 @@ public class JoglEventListener2D implements GLEventListener {
         }
         System.out.println(prismPosition.size() * 8);
         new Thread(() -> {
-            while (true) {
-                synchronized (this){
-                    try {
-                        wait(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(fps);
-                    fps = 0;
+            while (canvas.frame.isVisible()) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                System.out.println(fps);
+                fps = 0;
             }
         }).start();
     }
 
     @Override
     public void dispose(GLAutoDrawable glAutoDrawable) {
-
     }
 
     @Override
-    public void display (GLAutoDrawable glAutoDrawable) {
-    	GL2 gl = glAutoDrawable.getGL().getGL2();
-    	
-    	float xDefault = -1.0f, yDefault = -1.0f;
-    	
-    	
-    	DrawHelper.drawStick(gl, 0.1f, xDefault, yDefault, 0);
-    	DrawHelper.drawStick(gl, 0.2f, -0.9f, -0.9f, 90);
+    public void display(GLAutoDrawable glAutoDrawable) {
+        for (int i = 0; i < canvas.camera.length; i++) {
+            canvas.camera[i] = canvas.camera[i] % 360;
+        }
+        GL2 gl = glAutoDrawable.getGL().getGL2();
+        gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
+        gl.glLoadIdentity();
+        gl.glTranslatef(0, 0, 0);
+        DrawHelper.placeCamera(gl, canvas);
+        glu.gluLookAt(canvas.camera[0], canvas.camera[1], canvas.camera[2], canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1, 0f, 1f, 0f);
+
+        gl.glPushMatrix();
+        gl.glTranslatef(0f, 0f, -4f);
+        gl.glRotatef(angle, 0f, 1f, 0f);
+        gl.glColor3f(1.0f, 0.0f, 1.0f);
+        glut.glutSolidSphere(2f, 20, 20);
+        gl.glPopMatrix();
+
+        gl.glPushMatrix();
+        gl.glTranslatef(2f, 0.75f, 1.25f);
+        gl.glRotatef(angle, 0f, 1f, 0f);
+        gl.glColor3f(0.5f, 0.0f, 1.0f);
+        glut.glutSolidSphere(0.75f, 20, 20);
+        gl.glPopMatrix();
+
+        angle = (angle + 0.1f) % 360;
+
+        gl.glColor3f(0f, 0.5f, 1f);
+        gl.glPushMatrix();
+        for(Pair<Integer, Integer> pair : prismPosition) {
+            DrawHelper.drawRectangularPrism(gl, pair.getLeft(), 0f, pair.getRight(), pair.getLeft() + 1, 1f, pair.getRight() + 1);
+        }
+        gl.glPopMatrix();
+        gl.glTranslatef(0f, 0f, 0f);
+
+        DrawHelper.drawAxes(gl, glut);
+        DrawHelper.drawDebugInformation(gl, glut, canvas);
+        gl.glFlush();
+        fps++;
     }
 
     @Override

@@ -1,8 +1,6 @@
-package lsystem.screen.listener;
+package lsystem.screen.gl2d;
 
 import com.jogamp.opengl.glu.GLU;
-import lsystem.screen.SwingGLCanvas;
-import lsystem.screen.SwingGLCanvas2D;
 
 import java.awt.*;
 import java.awt.event.*;

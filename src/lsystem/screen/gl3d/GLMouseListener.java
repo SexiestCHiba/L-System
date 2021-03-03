@@ -1,19 +1,18 @@
-package lsystem.screen.listener;
+package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.glu.GLU;
-import lsystem.screen.SwingGLCanvas;
 
 import java.awt.*;
 import java.awt.event.*;
 
-public class JoglMouseListener implements MouseListener, MouseMotionListener, MouseWheelListener {
+public class GLMouseListener implements MouseListener, MouseMotionListener, MouseWheelListener {
 
     private final GLU glu;
-    private final SwingGLCanvas canvas;
+    private final GLCanvas canvas;
     private int button = 0;
     private Point origine;
 
-    public JoglMouseListener(SwingGLCanvas canvas) {
+    public GLMouseListener(GLCanvas canvas) {
         this.canvas = canvas;
         this.glu = canvas.glu;
     }

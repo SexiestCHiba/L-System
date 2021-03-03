@@ -1,10 +1,8 @@
-package lsystem.screen.listener;
+package lsystem.screen.main;
 
 import lsystem.engine.Element;
 import lsystem.engine.Parser;
 import lsystem.engine.Rewrite;
-import lsystem.screen.MainFrame;
-import lsystem.screen.Tab;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

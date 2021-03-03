@@ -1,6 +1,4 @@
-package lsystem.screen;
-
-import lsystem.screen.listener.Listener;
+package lsystem.screen.main;
 
 import javax.swing.*;
 import java.awt.*;

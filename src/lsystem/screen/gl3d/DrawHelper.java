@@ -1,11 +1,12 @@
-package lsystem.screen;
+package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.util.gl2.GLUT;
+import lsystem.screen.gl2d.SwingGLCanvas2D;
 
 public class DrawHelper {
 
-	public static void placeCamera(GL2 gl, SwingGLCanvas canvas) {
+	public static void placeCamera(GL2 gl, GLCanvas canvas) {
 		gl.glRotatef(canvas.camera[4], 1f, 0f, 0f);
 		gl.glRotatef(canvas.camera[3], 0f, 1f, 0f);
 		gl.glRotatef(canvas.camera[5], 0f, 0f, 1f);
@@ -74,7 +75,7 @@ public class DrawHelper {
 		gl.glPopMatrix();
 	}
 
-	public static void drawDebugInformation(GL2 gl, GLUT glut, SwingGLCanvas canvas) {
+	public static void drawDebugInformation(GL2 gl, GLUT glut, GLCanvas canvas) {
 		gl.glRasterPos3f(canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1);
 		gl.glColor3f(1f, 1f, 1f);
 		glut.glutBitmapString(GLUT.BITMAP_HELVETICA_18,

@@ -1,8 +1,7 @@
 package lsystem;
 
-import lsystem.screen.MainFrame;
-import lsystem.screen.SwingGLCanvas;
-import lsystem.screen.SwingGLCanvas2D;
+import lsystem.screen.gl2d.SwingGLCanvas2D;
+import lsystem.screen.main.MainFrame;
 
 public class Main2D {
 
@@ -11,6 +10,7 @@ public class Main2D {
         MainFrame frame = new MainFrame();
         frame.setVisible(true);
         SwingGLCanvas2D canvas = new SwingGLCanvas2D();
+        canvas.setVisible(true);
         
     }
 
