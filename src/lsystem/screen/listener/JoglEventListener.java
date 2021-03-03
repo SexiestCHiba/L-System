@@ -63,23 +63,20 @@ public class JoglEventListener implements GLEventListener {
         }
         System.out.println(prismPosition.size() * 8);
         new Thread(() -> {
-            while (true) {
-                synchronized (this){
-                    try {
-                        wait(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println(fps);
-                    fps = 0;
+            while (canvas.frame.isVisible()) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
+                System.out.println(fps);
+                fps = 0;
             }
         }).start();
     }
 
     @Override
     public void dispose(GLAutoDrawable glAutoDrawable) {
-
     }
 
     @Override

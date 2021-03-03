@@ -1,5 +1,6 @@
 package lsystem.screen.listener;
 
+import lsystem.engine.Element;
 import lsystem.engine.Parser;
 import lsystem.engine.Rewrite;
 import lsystem.screen.MainFrame;
@@ -56,6 +57,7 @@ public class Listener implements ActionListener, KeyListener {
                     Rewrite rewriter = new Rewrite(axiom, parser.parseRules(), tab.getNbIterations());
                     final String word = rewriter.rewrite();
                     System.out.println(word);
+                    final Element parsed = Parser.parse(word);
                 }
                 break;
 

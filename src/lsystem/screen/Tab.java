@@ -116,13 +116,13 @@ public class Tab extends JPanel{
     }
     public String getAxiom(){
         String str = axiomList.getText();
-        str = str.substring(10,str.length());
+        str = str.substring(10).replaceAll(";", "");
         return str;
     }
     public java.util.List<String> getRules(){
         List<String> list = new ArrayList<>();
         String str = rulesList.getText();
-        str = str.substring(10,str.length());
+        str = str.substring(10).replaceAll(";", "");
         String[] strsplit =  str.split("\n");
         for(int y = 0;y<strsplit.length;y++){
             list.add(strsplit[y]);

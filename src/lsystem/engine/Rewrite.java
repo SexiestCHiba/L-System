@@ -17,8 +17,8 @@ public class Rewrite {
     }
 
 
-    private String replaceRulesByID(final String rewritted) {
-        String toRewrite = rewritted;
+    private String replaceRulesByID(final String rewritten) {
+        String toRewrite = rewritten;
         for(int j = 0; j < rules.size(); ++j){
             Pair<String, String> pair = rules.get(j);
             toRewrite = toRewrite.replace(pair.getLeft(), "${" + j + "}");
@@ -27,20 +27,20 @@ public class Rewrite {
     }
 
     private String replaceIDByRuleApplication(final String toRewrite) {
-        String rewritted = toRewrite;
+        String rewritten = toRewrite;
         for(int j = 0; j < rules.size(); ++j){
-            rewritted = rewritted.replace("${" + j + "}", rules.get(j).getRight());
+            rewritten = rewritten.replace("${" + j + "}", rules.get(j).getRight());
         }
-        return rewritted;
+        return rewritten;
     }
 
     public String rewrite() {
-        String rewritted = axiom;
+        String rewritten = axiom;
         for(int i = 0; i < recurrences; ++i) {
-            String toRewrite = replaceRulesByID(rewritted);
-            rewritted = replaceIDByRuleApplication(toRewrite);
+            String toRewrite = replaceRulesByID(rewritten);
+            rewritten = replaceIDByRuleApplication(toRewrite);
         }
-        return rewritted;
+        return rewritten.replace("[", "Y[");
     }
 
 }

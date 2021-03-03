@@ -12,7 +12,7 @@ public class Parser {
     private final String axiom;
     private final List<String> rules;
     private final int nbIterations;
-    private final char[] validChars = {'=',']','[','.','+','-','X','Y','Z','x','y','z','0','1','2','3','4','5','6','7','8','9',' '};
+    private final char[] validChars = {'=',']','[','.','+','-','X','Y','x','y','z','0','1','2','3','4','5','6','7','8','9',' '};
 
     public Parser(String axiom, List<String> rules,int nbIterations) {
         this.axiom = axiom;
@@ -39,16 +39,15 @@ public class Parser {
 
     
     private boolean isCorrect(String stringToCheck, Type type) {
+        if(type == Type.RULE && !stringToCheck.contains("="))
+            return false;
     	char old = ' ';
         int bracket = 0;
         boolean equalsSymbolFound = false;
         for (int i = 0; i < stringToCheck.length(); i++) {
         	char temp = stringToCheck.charAt(i);
-            if (temp == '[') {
+            if (temp == '[')
                 bracket++;
-                if(stringToCheck.charAt(i - 1) == '[')
-                    return false;
-            }
             if(temp == ']') {
                 bracket--;
                 if(stringToCheck.charAt(i - 1) == '[')
@@ -92,41 +91,73 @@ public class Parser {
     	return rules;
     }
 
-
-    // TODO: 02/03/2021 to finish 
-    public Element parse(String rewritten) {
-        String toParse = rewritten;
+    // TODO: 03/03/2021 to finish
+    public static Element parse(String word) {
+        char[] numbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-'};
         Element root = null;
         Element workingElement = null;
-        float number = 0;
+        String number = "";
         boolean bracket = false;
-        int i = 0;
-        while (!toParse.isEmpty()) {
-            char c = toParse.charAt(i);
-            toParse = toParse.substring(i);
-            ElementProperties pro = Arrays.stream(ElementProperties.values()).filter(p -> p.getChar() == c).findFirst().orElse(null);
-            if(pro != null) {
-                if(workingElement == null) {
-                    workingElement = new Element(pro, null);
-                    root = workingElement;
-                } else {
-                    Element element = new Element(pro, number, workingElement);
-                    workingElement.children.add(element);
-                    if(bracket) {
-                        workingElement = element;
-                        bracket = false;
+        float[] appliedRotation = new float[3];
+        Element lastCreatedElement = null;
+
+        for(int i = 0; i < word.length(); ++i) {
+            char c = word.charAt(i);
+            ElementProperties property = Arrays.stream(ElementProperties.values()).filter(p -> p.getChar() == c).findFirst().orElse(null);
+            if(property != null) {
+                if(property.getDirection() == -1) {
+                    if(!number.isEmpty()) {
+                        float n = getFloat(number);
+                        number = "";
+                        appliedRotation[0] = n;
                     }
+                    if(workingElement == null) {
+                        workingElement = new Element(property, null);
+                        lastCreatedElement = workingElement;
+                        root = workingElement;
+                    } else {
+                        Element element = new Element(property, workingElement, appliedRotation);
+                        lastCreatedElement = element;
+                        appliedRotation = new float[]{0f, 0f, 0f};
+                        workingElement.children.add(element);
+                    }
+                } else {
+                    float n = getFloat(number);
+                    number = "";
+                    appliedRotation[property.getDirection()] = n;
                 }
             } else {
-                if(c == '[')
+                for(char n : numbers) {
+                    if(c == n) {
+                        number += c;
+                        break;
+                    }
+                }
+                if(c == '[') {
+                    workingElement = lastCreatedElement;
                     bracket = true;
+                }
                 if(c == ']') {
+                    assert workingElement != null;
                     workingElement = workingElement.parent;
                 }
             }
-            i++;
         }
         return root;
     }
+
+    private static float getFloat(String number) throws NumberFormatException {
+        float n;
+        if(number.equals("") || number.equals("+"))
+            n = 0.25f;
+        else if(number.equals("-")) {
+            n = -0.25f;
+        }else{
+            System.out.println(number);
+            n = Float.parseFloat(number);
+        }
+        return n;
+    }
+
     
 }

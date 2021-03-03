@@ -16,6 +16,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 public class SwingGLCanvas {
 
+    public JFrame frame;
+    FPSAnimator animator;
     public final GLCanvas glCanvas;
     public float[] camera = {0f, 1f, 5f, // camera pos x,y, z
             0f, 0f, 0f}; // camera rotation yaw(x-axis), pitch(y-axis), roll(z-axis)
@@ -32,19 +34,24 @@ public class SwingGLCanvas {
         glCanvas.addMouseMotionListener(mouse);
         glCanvas.addMouseWheelListener(mouse);
         glCanvas.addKeyListener(new KeyboardListener(this));
-        final JFrame jframe = new JFrame("L-System");
-        final FPSAnimator animator = new FPSAnimator(glCanvas, 60);
-        jframe.addWindowListener(new WindowAdapter() {
+        frame = new JFrame("L-System");
+        animator = new FPSAnimator(glCanvas, 60);
+        frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                jframe.dispose();
+                frame.dispose();
             }
         });
 
-        jframe.getContentPane().add(glCanvas, BorderLayout.CENTER);
-        jframe.setSize(Constants.WIDTH, Constants.HEIGHT);
+        frame.getContentPane().add(glCanvas, BorderLayout.CENTER);
+        frame.setSize(Constants.WIDTH, Constants.HEIGHT);
+    }
 
-        animator.start();
-        jframe.setVisible(true);
+    public void setVisible(boolean bl) {
+        if(bl)
+            animator.start();
+        else
+            animator.stop();
+        frame.setVisible(bl);
     }
 }
