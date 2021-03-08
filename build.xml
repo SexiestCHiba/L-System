@@ -19,6 +19,7 @@
     </target>
     <target name="run" description="execution" depends="compile">
         <java classname="lsystem.Main" fork="true">
+            <jvmarg value="-ea"/>
             <classpath refid="project.classpath"/>
         </java>
     </target>

@@ -97,7 +97,7 @@ public class Parser {
         Element root = null;
         Element workingElement = null;
         String number = "";
-        boolean bracket = false;
+        List<Element> bracket = new ArrayList<>();
         float[] appliedRotation = new float[3];
         Element lastCreatedElement = null;
 
@@ -120,6 +120,7 @@ public class Parser {
                         lastCreatedElement = element;
                         appliedRotation = new float[]{0f, 0f, 0f};
                         workingElement.children.add(element);
+                        workingElement = lastCreatedElement;
                     }
                 } else {
                     float n = getFloat(number);
@@ -135,11 +136,11 @@ public class Parser {
                 }
                 if(c == '[') {
                     workingElement = lastCreatedElement;
-                    bracket = true;
+                    bracket.add(lastCreatedElement);
                 }
                 if(c == ']') {
-                    assert workingElement != null;
-                    workingElement = workingElement.parent;
+                    assert workingElement != null && !bracket.isEmpty();
+                    workingElement = bracket.remove(bracket.size() - 1);
                 }
             }
         }
