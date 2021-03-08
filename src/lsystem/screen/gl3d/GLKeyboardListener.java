@@ -17,40 +17,20 @@ public class GLKeyboardListener implements KeyListener {
 
         switch (e.getKeyChar()) {
             case 'z':
-                if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3])>270 ){
-                    canvas.camera[2] -= 0.1f;
-                    canvas.camera[0] += 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
-                }else{
-                    canvas.camera[2] += 0.1f;
-                    canvas.camera[0] -= 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
-                }
+                canvas.camera[2] -= 0.1f*Math.cos(Math.toRadians(canvas.camera[3]));
+                canvas.camera[0] += 0.1f*Math.cos(Math.toRadians(90-canvas.camera[3]));
                 break;
             case 's':
-                if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3])>270 ){
-                    canvas.camera[2] += 0.1f;
-                    canvas.camera[0] -= 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
-                }else{
-                    canvas.camera[2] -= 0.1f;
-                    canvas.camera[0] += 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
-                }
+                canvas.camera[2] += 0.1f*Math.cos(Math.toRadians(canvas.camera[3]));
+                canvas.camera[0] -= 0.1f*Math.cos(Math.toRadians(90-canvas.camera[3]));
                 break;
             case 'q':
-                if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3])>270 ){
-                    canvas.camera[0] -= 0.1f;
-                    canvas.camera[2] -= 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
-                }else{
-                    canvas.camera[0] += 0.1f;
-                    canvas.camera[2] -= 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
-                }
+                canvas.camera[2] += 0.1f*Math.cos(Math.toRadians(canvas.camera[3]+90));
+                canvas.camera[0] += 0.1f*Math.cos(Math.toRadians(180-canvas.camera[3]));
                 break;
             case 'd':
-                if(Math.abs(canvas.camera[3]) < 180 || Math.abs(canvas.camera[3])>0 ){
-                    canvas.camera[0] += 0.1f;
-                    canvas.camera[2] += 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
-                }else{
-                    canvas.camera[0] -= 0.1f;
-                    canvas.camera[2] += 0.1f*Math.tan(Math.toRadians(canvas.camera[3]));
-                }
+                canvas.camera[2] -= 0.1f*Math.cos(Math.toRadians(canvas.camera[3]+90));
+                canvas.camera[0] -= 0.1f*Math.cos(Math.toRadians(180-canvas.camera[3]));
                 break;
             case 'a':
                 canvas.camera[3] -= 1;
