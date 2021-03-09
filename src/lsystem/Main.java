@@ -5,9 +5,15 @@ import lsystem.screen.main.MainFrame;
 
 public class Main {
 
+    public static MainFrame mainFrame;
+    public static GLCanvas joglFrame;
+
     public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        frame.setVisible(true);
+        new Thread(() -> {
+            mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+        }).start();
+        new Thread(() -> joglFrame = new GLCanvas()).start();
     }
 
 }

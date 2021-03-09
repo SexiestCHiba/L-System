@@ -1,14 +1,9 @@
 package lsystem.screen.gl3d;
 
-import lsystem.engine.Element;
 import lsystem.screen.AbstractCanvas;
 
 
 public class GLCanvas extends AbstractCanvas {
-
-    public GLCanvas(Element parsed) {
-        super(parsed);
-    }
 
     @Override
     protected void addEventsListeners() {

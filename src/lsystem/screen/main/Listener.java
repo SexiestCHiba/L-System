@@ -1,8 +1,8 @@
 package lsystem.screen.main;
 
+import lsystem.Main;
 import lsystem.engine.Parser;
-import lsystem.engine.Rewrite;
-import lsystem.screen.gl3d.GLCanvas;
+import lsystem.screen.AbstractCanvas;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -48,24 +48,29 @@ public class Listener implements ActionListener, KeyListener {
                 String axiom = tab.getAxiom();
                 List<String> rules = tab.getRules();
                 Parser parser = new Parser(axiom, rules, tab.getNbIterations());
-                if (!parser.isCorrect()) {
-                    JOptionPane.showMessageDialog(null, "Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
-                    new Listener(null, index, "Clear",tab);
+                if(Main.joglFrame.frame.isVisible()) {
+                    openDialog("Veuillez fermer la fenêtre 3D avant de lancer une nouvelle génération");
+                } else if(Main.joglFrame.parsedState == AbstractCanvas.State.LOAD) {
+                    openDialog("Une génération est actuellement en cours, impossible d'en relancer un autre");
+                } else if (!parser.isCorrect()) {
+                    openDialog("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
                 } else {
-                    Thread thread = new Thread(() -> {
-                        GLCanvas canvas = new GLCanvas(
-                                Parser.parse(Rewrite.rewrite(axiom, parser.parseRules(), tab.getNbIterations()))
-                        );
-                        canvas.setVisible(true);
-                    });
-                    thread.setDaemon(true);
-                    thread.start();
+                    new Thread(() -> {
+                        Main.joglFrame.setLsystem(axiom, parser.parseRules(), tab.getNbIterations());
+                        Main.joglFrame.setVisible(true);
+                    }).start();
                 }
                 break;
 
         }
 
     }
+
+    private void openDialog(String message) {
+        JOptionPane.showMessageDialog(null, message);
+        new Listener(null, index, "Clear", tab);
+    }
+
     @Override
     public void keyTyped(KeyEvent ke) {
 

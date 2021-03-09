@@ -7,15 +7,20 @@ import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.engine.Element;
+import lsystem.engine.Parser;
+import lsystem.engine.Rewrite;
+import lsystem.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 public abstract class AbstractCanvas {
 
-    private final Element lsystem;
+    private Element lsystem;
+    public State parsedState = State.FINISH_OR_NULL;
     public JFrame frame;
     protected FPSAnimator animator;
     public final GLCanvas glCanvas;
@@ -25,8 +30,7 @@ public abstract class AbstractCanvas {
             0f, 0f, 0f}; // camera rotation yaw(x-axis), pitch(y-axis), roll(z-axis)
 
 
-    protected AbstractCanvas(Element parsed) {
-        this.lsystem = parsed;
+    protected AbstractCanvas() {
         GLProfile glProfile = GLProfile.getDefault();
         GLCapabilities glCapabilities = new GLCapabilities(glProfile);
         this.glCanvas = new GLCanvas(glCapabilities);
@@ -37,6 +41,9 @@ public abstract class AbstractCanvas {
             public void windowClosing(WindowEvent e) {
                 frame.dispose();
                 setVisible(false);
+                lsystem = null;
+                parsedState = State.FINISH_OR_NULL;
+                System.gc();
             }
         });
         frame.getContentPane().add(glCanvas, BorderLayout.CENTER);
@@ -52,5 +59,16 @@ public abstract class AbstractCanvas {
         else
             animator.stop();
         frame.setVisible(bl);
+    }
+
+    public void setLsystem(String axiom, List<Pair<String, String>> rules, int iterations) {
+        parsedState = State.LOAD;
+        this.lsystem = Parser.parse(Rewrite.rewrite(axiom, rules, iterations));
+        parsedState = State.FINISH_OR_NULL;
+    }
+
+    public enum State {
+        LOAD,
+        FINISH_OR_NULL;
     }
 }

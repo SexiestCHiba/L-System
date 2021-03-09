@@ -9,7 +9,7 @@ public class Main2D {
 
         MainFrame frame = new MainFrame();
         frame.setVisible(true);
-        SwingGLCanvas2D canvas = new SwingGLCanvas2D(null);
+        SwingGLCanvas2D canvas = new SwingGLCanvas2D();
         canvas.setVisible(true);
         
     }

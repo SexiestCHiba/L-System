@@ -2,9 +2,11 @@ package lsystem.screen.main;
 
 
 import lsystem.screen.Constants;
-import java.awt.event.*;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 
 public class MainFrame extends JFrame {
@@ -49,7 +51,7 @@ public class MainFrame extends JFrame {
     }
 
 	public void newHelp() {
-		if(helpWindow != false){
+		if(helpWindow){
 			JOptionPane.showMessageDialog(null, "Une fenêtre d'aide est déjà ouverte.");
 		}
 		else {

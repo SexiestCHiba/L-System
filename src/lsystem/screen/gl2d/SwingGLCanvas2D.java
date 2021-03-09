@@ -1,14 +1,9 @@
 package lsystem.screen.gl2d;
 
-import lsystem.engine.Element;
 import lsystem.screen.AbstractCanvas;
 
 
 public class SwingGLCanvas2D extends AbstractCanvas {
-
-    public SwingGLCanvas2D(Element parsed) {
-        super(parsed);
-    }
 
     @Override
     protected void addEventsListeners() {
