@@ -104,15 +104,13 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         glut.glutSolidSphere(0.75f, 20, 20);
         gl.glPopMatrix();
 
-        angle = (angle + 0.1f) % 360;
-
-        gl.glColor3f(0f, 0.5f, 1f);
         gl.glPushMatrix();
-        for(Pair<Integer, Integer> pair : prismPosition) {
-            DrawHelper.drawRectangularPrism(gl, pair.getLeft(), 0f, pair.getRight(), pair.getLeft() + 1, 1f, pair.getRight() + 1);
-        }
+        gl.glColor3f(1f, 1f, 1f);
+        DrawHelper.drawRectangularPrism(gl, -3f, 0f, -2f, -2.5f, 1.5f, -1.5f);
+        glut.glutSolidCylinder(0.25f, 1.5f, 15, 2);
         gl.glPopMatrix();
-        gl.glTranslatef(0f, 0f, 0f);
+
+        angle = (angle + 0.1f) % 360;
 
         DrawHelper.drawAxes(gl, glut);
         DrawHelper.drawDebugInformation(gl, glut, canvas);

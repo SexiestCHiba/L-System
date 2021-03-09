@@ -32,12 +32,12 @@ public class DrawHelper {
 		gl.glVertex3f(0f, 0f, 1f);
 
 		gl.glColor3f(255f, 255f, 255f);
-		for (int i = -25; i < 26; i++) {
-			gl.glVertex3f(-25f, 0f, i);
-			gl.glVertex3f(25f, 0f, i);
+		for (int i = -20; i < 21; i++) {
+			gl.glVertex3f(-20f, 0f, i);
+			gl.glVertex3f(20f, 0f, i);
 
-			gl.glVertex3f(i, 0, -25f);
-			gl.glVertex3f(i, 0, 25f);
+			gl.glVertex3f(i, 0, -20f);
+			gl.glVertex3f(i, 0, 20f);
 		}
 		gl.glEnd();
 		gl.glRasterPos3f(1.1f, 0.0f, 0.0f);
@@ -69,6 +69,16 @@ public class DrawHelper {
 
 		gl.glVertex3f(leftBottomX, leftBottomY, rightUpZ);
 		gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
+		gl.glVertex3f(rightUpX, rightUpY, rightUpZ);
+		gl.glVertex3f(leftBottomX, rightUpY, rightUpZ);
+
+		gl.glVertex3f(leftBottomX, leftBottomY, leftBottomZ);
+		gl.glVertex3f(rightUpX, leftBottomY, leftBottomZ);
+		gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
+		gl.glVertex3f(leftBottomX, leftBottomY, rightUpZ);
+
+		gl.glVertex3f(leftBottomX, rightUpY, leftBottomZ);
+		gl.glVertex3f(rightUpX, rightUpY, leftBottomZ);
 		gl.glVertex3f(rightUpX, rightUpY, rightUpZ);
 		gl.glVertex3f(leftBottomX, rightUpY, rightUpZ);
 		gl.glEnd();

@@ -128,19 +128,19 @@ public class Parser {
                     appliedRotation[property.getDirection()] = n;
                 }
             } else {
-                for(char n : numbers) {
-                    if(c == n) {
-                        number += c;
-                        break;
-                    }
-                }
                 if(c == '[') {
                     workingElement = lastCreatedElement;
                     bracket.add(lastCreatedElement);
-                }
-                if(c == ']') {
+                } else if(c == ']') {
                     assert workingElement != null && !bracket.isEmpty();
                     workingElement = bracket.remove(bracket.size() - 1);
+                } else {
+                    for(char n : numbers) {
+                        if(c == n) {
+                            number += c;
+                            break;
+                        }
+                    }
                 }
             }
         }

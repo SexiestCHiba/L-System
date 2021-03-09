@@ -6,6 +6,7 @@ import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.FPSAnimator;
 import com.jogamp.opengl.util.gl2.GLUT;
+import lsystem.engine.Element;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,7 @@ import java.awt.event.WindowEvent;
 
 public abstract class AbstractCanvas {
 
+    private final Element lsystem;
     public JFrame frame;
     protected FPSAnimator animator;
     public final GLCanvas glCanvas;
@@ -23,7 +25,8 @@ public abstract class AbstractCanvas {
             0f, 0f, 0f}; // camera rotation yaw(x-axis), pitch(y-axis), roll(z-axis)
 
 
-    protected AbstractCanvas() {
+    protected AbstractCanvas(Element parsed) {
+        this.lsystem = parsed;
         GLProfile glProfile = GLProfile.getDefault();
         GLCapabilities glCapabilities = new GLCapabilities(glProfile);
         this.glCanvas = new GLCanvas(glCapabilities);
