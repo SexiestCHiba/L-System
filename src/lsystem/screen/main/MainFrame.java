@@ -43,6 +43,9 @@ public class MainFrame extends JFrame {
         this.add(tabs);
         this.add(toolBar, BorderLayout.NORTH);
         this.setPreferredSize(new Dimension(640,600));
+        
+        nbTabs++;
+		new Tab(nbTabs, nbRules, tabs);
     }
 
 	public void newHelp() {
