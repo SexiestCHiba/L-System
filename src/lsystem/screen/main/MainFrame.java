@@ -2,7 +2,7 @@ package lsystem.screen.main;
 
 
 import lsystem.screen.Constants;
-
+import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 
@@ -12,7 +12,7 @@ public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = -7898079642230075807L;
 	private int nbTabs;
-	private int nbHelpWindow;
+	boolean helpWindow = false;
 	private JPanel basePanel;
 	private JTabbedPane tabs;
 	private JButton newGen;
@@ -46,13 +46,14 @@ public class MainFrame extends JFrame {
     }
 
 	public void newHelp() {
-		if(nbHelpWindow>0){
+		if(helpWindow != false){
 			JOptionPane.showMessageDialog(null, "Une fenêtre d'aide est déjà ouverte.");
 		}
 		else {
-			nbHelpWindow++;
-
+			helpWindow = true;
+			
 			JFrame aide = new JFrame();
+			
 			aide.setTitle("Aide");
 			aide.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			aide.setSize(700,500);
@@ -60,14 +61,20 @@ public class MainFrame extends JFrame {
 			aide.setVisible(true);
 
 			JTextArea helpText = new JTextArea();
-    	helpText.setText(Constants.HELP);
-    	helpText.setEditable(false);
+			helpText.setText(Constants.HELP);
+			helpText.setEditable(false);
 
 			JScrollPane scrollbar = new JScrollPane(helpText);
 			scrollbar.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 			scrollbar.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
 			aide.add(scrollbar);
+			
+			aide.addWindowListener(new WindowAdapter() {
+			    public void windowClosed(WindowEvent e) {
+			    	helpWindow = false;
+			    }
+			});
 		}
 	}
 	public void newTab() {
