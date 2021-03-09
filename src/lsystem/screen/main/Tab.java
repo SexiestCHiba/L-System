@@ -29,7 +29,7 @@ public class Tab extends JPanel{
         nbIterations.setModel(new SpinnerNumberModel(1, 1, 15, 1));
 
         JLabel itLabel  = new JLabel("Nombre d'itérations : ");
-        itSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 15, 1));
+        itSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 30, 1));
         ((JSpinner.DefaultEditor) itSpinner.getEditor()).getTextField().setEditable(false);
 
         JLabel axiome = new JLabel("Axiome :");
@@ -74,7 +74,7 @@ public class Tab extends JPanel{
 
         tabs.addTab("Génération"+String.valueOf(nbTabs), tab);
     }
-    public JTextArea textArea(String texte,int nb){
+    public JTextArea textArea(String texte, int nb){
         JTextArea res = new JTextArea();
         res.setText(texte);
         res.setEditable(false);

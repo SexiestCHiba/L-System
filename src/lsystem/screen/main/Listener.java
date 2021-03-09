@@ -1,6 +1,5 @@
 package lsystem.screen.main;
 
-import lsystem.engine.Element;
 import lsystem.engine.Parser;
 import lsystem.engine.Rewrite;
 import lsystem.screen.gl3d.GLCanvas;
@@ -53,14 +52,14 @@ public class Listener implements ActionListener, KeyListener {
                     JOptionPane.showMessageDialog(null, "Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
                     new Listener(null, index, "Clear",tab);
                 } else {
-                    new Thread(() -> {
-                        Rewrite rewriter = new Rewrite(axiom, parser.parseRules(), tab.getNbIterations());
-                        final String word = rewriter.rewrite();
-                        System.out.println(word);
-                        final Element parsed = Parser.parse(word);
-                        GLCanvas canvas = new GLCanvas(parsed);
+                    Thread thread = new Thread(() -> {
+                        GLCanvas canvas = new GLCanvas(
+                                Parser.parse(Rewrite.rewrite(axiom, parser.parseRules(), tab.getNbIterations()))
+                        );
                         canvas.setVisible(true);
-                    }).start();
+                    });
+                    thread.setDaemon(true);
+                    thread.start();
                 }
                 break;
 

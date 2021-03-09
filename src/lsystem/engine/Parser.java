@@ -79,7 +79,7 @@ public class Parser {
 	}
     
     /**
-     * Used by {@link Rewrite#rewrite()}
+     * Used by {@link Rewrite#rewrite(String, List, int)} )}
      * @return a list of rules with the left and right sides separated by a {@link lsystem.utils.Pair Pair}
      */
     public List<Pair<String, String>> parseRules() {

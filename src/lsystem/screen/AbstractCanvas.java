@@ -36,6 +36,7 @@ public abstract class AbstractCanvas {
             @Override
             public void windowClosing(WindowEvent e) {
                 frame.dispose();
+                setVisible(false);
             }
         });
         frame.getContentPane().add(glCanvas, BorderLayout.CENTER);

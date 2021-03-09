@@ -20,6 +20,8 @@
     <target name="run" description="execution" depends="compile">
         <java classname="lsystem.Main" fork="true">
             <jvmarg value="-ea"/>
+            <jvmarg value="-XX:+UseG1GC"/>
+            <jvmarg value="-XX:+ParallelRefProcEnabled"/>
             <classpath refid="project.classpath"/>
         </java>
     </target>

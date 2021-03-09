@@ -6,18 +6,8 @@ import java.util.List;
 
 public class Rewrite {
 
-    private final String axiom;
-    private final List<Pair<String, String >> rules;
-    private final int recurrences;
 
-    public Rewrite(String axiom, List<Pair<String, String>> rules, int recurrences) {
-        this.axiom = axiom;
-        this.rules = rules;
-        this.recurrences = recurrences;
-    }
-
-
-    private String replaceRulesByID(final String rewritten) {
+    private static String replaceRulesByID(final String rewritten, List<Pair<String, String>> rules) {
         String toRewrite = rewritten;
         for(int j = 0; j < rules.size(); ++j){
             Pair<String, String> pair = rules.get(j);
@@ -26,7 +16,7 @@ public class Rewrite {
         return toRewrite;
     }
 
-    private String replaceIDByRuleApplication(final String toRewrite) {
+    private static String replaceIDByRuleApplication(final String toRewrite, List<Pair<String, String>> rules) {
         String rewritten = toRewrite;
         for(int j = 0; j < rules.size(); ++j){
             rewritten = rewritten.replace("${" + j + "}", rules.get(j).getRight());
@@ -34,11 +24,12 @@ public class Rewrite {
         return rewritten;
     }
 
-    public String rewrite() {
+    public static String rewrite(String axiom, List<Pair<String, String>> rules, int recurrences) {
         String rewritten = axiom;
         for(int i = 0; i < recurrences; ++i) {
-            String toRewrite = replaceRulesByID(rewritten);
-            rewritten = replaceIDByRuleApplication(toRewrite);
+            String toRewrite = replaceRulesByID(rewritten, rules);
+            rewritten = replaceIDByRuleApplication(toRewrite, rules);
+            System.out.println(i + " / " + recurrences + " : " + rewritten.length());
         }
         return rewritten.replace("[", "Y[");
     }
