@@ -19,7 +19,7 @@ import java.util.List;
 
 public abstract class AbstractCanvas {
 
-    private Element lsystem;
+    private Element lSystem;
     public State parsedState = State.FINISH_OR_NULL;
     public JFrame frame;
     protected FPSAnimator animator;
@@ -41,7 +41,7 @@ public abstract class AbstractCanvas {
             public void windowClosing(WindowEvent e) {
                 frame.dispose();
                 setVisible(false);
-                lsystem = null;
+                lSystem = null;
                 parsedState = State.FINISH_OR_NULL;
                 System.gc();
             }
@@ -61,9 +61,13 @@ public abstract class AbstractCanvas {
         frame.setVisible(bl);
     }
 
-    public void setLsystem(String axiom, List<Pair<String, String>> rules, int iterations) {
+    public Element getLSystem() {
+        return lSystem;
+    }
+
+    public void setLSystem(String axiom, List<Pair<String, String>> rules, int iterations) {
         parsedState = State.LOAD;
-        this.lsystem = Parser.parse(Rewrite.rewrite(axiom, rules, iterations));
+        this.lSystem = Parser.parse(Rewrite.rewrite(axiom, rules, iterations));
         parsedState = State.FINISH_OR_NULL;
     }
 

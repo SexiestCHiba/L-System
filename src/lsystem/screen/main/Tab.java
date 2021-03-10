@@ -2,8 +2,7 @@ package lsystem.screen.main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 public class Tab extends JPanel{
 
@@ -102,12 +101,12 @@ public class Tab extends JPanel{
     public JTextField getTextField(byte i){
         return (i == 0) ? axiomeField : rulesField;
     }
-    public void changeList(String stringToAdd, JTextArea list,int nbAxioms) {
-        if(nbAxioms>0)
+    public void changeList(String stringToAdd, JTextArea list, int nbAxioms) {
+        if(nbAxioms > 0)
             JOptionPane.showMessageDialog(null, "Nombre maximal d'axiomes créés");
         else {
             list.append(stringToAdd);
-            if (stringToAdd == ";")
+            if (stringToAdd.equals(";"))
                 nbAxioms++;
         }
 
@@ -118,14 +117,10 @@ public class Tab extends JPanel{
         return str;
     }
     public java.util.List<String> getRules(){
-        List<String> list = new ArrayList<>();
         String str = rulesList.getText();
         str = str.substring(10).replaceAll(";", "");
         String[] strsplit =  str.split("\n");
-        for(int y = 0;y<strsplit.length;y++){
-            list.add(strsplit[y]);
-        }
-        return list;
+        return Arrays.asList(strsplit);
     }
     public int getNbIterations(){
         return (int) itSpinner.getValue();

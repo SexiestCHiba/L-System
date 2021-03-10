@@ -17,6 +17,7 @@ public class Listener implements ActionListener, KeyListener {
     Integer index;
     String type;
     Integer nbAxioms;
+    Thread parserThread = null;
 
     public Listener(MainFrame frame, Integer index, String type, Tab tab){
         this.tab = tab;
@@ -25,6 +26,7 @@ public class Listener implements ActionListener, KeyListener {
         this.type = type;
         nbAxioms = 0;
     }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (type) {
@@ -51,14 +53,16 @@ public class Listener implements ActionListener, KeyListener {
                 if(Main.joglFrame.frame.isVisible()) {
                     openDialog("Veuillez fermer la fenêtre 3D avant de lancer une nouvelle génération");
                 } else if(Main.joglFrame.parsedState == AbstractCanvas.State.LOAD) {
+                        openDialog("Une génération est actuellement en cours, impossible d'en relancer un autre");
                     openDialog("Une génération est actuellement en cours, impossible d'en relancer un autre");
                 } else if (!parser.isCorrect()) {
                     openDialog("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
                 } else {
-                    new Thread(() -> {
-                        Main.joglFrame.setLsystem(axiom, parser.parseRules(), tab.getNbIterations());
+                    parserThread = new Thread(() -> {
+                        Main.joglFrame.setLSystem(axiom, parser.parseRules(), tab.getNbIterations());
                         Main.joglFrame.setVisible(true);
-                    }).start();
+                    });
+                    parserThread.start();
                 }
                 break;
 
