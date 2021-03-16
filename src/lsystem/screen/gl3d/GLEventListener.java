@@ -5,6 +5,7 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.engine.Element;
+import lsystem.engine.ElementProperties;
 
 public class GLEventListener implements com.jogamp.opengl.GLEventListener {
 
@@ -77,7 +78,7 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         glu.gluLookAt(canvas.camera[0], canvas.camera[1], canvas.camera[2], canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1, 0f, 1f, 0f);
         gl.glPushMatrix();
         gl.glRotatef(90f, -1f, 0f, 0f);
-
+        gl.glColor3f(0f, 1f, 0f);
         displayLSystem(gl, glut, canvas.getLSystem());
         gl.glPopMatrix();
 
@@ -89,12 +90,18 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
 
     private void displayLSystem(GL2 gl, GLUT glut, Element element) {
         gl.glPushMatrix();
-        gl.glRotatef(element.rotation[0]  * 360 , 1f, 0f, 0f);
+        gl.glRotatef(element.rotation[0]  * 360, 1f, 0f, 0f);
         gl.glRotatef(element.rotation[1]  * 360, 0f, 1f, 0f);
-        gl.glRotatef((element.rotation[0] + element.rotation[1])  * 360, 0f, 0f, 1f);
+        gl.glRotated(-Math.sin(element.rotation[0]) * 180, 0f, 0f, 1f);
+        gl.glRotated(-Math.sin(element.rotation[1]) * 180, 0f, 0f, 1f);
         gl.glTranslated(-Math.sin(element.rotation[0]), -Math.sin(element.rotation[1]), -Math.sin(element.rotation[0] + element.rotation[1]));
-        glut.glutSolidCylinder(0.25f, 1f, 10, 10);
-        gl.glTranslatef(0f, 0f, 1f);
+        if(element.property == ElementProperties.DRAW) {
+            glut.glutSolidCylinder(0.25f, 1f, 10, 10);
+            gl.glTranslatef(0f, 0f, 1f);
+            //gl.glTranslated(Math.cos(element.rotation[0] * Math.PI), Math.sin(element.rotation[1] * Math.PI), Math.cos(element.rotation[2] * Math.PI));
+        }
+
+
         for(Element child : element.children) {
             displayLSystem(gl, glut, child);
         }

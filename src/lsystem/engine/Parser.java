@@ -13,6 +13,7 @@ public class Parser {
     private final List<String> rules;
     private final int nbIterations;
     private final char[] validChars = {'=',']','[','.','+','-','X','Y','x','y','z','0','1','2','3','4','5','6','7','8','9',' '};
+    private static final float TWENTY_FIVE_DEGREES = 25/360f;
 
     public Parser(String axiom, List<String> rules,int nbIterations) {
         this.axiom = axiom;
@@ -150,9 +151,9 @@ public class Parser {
     private static float getFloat(String number) throws NumberFormatException {
         float n;
         if(number.equals("") || number.equals("+"))
-            n = 0.25f;
+            n = TWENTY_FIVE_DEGREES;
         else if(number.equals("-")) {
-            n = -0.25f;
+            n = -TWENTY_FIVE_DEGREES;
         }else{
             System.out.println(number);
             n = Float.parseFloat(number);

@@ -31,7 +31,9 @@ public class Rewrite {
             rewritten = replaceIDByRuleApplication(toRewrite, rules);
             System.out.println(i + " / " + recurrences + " : " + rewritten.length());
         }
-        return rewritten.replace("[", "Y[");
+        rewritten = rewritten.replace("[", "Y[");
+        System.out.println(rewritten);
+        return rewritten;
     }
 
 }

@@ -1,13 +1,16 @@
 # ide files (eclipse, intellij...)
 .idea/
 out/
-/bin/
+bin/
 .project
 .classpath
 .bin
 .settings/
 .metadata
 *.iml
+
+# don't commit jre fatal errors
+hs_err_pid*.log
 
 # log files
 rapport/
