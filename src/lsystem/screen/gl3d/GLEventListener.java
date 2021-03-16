@@ -5,10 +5,6 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.engine.Element;
-import lsystem.utils.Pair;
-
-import java.util.LinkedList;
-import java.util.Random;
 
 public class GLEventListener implements com.jogamp.opengl.GLEventListener {
 
@@ -19,7 +15,6 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
     private final float[] light_0_position = {1000f, 1000f, 1000f, 1f};
 
     private final float[] material_specular = {0.8f, 0.8f, 0.8f, 0.8f};
-    private final LinkedList<Pair<Integer, Integer>> prismPosition = new LinkedList<>();
 
     private final GLU glu;
     private final GLUT glut;
@@ -52,14 +47,6 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
 
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
-        for(int i = -50; i < 51; ++i) {
-            for(int j = -50; j < 51; ++j) {
-                if(new Random().nextFloat() < 0.05) {
-                    prismPosition.add(new Pair<>(i, j));
-                }
-            }
-        }
-        System.out.println(prismPosition.size() * 8);
         new Thread(() -> {
             while (canvas.frame.isVisible()) {
                 try {
@@ -90,6 +77,7 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         glu.gluLookAt(canvas.camera[0], canvas.camera[1], canvas.camera[2], canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1, 0f, 1f, 0f);
         gl.glPushMatrix();
         gl.glRotatef(90f, -1f, 0f, 0f);
+
         displayLSystem(gl, glut, canvas.getLSystem());
         gl.glPopMatrix();
 
@@ -105,9 +93,7 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         gl.glRotatef(element.rotation[1]  * 360, 0f, 1f, 0f);
         gl.glRotatef((element.rotation[0] + element.rotation[1])  * 360, 0f, 0f, 1f);
         gl.glTranslated(-Math.sin(element.rotation[0]), -Math.sin(element.rotation[1]), -Math.sin(element.rotation[0] + element.rotation[1]));
-        gl.glBegin(GL2.GL_LINES);
-        glut.glutSolidCylinder(0.25f, 1f, 20, 20);
-        gl.glEnd();
+        glut.glutSolidCylinder(0.25f, 1f, 10, 10);
         gl.glTranslatef(0f, 0f, 1f);
         for(Element child : element.children) {
             displayLSystem(gl, glut, child);

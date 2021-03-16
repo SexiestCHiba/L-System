@@ -65,7 +65,7 @@ public abstract class AbstractCanvas {
         return lSystem;
     }
 
-    public void setLSystem(String axiom, List<Pair<String, String>> rules, int iterations) {
+    public void setLSystem(String axiom, List<Pair<String, String>> rules, int iterations) throws NumberFormatException {
         parsedState = State.LOAD;
         this.lSystem = Parser.parse(Rewrite.rewrite(axiom, rules, iterations));
         parsedState = State.FINISH_OR_NULL;

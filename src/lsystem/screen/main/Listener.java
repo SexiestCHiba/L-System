@@ -59,8 +59,13 @@ public class Listener implements ActionListener, KeyListener {
                     openDialog("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
                 } else {
                     parserThread = new Thread(() -> {
-                        Main.joglFrame.setLSystem(axiom, parser.parseRules(), tab.getNbIterations());
-                        Main.joglFrame.setVisible(true);
+                        try {
+                            Main.joglFrame.setLSystem(axiom, parser.parseRules(), tab.getNbIterations());
+                            Main.joglFrame.setVisible(true);
+                        } catch (NumberFormatException err) {
+                            Main.joglFrame.parsedState = AbstractCanvas.State.FINISH_OR_NULL;
+                            openDialog("Une erreur de type " + err.getClass().getSimpleName() + " est survenue lors de l'execution du parser: " + err.getMessage());
+                        }
                     });
                     parserThread.start();
                 }
