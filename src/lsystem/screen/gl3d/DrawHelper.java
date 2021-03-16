@@ -2,6 +2,8 @@ package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.util.gl2.GLUT;
+
+import lsystem.screen.gl2d.Point;
 import lsystem.screen.gl2d.SwingGLCanvas2D;
 
 public class DrawHelper {
@@ -101,72 +103,14 @@ public class DrawHelper {
 						+ canvas.camera[3] + "  pitch = " + canvas.camera[4] + " roll = " + canvas.camera[5]);
 	}
 
-	public static void drawStick(GL2 gl, float echelle, float x, float y, int angle) {
-		angle = angle - ((angle / 360) * 360);
-		switch (angle) {
-		case -315:
-			angle = 45;
-			;
-		case -270:
-			angle = 90;
-			;
-		case -225:
-			angle = 135;
-			;
-		case -180:
-			angle = 180;
-			;
-		case -135:
-			angle = 225;
-			;
-		case -90:
-			angle = 270;
-			;
-		case -45:
-			angle = 315;
-			;
-		}
+	public static void drawStick(GL2 gl, Point origin, Point newOrigin) {
 		
-		// Direction
-		int newX=0, newY=0;
-		switch (angle) {
-		case 0:
-			newX = 1;
-			newY = 1;
-			break;
-		case 45:
-			newX = 1;
-			newY = 0;
-			break;
-		case 90:
-			newX = 1;
-			newY = -1;
-			break;
-		case 135:
-			newX = 0;
-			newY = -1;
-			break;
-		case 180:
-			newX = -1;
-			newY = -1;
-			break;
-		case 225:
-			newX = -1;
-			newY = 0;
-			break;
-		case 270:
-			newX = -1;
-			newY = 1;
-			break;
-		case 315:
-			newX = 0;
-			newY = 1;
-			break;
-		}
 		gl.glBegin(GL2.GL_LINES);
-		gl.glVertex2f(x, y);
-		gl.glVertex2f(x + (echelle * newX), y + (echelle * newY));
+		gl.glVertex2f(origin.getX(), origin.getY());
+		gl.glVertex2f(newOrigin.getX(), newOrigin.getY());
 		gl.glEnd();
 	}
+	
+	
 
 }

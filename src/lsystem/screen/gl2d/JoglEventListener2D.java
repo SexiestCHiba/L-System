@@ -1,11 +1,21 @@
 package lsystem.screen.gl2d;
 
+import java.awt.Point;
+import java.awt.geom.Point2D;
+import java.util.ArrayList;
+
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
+
+import javafx.scene.control.Tab;
+import lsystem.engine.Element;
+import lsystem.engine.ElementProperties;
 import lsystem.screen.gl3d.DrawHelper;
+import lsystem.screen.gl3d.GLCanvas;
+import lsystem.utils.Pair;
 
 public class JoglEventListener2D implements GLEventListener {
 
@@ -43,15 +53,37 @@ public class JoglEventListener2D implements GLEventListener {
     @Override
     public void dispose(GLAutoDrawable glAutoDrawable) {
     }
+    
+    public void drawAll (GL2 gl, Element actual, lsystem.screen.gl2d.Point origin) {
+    	if (actual.property == ElementProperties.DRAW) {
+    		System.out.println("DESSIN");
+    		lsystem.screen.gl2d.Point newOrigin = new lsystem.screen.gl2d.Point (origin, actual.getRotation2D());
+    		DrawHelper.drawStick(gl, origin, newOrigin);
+    	}
+    	System.out.println(actual.children.isEmpty());
+    	for (Element children : actual.children) {
+    		System.out.println("CHILD");
+    		drawAll(gl, children, new lsystem.screen.gl2d.Point (origin, actual.getRotation2D()));
+    	}
+    }
 
     @Override
     public void display (GLAutoDrawable glAutoDrawable) {
-    	GL2 gl = glAutoDrawable.getGL().getGL2();
+    	/* Element str = new Element(ElementProperties.DRAW, null, new int[]{0, 0, 0});
     	
-    	float xDefault = -1.0f, yDefault = -1.0f;
+    	Element child1 = new Element(ElementProperties.DRAW, str, new int[]{0, 0, 0});
+    	Element child2 = new Element(ElementProperties.DRAW, str, new int[]{45, 0, 0});
+    	str.children.add(child1);
+    	str.children.add(child2);
+    	Element child11 = new Element(ElementProperties.DRAW, child1, new int[]{225, 0, 0});
+    	Element child12 = new Element(ElementProperties.DRAW, child1, new int[]{270, 0, 0});
+    	child1.children.add(child11);
+    	child1.children.add(child12);*/
+    	
+    	GL2 gl = glAutoDrawable.getGL().getGL2();
+    		
+    	drawAll (gl, canvas.getLSystem(), new lsystem.screen.gl2d.Point(-1.0f, -1.0f));
 
-    	DrawHelper.drawStick(gl, 0.1f, xDefault, yDefault, 0);
-    	DrawHelper.drawStick(gl, 0.2f, 1.1f, 1.1f, 90);
     }
 
     @Override
