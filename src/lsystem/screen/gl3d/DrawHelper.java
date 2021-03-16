@@ -167,11 +167,6 @@ public class DrawHelper {
 		gl.glVertex2f(x, y);
 		gl.glVertex2f(x + (echelle * newX), y + (echelle * newY));
 		gl.glEnd();
-		/* System.out.println("X : " +(x + (echelle * newX)));
-		System.out.println("Y : " +(y + (echelle * newY)));
-		System.out.println("angle : " +angle);
-		System.out.println("newX : " +newX);
-		System.out.println("newY : " +newY);*/
 	}
 
 }

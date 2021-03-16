@@ -7,6 +7,7 @@ public class SwingGLCanvas2D extends AbstractCanvas {
 
     @Override
     protected void addEventsListeners() {
+    	
         glCanvas.addGLEventListener(new JoglEventListener2D(this));
         JoglMouseListener2D mouse = new JoglMouseListener2D(this);
         glCanvas.addMouseListener(mouse);

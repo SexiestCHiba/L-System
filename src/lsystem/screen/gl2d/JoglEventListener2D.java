@@ -51,7 +51,7 @@ public class JoglEventListener2D implements GLEventListener {
     	float xDefault = -1.0f, yDefault = -1.0f;
 
     	DrawHelper.drawStick(gl, 0.1f, xDefault, yDefault, 0);
-    	DrawHelper.drawStick(gl, 0.2f, -0.9f, -0.9f, 90);
+    	DrawHelper.drawStick(gl, 0.2f, 1.1f, 1.1f, 90);
     }
 
     @Override

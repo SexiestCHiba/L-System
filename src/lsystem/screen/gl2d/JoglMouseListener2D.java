@@ -30,7 +30,6 @@ public class JoglMouseListener2D implements MouseListener, MouseMotionListener, 
             button = 0;
             origine = null;
         }
-
     }
 
     @Override
