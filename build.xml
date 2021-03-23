@@ -2,6 +2,7 @@
     <property name="project.sources.dir" value="src"/>
     <property name="project.bin.dir" value="bin"/>
     <property name="project.lib.dir" value="lib"/>
+    <property name="project.resources.dir" value="resources"/>
     <path id="project.classpath">
         <fileset dir="${project.lib.dir}">
             <include name="*/*.jar"/>
@@ -12,10 +13,15 @@
         <javac srcdir="${project.sources.dir}" destdir="${project.bin.dir}" debug="on" optimize="off" deprecation="on" includeantruntime="false">
             <classpath refid="project.classpath"/>
         </javac>
+        <copy todir="${basedir}/${project.bin.dir}">
+            <fileset dir="${basedir}/${project.resources.dir}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
     </target>
     <target name="init">
         <echo message="Initialisation de ${ant.project.name}"/>
-        <mkdir dir="${basedir}/bin"/>
+        <mkdir dir="${basedir}/${project.bin.dir}"/>
     </target>
     <target name="run" description="execution" depends="compile">
         <java classname="lsystem.Main" fork="true">

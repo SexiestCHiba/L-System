@@ -2,7 +2,6 @@ package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.util.gl2.GLUT;
-
 import lsystem.screen.gl2d.Point2;
 import lsystem.screen.gl2d.SwingGLCanvas2D;
 

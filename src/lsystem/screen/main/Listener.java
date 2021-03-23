@@ -5,6 +5,7 @@ import lsystem.engine.Parser;
 import lsystem.screen.AbstractCanvas;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -18,6 +19,8 @@ public class Listener implements ActionListener, KeyListener {
     String type;
     Integer nbAxioms;
     Thread parserThread = null;
+    ImageIcon staticIcon = new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getClassLoader().getResource("loading-gif.gif")));
+
 
     public Listener(MainFrame frame, Integer index, String type, Tab tab){
         this.tab = tab;
@@ -58,6 +61,8 @@ public class Listener implements ActionListener, KeyListener {
                 } else if (!parser.isCorrect()) {
                     openDialog("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
                 } else {
+                    tab.submitButton.setIcon(staticIcon);
+                    tab.submitButton.setText("");
                     parserThread = new Thread(() -> {
                         try {
                             Main.joglFrame.setLSystem(axiom, parser.parseRules(), tab.getNbIterations());
@@ -66,6 +71,8 @@ public class Listener implements ActionListener, KeyListener {
                             Main.joglFrame.parsedState = AbstractCanvas.State.FINISH_OR_NULL;
                             openDialog("Une erreur de type " + err.getClass().getSimpleName() + " est survenue lors de l'execution du parser: " + err.getMessage());
                         }
+                        tab.submitButton.setIcon(null);
+                        tab.submitButton.setText("Générer");
                     });
                     parserThread.start();
                 }

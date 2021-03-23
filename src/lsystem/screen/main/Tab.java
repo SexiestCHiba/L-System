@@ -14,6 +14,7 @@ public class Tab extends JPanel{
     JTextArea axiomList;
     JTextArea rulesList;
     JSpinner itSpinner;
+    JButton submitButton;
 
     public Tab(int nbTabs,int nbRules,JTabbedPane tabs) {
         this.nbRules = nbRules;
@@ -42,7 +43,7 @@ public class Tab extends JPanel{
         rulesField.addKeyListener(new Listener(null,nbTabs+10,"Règles",this));
         rulesField.setPreferredSize(new Dimension(120,20));
 
-        JButton submitButton = new JButton("Générer");
+        submitButton = new JButton("Générer");
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(new Listener(null,nbTabs,"Clear",this));
         submitButton.addActionListener(new Listener(null,nbTabs,"Generate",this));
