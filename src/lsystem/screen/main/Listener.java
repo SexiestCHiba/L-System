@@ -33,6 +33,14 @@ public class Listener implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (type) {
+            case "Close":
+                frame.getTab().removeTabAt(index-1);
+                frame.decreaseTab();
+                for(int i = 0; i <frame.getTab().getComponentCount(); i++){
+                    frame.getTab().setTitleAt(i,"Génération"+(i+1));
+                }
+
+                break;
             case "Help":
                 frame.newHelp();
                 break;

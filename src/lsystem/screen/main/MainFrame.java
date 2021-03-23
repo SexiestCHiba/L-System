@@ -47,9 +47,14 @@ public class MainFrame extends JFrame {
         this.setPreferredSize(new Dimension(640,600));
         
         nbTabs++;
-		new Tab(nbTabs, nbRules, tabs);
-		// test
+		new Tab(nbTabs, nbRules, tabs,this);
     }
+	public JTabbedPane getTab(){
+		return tabs;
+	}
+	public void decreaseTab(){
+		nbTabs -=1;
+	}
 
 	public void newHelp() {
 		if(helpWindow){
@@ -88,7 +93,7 @@ public class MainFrame extends JFrame {
 			JOptionPane.showMessageDialog(null, "Nombre maximal de générations atteintes");
 		else {
 			nbTabs++;
-			new Tab(nbTabs, nbRules, tabs);
+			new Tab(nbTabs, nbRules, tabs,this);
 		}
 
 	}

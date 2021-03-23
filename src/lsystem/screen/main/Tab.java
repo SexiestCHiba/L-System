@@ -8,15 +8,12 @@ public class Tab extends JPanel{
 
     int nbTabs;
     int nbRules;
-    JSpinner nbIterations;
-    JTextField axiomeField;
-    JTextField rulesField;
-    JTextArea axiomList;
-    JTextArea rulesList;
-    JSpinner itSpinner;
-    JButton submitButton;
+    JSpinner nbIterations,itSpinner;
+    JTextField axiomeField,rulesField;
+    JTextArea axiomList,rulesList;;
+    JButton submitButton, close;
 
-    public Tab(int nbTabs,int nbRules,JTabbedPane tabs) {
+    public Tab(int nbTabs,int nbRules,JTabbedPane tabs,MainFrame frame) {
         this.nbRules = nbRules;
         this.nbTabs = nbTabs;
 
@@ -71,6 +68,11 @@ public class Tab extends JPanel{
         tab.add(aboveComponents);
         tab.add(southComponents);
         tab.setLayout(new BoxLayout(tab,1));
+
+        close = new JButton("Close");
+        close.addActionListener(new Listener(frame,nbTabs,"Close",this));
+        tab.add(close);
+
 
         tabs.addTab("Génération"+String.valueOf(nbTabs), tab);
     }
