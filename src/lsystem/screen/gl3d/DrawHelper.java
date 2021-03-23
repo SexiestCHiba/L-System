@@ -4,6 +4,7 @@ import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.util.gl2.GLUT;
 
 import lsystem.screen.gl2d.Point;
+import lsystem.screen.gl2d.Point2;
 import lsystem.screen.gl2d.SwingGLCanvas2D;
 
 public class DrawHelper {
@@ -103,7 +104,7 @@ public class DrawHelper {
 						+ canvas.camera[3] + "  pitch = " + canvas.camera[4] + " roll = " + canvas.camera[5]);
 	}
 
-	public static void drawStick(GL2 gl, Point origin, Point newOrigin) {
+	public static void drawStick(GL2 gl, Point2 origin, Point2 newOrigin) {
 		
 		gl.glBegin(GL2.GL_LINES);
 		gl.glVertex2f(origin.getX(), origin.getY());

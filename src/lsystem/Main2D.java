@@ -3,6 +3,7 @@ package lsystem;
 import java.util.ArrayList;
 
 import lsystem.screen.gl2d.SwingGLCanvas2D;
+import lsystem.screen.gl3d.GLCanvas;
 import lsystem.screen.main.MainFrame;
 import lsystem.utils.Pair;
 
@@ -18,7 +19,7 @@ public class Main2D {
         new Thread(() -> joglFrame = new SwingGLCanvas2D()).start();
     } */
 
-    public static void main(String[] args) {
+    /* public static void main(String[] args) {
 
         MainFrame frame = new MainFrame();
         frame.setVisible(true);
@@ -32,6 +33,17 @@ public class Main2D {
             joglFrame.setLSystem(axiom,rules,5);
             joglFrame.setVisible(true);
             }).start();
+    } */
+	
+	public static MainFrame mainFrame;
+    public static SwingGLCanvas2D joglFrame;
+	
+	public static void main(String[] args) {
+        new Thread(() -> {
+            mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+        }).start();
+        new Thread(() -> joglFrame = new SwingGLCanvas2D()).start();
     }
 
 }

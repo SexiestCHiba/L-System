@@ -1,19 +1,19 @@
 package lsystem.screen.gl2d;
 
-public class Point {
+public class Point2 {
 	private float x;
 	private float y;
 	
-	public Point () {
+	public Point2 () {
 		
 	}
 	
-	public Point (float x, float y) {
+	public Point2 (float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public Point (Point old, int angle) {
+	public Point2 (Point2 old, int angle) {
 		angle = compactAngle(angle);
 		//Point a = new Point();
 		//x = getNewOrigin(old, angle, 0.1f);
@@ -36,7 +36,7 @@ public class Point {
 		this.y = y;
 	}
 	
-	public void getNewOrigin (Point old, int angle, float echelle) {
+	public void getNewOrigin (Point2 old, int angle, float echelle) {
 		
 		int newX=0, newY=0;
 		switch (angle) {

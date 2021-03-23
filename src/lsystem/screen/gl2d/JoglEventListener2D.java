@@ -54,16 +54,16 @@ public class JoglEventListener2D implements GLEventListener {
     public void dispose(GLAutoDrawable glAutoDrawable) {
     }
     
-    public void drawAll (GL2 gl, Element actual, lsystem.screen.gl2d.Point origin) {
+    public void drawAll (GL2 gl, Element actual, lsystem.screen.gl2d.Point2 origin) {
     	if (actual.property == ElementProperties.DRAW) {
     		System.out.println("DESSIN");
-    		lsystem.screen.gl2d.Point newOrigin = new lsystem.screen.gl2d.Point (origin, actual.getRotation2D());
+    		lsystem.screen.gl2d.Point2 newOrigin = new lsystem.screen.gl2d.Point2 (origin, actual.getRotation2D());
     		DrawHelper.drawStick(gl, origin, newOrigin);
     	}
     	System.out.println(actual.children.isEmpty());
     	for (Element children : actual.children) {
     		System.out.println("CHILD");
-    		drawAll(gl, children, new lsystem.screen.gl2d.Point (origin, actual.getRotation2D()));
+    		drawAll(gl, children, new lsystem.screen.gl2d.Point2 (origin, actual.getRotation2D()));
     	}
     }
 
@@ -82,7 +82,7 @@ public class JoglEventListener2D implements GLEventListener {
     	
     	GL2 gl = glAutoDrawable.getGL().getGL2();
     		
-    	drawAll (gl, canvas.getLSystem(), new lsystem.screen.gl2d.Point(-1.0f, -1.0f));
+    	drawAll (gl, canvas.getLSystem(), new lsystem.screen.gl2d.Point2(-1.0f, -1.0f));
 
     }
 
