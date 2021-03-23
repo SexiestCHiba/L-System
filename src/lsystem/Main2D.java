@@ -1,11 +1,7 @@
 package lsystem;
 
-import java.util.ArrayList;
-
 import lsystem.screen.gl2d.SwingGLCanvas2D;
-import lsystem.screen.gl3d.GLCanvas;
 import lsystem.screen.main.MainFrame;
-import lsystem.utils.Pair;
 
 public class Main2D {
 	
