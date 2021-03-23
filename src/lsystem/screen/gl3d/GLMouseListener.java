@@ -11,6 +11,7 @@ public class GLMouseListener implements MouseListener, MouseMotionListener, Mous
     private final GLCanvas canvas;
     private int button = 0;
     private Point origine;
+    private final float MULTIPLIER = 0.25f;
 
     public GLMouseListener(GLCanvas canvas) {
         this.canvas = canvas;
@@ -71,41 +72,9 @@ public class GLMouseListener implements MouseListener, MouseMotionListener, Mous
 
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
-        // Gestion de la position x:
-        if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3]) > 270 ) {
-            canvas.camera[0] += e.getWheelRotation() * Math.tan(Math.toRadians(-canvas.camera[3])) * 0.25;
-        }
-        else if(Math.abs(canvas.camera[3]) > 90 || Math.abs(canvas.camera[3]) < 270){
-            canvas.camera[0] += e.getWheelRotation() * Math.tan(Math.toRadians(canvas.camera[3])) * 0.25;
-        }
-        // Gestion de la position y:
-        if(Math.abs(canvas.camera[4]) < 90 || Math.abs(canvas.camera[4]) > 270) {
-            canvas.camera[1] += e.getWheelRotation() * Math.tan(Math.toRadians(canvas.camera[4])) * 0.25;
-        }
-        else if(Math.abs(canvas.camera[4]) > 90 || Math.abs(canvas.camera[4]) < 270){
-            canvas.camera[1] += e.getWheelRotation() * Math.tan(Math.toRadians(-canvas.camera[4])) * 0.25;
-        }
-
-        if( 90 == canvas.camera[3]){
-            canvas.camera[0] +=e.getWheelRotation()*0.25;
-            canvas.camera[2] += 0;
-        }
-        if( 90 == canvas.camera[4]){
-            canvas.camera[1] +=e.getWheelRotation()*0.25;
-            canvas.camera[2] += 0;
-        }
-        if( -90 == canvas.camera[3]){
-            canvas.camera[0] +=-e.getWheelRotation()*0.25;
-            canvas.camera[2] += 0;
-        }
-        if( -90 == canvas.camera[4]){
-            canvas.camera[1] +=e.getWheelRotation()*0.25;
-            canvas.camera[2] += 0;
-        }
-        if(Math.abs(canvas.camera[3]) < 90 || Math.abs(canvas.camera[3]) > 270 && Math.abs(canvas.camera[4]) < 90 || Math.abs(canvas.camera[4]) > 270){
-            canvas.camera[2] += e.getWheelRotation()*0.25;
-        }else
-            canvas.camera[2] += -e.getWheelRotation()*0.25;
+        canvas.camera[2] += Math.cos(Math.toRadians(canvas.camera[4]))*MULTIPLIER* e.getWheelRotation()*Math.cos(Math.toRadians(Math.abs(360-canvas.camera[3])));
+        canvas.camera[0] -= Math.cos(Math.toRadians(canvas.camera[4]))*MULTIPLIER* e.getWheelRotation()*Math.cos(Math.toRadians(Math.abs(450-canvas.camera[3])));
+        canvas.camera[1] += (1-Math.cos(Math.toRadians(canvas.camera[4])))*MULTIPLIER* e.getWheelRotation()*Math.cos(Math.toRadians(Math.abs(360-canvas.camera[4])));
 
     }
 }
