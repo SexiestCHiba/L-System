@@ -48,6 +48,7 @@ public class MainFrame extends JFrame {
         
         nbTabs++;
 		new Tab(nbTabs, nbRules, tabs);
+		// test
     }
 
 	public void newHelp() {
