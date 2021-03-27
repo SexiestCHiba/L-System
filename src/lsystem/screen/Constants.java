@@ -2,8 +2,14 @@
 
 public class Constants {
 
-	public static final int WIDTH = 600;
-	public static final int HEIGHT = 400;
+	public static final int INITIAL_WIDTH = 600;
+	public static final int INITIAL_HEIGHT = 400;
+	public static final float TWENTY_FIVE_DEGREES = 25/360f;
+	public static final char[] VALID_CHARS = {'=',']','[','.','+','-','X','Y','x','y','0','1','2','3','4','5','6','7','8','9',' '};
+	public static final float[] light_0_ambient = {0.01f, 0.01f, 0.01f, 0.01f};
+	public static final float[] light_0_diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
+	public static final float[] light_0_specular = {1.0f,1.0f, 1.0f, 1.0f};
+	public static final float[] material_specular = {0.8f, 0.8f, 0.8f, 0.8f};
 	public static final String HELP = "Alphabet{X,Y,Z}\r\n"
 			+ "\r\n"
 			+ "\r\n"

@@ -1,6 +1,7 @@
 package lsystem.engine;
 
 import lsystem.Type;
+import lsystem.screen.Constants;
 import lsystem.utils.Pair;
 
 import java.util.ArrayList;
@@ -12,8 +13,6 @@ public class Parser {
     private final String axiom;
     private final List<String> rules;
     private final int nbIterations;
-    private final char[] validChars = {'=',']','[','.','+','-','X','Y','x','y','z','0','1','2','3','4','5','6','7','8','9',' '};
-    private static final float TWENTY_FIVE_DEGREES = 25/360f;
 
     public Parser(String axiom, List<String> rules,int nbIterations) {
         this.axiom = axiom;
@@ -64,12 +63,12 @@ public class Parser {
             }
             if(old == '.'){
                 for(int y = (type == Type.RULE ? 0 : 1); y < 12; y++){
-                    if(temp == validChars[y])
+                    if(temp == Constants.VALID_CHARS[y])
                         return false;
                 }
             }
             old = temp;
-            for(char validChar : validChars){
+            for(char validChar : Constants.VALID_CHARS){
                 if(temp == validChar)
                     break;
                 if(validChar == ' ')
@@ -92,14 +91,13 @@ public class Parser {
     	return rules;
     }
 
-    // TODO: 03/03/2021 to finish
     public static Element parse(String word) throws NumberFormatException {
         char[] numbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-'};
         Element root = null;
         Element workingElement = null;
         String number = "";
         List<Element> bracket = new ArrayList<>();
-        float[] appliedRotation = new float[3];
+        float[] appliedRotation = new float[2];
         Element lastCreatedElement = null;
 
         for(int i = 0; i < word.length(); ++i) {
@@ -151,11 +149,10 @@ public class Parser {
     private static float getFloat(String number) throws NumberFormatException {
         float n;
         if(number.equals("") || number.equals("+"))
-            n = TWENTY_FIVE_DEGREES;
+            n = Constants.TWENTY_FIVE_DEGREES;
         else if(number.equals("-")) {
-            n = -TWENTY_FIVE_DEGREES;
+            n = -Constants.TWENTY_FIVE_DEGREES;
         }else{
-            System.out.println(number);
             n = Float.parseFloat(number);
         }
         return n;

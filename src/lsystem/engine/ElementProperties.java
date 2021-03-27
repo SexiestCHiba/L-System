@@ -5,8 +5,7 @@ public enum ElementProperties {
     DRAW('X'),
     NOTHING('Y'),
     ROTATION_X('x', (byte) 0),
-    ROTATION_Y('y', (byte) 1),
-    ROTATION_Z('z', (byte) 2);
+    ROTATION_Y('y', (byte) 1);
 
 
     private final char ch4r;

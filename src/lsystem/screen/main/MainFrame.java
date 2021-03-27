@@ -15,11 +15,11 @@ public class MainFrame extends JFrame {
 	private static final long serialVersionUID = -7898079642230075807L;
 	private int nbTabs;
 	boolean helpWindow = false;
-	private JPanel basePanel;
-	private JTabbedPane tabs;
-	private JButton newGen;
-	private JButton help;
-	private int nbRules;
+	private final JPanel basePanel;
+	private final JTabbedPane tabs;
+	private final JButton newGen;
+	private final JButton help;
+	private final int nbRules;
 
 
 	public MainFrame(){
@@ -40,11 +40,12 @@ public class MainFrame extends JFrame {
 
         this.setTitle("L-system interface");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(Constants.WIDTH, Constants.HEIGHT);
+		Dimension windowDimension = new Dimension(Constants.INITIAL_WIDTH, Constants.INITIAL_HEIGHT);
+        this.setSize(windowDimension);
         this.setLocationRelativeTo(null);
         this.add(tabs);
         this.add(toolBar, BorderLayout.NORTH);
-        this.setPreferredSize(new Dimension(640,600));
+        this.setPreferredSize(windowDimension);
         
         nbTabs++;
 		new Tab(nbTabs, nbRules, tabs,this);
@@ -97,11 +98,5 @@ public class MainFrame extends JFrame {
 		}
 
 	}
-	public void closeTab() {
-		//TODO : Pour fermer un onglet, nécessite l'implémentation d'un button fermer grâce à la méthode newTab().
-	}
-
-
-
 
 }

@@ -47,7 +47,7 @@ public abstract class AbstractCanvas {
             }
         });
         frame.getContentPane().add(glCanvas, BorderLayout.CENTER);
-        frame.setSize(Constants.WIDTH, Constants.HEIGHT);
+        frame.setSize(Constants.INITIAL_WIDTH, Constants.INITIAL_HEIGHT);
         addEventsListeners();
     }
 

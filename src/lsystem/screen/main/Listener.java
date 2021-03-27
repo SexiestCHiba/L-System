@@ -3,6 +3,7 @@ package lsystem.screen.main;
 import lsystem.Main;
 import lsystem.engine.Parser;
 import lsystem.screen.AbstractCanvas;
+import lsystem.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,7 +18,7 @@ public class Listener implements ActionListener, KeyListener {
     MainFrame frame;
     Integer index;
     String type;
-    Integer nbAxioms;
+    Integer nbAxioms = 0;
     Thread parserThread = null;
     ImageIcon staticIcon = new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getClassLoader().getResource("loading-gif.gif")));
 
@@ -27,7 +28,6 @@ public class Listener implements ActionListener, KeyListener {
         this.frame = frame;
         this.index = index;
         this.type = type;
-        nbAxioms = 0;
     }
 
     @Override
@@ -73,7 +73,18 @@ public class Listener implements ActionListener, KeyListener {
                     tab.submitButton.setText("");
                     parserThread = new Thread(() -> {
                         try {
-                            Main.joglFrame.setLSystem(axiom, parser.parseRules(), tab.getNbIterations());
+                            List<Pair<String, String>> lSystemRules = parser.parseRules();
+                            Main.joglFrame.setLSystem(axiom, lSystemRules, tab.getNbIterations());
+
+                            StringBuilder message = new StringBuilder("L-System 3D - {axiom:\"").append(axiom).append("\",rules:[");
+                            for(int i = 0; i < lSystemRules.size(); ++i) {
+                                Pair<String, String> rule = lSystemRules.get(i);
+                                message.append("\"").append(rule.getLeft()).append("=").append(rule.getRight()).append("\"");
+                                if(i + 1 != lSystemRules.size())
+                                    message.append(",");
+                            }
+                            Main.joglFrame.frame.setTitle(message.append("]} - Nombres d'itérations: ").append(tab.getNbIterations()).toString());
+
                             Main.joglFrame.setVisible(true);
                         } catch (NumberFormatException err) {
                             Main.joglFrame.parsedState = AbstractCanvas.State.FINISH_OR_NULL;

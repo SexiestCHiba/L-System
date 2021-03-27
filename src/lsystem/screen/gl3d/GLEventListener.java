@@ -6,17 +6,12 @@ import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.engine.Element;
 import lsystem.engine.ElementProperties;
+import lsystem.screen.Constants;
 
 public class GLEventListener implements com.jogamp.opengl.GLEventListener {
 
     private final GLCanvas canvas;
-    private final float[] light_0_ambient = {0.01f, 0.01f, 0.01f, 0.01f};
-    private final float[] light_0_diffuse = {1.0f, 1.0f, 1.0f, 1.0f};
-    private final float[] light_0_specular = {1.0f,1.0f, 1.0f, 1.0f};
     private final float[] light_0_position = {1000f, 1000f, 1000f, 1f};
-
-    private final float[] material_specular = {0.8f, 0.8f, 0.8f, 0.8f};
-
     private final GLU glu;
     private final GLUT glut;
     private int fps;
@@ -42,9 +37,9 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         gl.glClearDepth(1.0f);
         gl.glShadeModel(GL2.GL_SMOOTH);
 
-        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, light_0_ambient, 0);
-        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, light_0_diffuse, 0);
-        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR, light_0_specular, 0);
+        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_AMBIENT, Constants.light_0_ambient, 0);
+        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_DIFFUSE, Constants.light_0_diffuse, 0);
+        gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_SPECULAR, Constants.light_0_specular, 0);
 
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
@@ -120,7 +115,7 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, light_0_position, 0);
         gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
         gl.glMateriali(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, 90);
-        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, material_specular, 0);
+        gl.glMaterialfv(GL2.GL_FRONT_AND_BACK, GL2.GL_SPECULAR, Constants.material_specular, 0);
 
         gl.glMatrixMode(GL2.GL_MODELVIEW);
     }
