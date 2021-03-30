@@ -1,12 +1,15 @@
-\documentclass[12pt]{article}
+\documentclass[12pt]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french]{babel}
 \usepackage{hyperref}
 \usepackage{graphicx}
-\title{Conception Logicielle - L-système}
-\author{Antonin Boyon,  Thomas Lalong,  Quentin Legot,  Arthur Page}
+\title{CONCEPTION LOGICIELLE\\L-SYSTEME}
+\author{Antonin \bsc{Boyon}\\
+Thomas \bsc{Lalong}\\ 
+Quentin \bsc{Legot}\\
+Arthur \bsc{Page}}
 \date{\today}
 
 \begin{document}
@@ -14,61 +17,52 @@
 \maketitle
 \thispagestyle{empty}
 \setcounter{page}{0}
-\newpage
 
 \tableofcontents
 \newpage
 
-\section{Introduction}
-\subsection{}
-Le but de notre projet était de concevoir un générateur de flores vidéo-ludiques. Ce genre de logiciel à pour but de créer de manière procédurale des modèles végétaux qui pourront notamment être utilisés dans les jeux vidéos. Nous devions pour cela nous baser sur un L-système \ref{l-system}, un parser \ref{parser}, un moteur de réécriture\ref{rw-engine} et un moteur graphique\ref{g-engine}. Le rôle de ses différents éléments sera expliqué dans les sections suivantes. 
+\chapter{INTRODUCTION}
+\newpage
+\section{Sujet et consignes}
+\paragraph{}
+Ce projet a pour objectif de réaliser une application appliquant des principes de programmation orientée objet en language de programmation Java.
+Nous avons eut le choix entre 6 sujets différents et, après études des propositions, notre choix s'est finalement porté sur le "Générateurs de flores vidéos-ludiques" et donc la réalisation d'un simulateur de L-système végétal produisant une image 2D et 3D de l'objet par le biais de règles de réécritures.
 
-
-\section{Le logiciel}
-\subsection{Organigramme}
-%inclure à la fin quand le logiciel sera terminé
-
-\subsection{Le l-system}
-\label{l-system}
-\subsubsection{Qu'est-ce qu'un L-system}
-Un L-system (ou L-système en français) est un langage de réécriture permettant de modéliser l'évolution de modèles végétaux ou bactériologiques. (Wikipédia : \url{https://fr.wikipedia.org/wiki/L-Syst%C3%A8me}).
-\\
-Un L-system se base sur plusieurs paramètres:
+\paragraph{}
+Pour cela nous avions quelques consignes a respecter :
 \begin{itemize}
-\item L'alphabet.\ref{alpha}\\
-C'est le "langage" du L-system, il est propre à chaque L-system et c'est à nous de le définir.
-\item L'axiome.\ref{axiome}\\
-C'est l'élément qui servira de base à la génération. 
-\item Les règles.\ref{rules}\\
-Elles servent à définir comment le modèle va évoluer en partant de l'axiome.
-\item Le nombre d'itérations.\ref{nbIt}\\
-Ce nombre indique le nombre de fois que les règles peuvent être appliquées.
+    \item Intégrer un parser de L-système.
+    \item Créer un moteur de réécriture.
+    \item Créer un moteur de rendu graphique.
 \end{itemize}
-\subsubsection{Notre L-system}
-Voici, expliqué en détail, les composants de notre L-système. 
-\paragraph{L'alphabet}\label{alpha} étant propre à chaque L-system, nous avons du créer le notre.
-Il est constitué de 6 lettres , 10 chiffres et 6 caractères.
-Les lettres comprennent 3 majuscules $(X,Y)$ et 3 minuscules $(x,y,z)$.
-Les X représente un mouvement d'une unité et Y ne dessine pas et permet de controller.
-Les trois minuscules quant à elles, permettent d'effectuer une rotation de +25° sur leurs axes respectifs.
-Ainsi, $x = $ rotation de 25° par rapport à l'axe des $X$.
-Les chiffres permettent, avec les symboles $(.,+,-)$ de faire varier les valeurs de base des lettres de l'alphabet.
-Ainsi, $-0.5X$ représentera un mouvement négatif de 0.5 unités sur l'axe $X$.
-De même, $+2x$ représentera un mouvement positif de 50° sur l'axe des $X$.
-Les symboles, $([,])$ permettent de différer l'exécution d'une règle, nous expliquerons leur utilité dans cette ce paragraphe \ref{rules}. Pour le dernier symbole, $=$, son utilité sera expliquée dans ce paragraphe \ref{axiome}.
-\paragraph{L'axiome}\label{axiome}
-\paragraph{Les règles}\label{rules}
-\paragraph{Le nombre d'itérations}\label{nbIt}
-\subsection{Le parser}
-\label{parser}
-\subsection{Le moteur de réécriture}
-\label{rw-engine}
-\subsection{Le moteur graphique}
-\label{g-engine}
 
+\section{Mise en place du projet}
 
+\chapter{L-SYSTEME}
+\section{Principe et fonctionnement}
 
+\section{Utilisation pour notre projet}
 
+\chapter{ORGANISATION ET STRUCTURE}
+\section{Organisation du projet}
+\section{Structure du projet}
 
-\section{Conclusion}
+\chapter{ELEMENTS TECHNIQUES}
+\section{Parser}
+\section{Moteur de réécriture}
+\section{Moteur graphique}
+\section{Interface}
+
+\chapter{EXPERIMENTATIONS ET USAGE}
+\section{Tests de notre logiciel}
+\section{Mesure de performance}
+
+\chapter{CONCLUSION}
+\section{Récapitulatif}
+\section{Propositions d'amélioration}
+
+\chapter{BIBLIOGRAPHIE}
+
+\chapter{ANNEXES}
+
 \end{document}
