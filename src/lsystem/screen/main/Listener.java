@@ -106,8 +106,8 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
                 } else if (!parser3D.isCorrect()) {
                     openDialog("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
                 } else {
-                    tab.submitButton2D.setIcon(staticIcon);
-                    tab.submitButton2D.setText("");
+                    tab.submitButton3D.setIcon(staticIcon);
+                    tab.submitButton3D.setText("");
                     parserThread = new Thread(() -> {
                         try {
                             List<Pair<String, String>> lSystemRules = parser3D.parseRules();
