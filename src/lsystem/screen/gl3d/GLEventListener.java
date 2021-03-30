@@ -2,24 +2,18 @@ package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.glu.GLU;
-import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.engine.Element;
 import lsystem.engine.ElementProperties;
 import lsystem.screen.Constants;
+import lsystem.screen.AbstractListener;
 
-public class GLEventListener implements com.jogamp.opengl.GLEventListener {
+public class GLEventListener extends AbstractListener {
 
-    private final GLCanvas canvas;
     private final float[] light_0_position = {1000f, 1000f, 1000f, 1f};
-    private final GLU glu;
-    private final GLUT glut;
-    private int fps;
+
 
     public GLEventListener(GLCanvas swingGLCanvas) {
-        this.canvas = swingGLCanvas;
-        this.glu = canvas.glu;
-        this.glut = canvas.glut;
+        super(swingGLCanvas);
     }
 
 
@@ -43,21 +37,7 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
 
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
-        new Thread(() -> {
-            while (canvas.frame.isVisible()) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println(fps);
-                fps = 0;
-            }
-        }).start();
-    }
-
-    @Override
-    public void dispose(GLAutoDrawable glAutoDrawable) {
+        super.init(glAutoDrawable);
     }
 
     @Override
@@ -74,7 +54,7 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         gl.glPushMatrix();
         gl.glRotatef(90f, -1f, 0f, 0f);
         gl.glColor3f(0f, 1f, 0f);
-        displayLSystem(gl, glut, canvas.getLSystem());
+        drawLSystem(gl, canvas.getLSystem());
         gl.glPopMatrix();
 
         DrawHelper.drawAxes(gl, glut);
@@ -82,8 +62,8 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         gl.glFlush();
         fps++;
     }
-
-    private void displayLSystem(GL2 gl, GLUT glut, Element element) {
+    @Override
+    public void drawLSystem(GL2 gl, Element element) {
         gl.glPushMatrix();
         gl.glRotatef(element.rotation[0]  * 360, 1f, 0f, 0f);
         gl.glRotatef(element.rotation[1]  * 360, 0f, 1f, 0f);
@@ -93,25 +73,19 @@ public class GLEventListener implements com.jogamp.opengl.GLEventListener {
         if(element.property == ElementProperties.DRAW) {
             glut.glutSolidCylinder(0.25f, 1f, 10, 10);
             gl.glTranslatef(0f, 0f, 1f);
-            //gl.glTranslated(Math.cos(element.rotation[0] * Math.PI), Math.sin(element.rotation[1] * Math.PI), Math.cos(element.rotation[2] * Math.PI));
         }
 
 
         for(Element child : element.children) {
-            displayLSystem(gl, glut, child);
+            drawLSystem(gl, child);
         }
         gl.glPopMatrix();
     }
 
     @Override
     public void reshape(GLAutoDrawable glAutoDrawable, int x, int y, int width, int height) {
+        super.reshape(glAutoDrawable, x, y, width, height);
         GL2 gl = glAutoDrawable.getGL().getGL2();
-        gl.glViewport(x, y, width, height);
-
-        gl.glMatrixMode(GL2.GL_PROJECTION);
-        gl.glLoadIdentity();
-        glu.gluPerspective(60.0f, (float) width / height, 0.1f, 1000.0f);
-
         gl.glLightfv(GL2.GL_LIGHT0, GL2.GL_POSITION, light_0_position, 0);
         gl.glColorMaterial(GL2.GL_FRONT_AND_BACK, GL2.GL_AMBIENT_AND_DIFFUSE);
         gl.glMateriali(GL2.GL_FRONT_AND_BACK, GL2.GL_SHININESS, 90);

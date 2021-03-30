@@ -8,10 +8,10 @@ public class Tab extends JPanel{
 
     int nbTabs;
     int nbRules;
-    JSpinner nbIterations,itSpinner;
+    public JSpinner itSpinner;
     JTextField axiomeField,rulesField;
     JTextArea axiomList,rulesList;;
-    JButton submitButton, close;
+    JButton submitButton2D, submitButton3D, close;
 
     public Tab(int nbTabs,int nbRules,JTabbedPane tabs,MainFrame frame) {
         this.nbRules = nbRules;
@@ -22,12 +22,10 @@ public class Tab extends JPanel{
         axiomList = textArea("Axiome : \n",nbTabs);
         rulesList = textArea("Règles : \n",nbTabs+10);
 
-        nbIterations = new JSpinner();
-        nbIterations.setModel(new SpinnerNumberModel(1, 1, 15, 1));
-
         JLabel itLabel  = new JLabel("Nombre d'itérations : ");
         itSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 30, 1));
         ((JSpinner.DefaultEditor) itSpinner.getEditor()).getTextField().setEditable(false);
+        itSpinner.addMouseWheelListener(new Listener(null,null,"Spinner",this));
 
         JLabel axiome = new JLabel("Axiome :");
         JLabel rules = new JLabel("Règle "+ nbRules+" :");
@@ -40,11 +38,14 @@ public class Tab extends JPanel{
         rulesField.addKeyListener(new Listener(null,nbTabs+10,"Règles",this));
         rulesField.setPreferredSize(new Dimension(120,20));
 
-        submitButton = new JButton("Générer");
+        submitButton2D = new JButton("Générer en 2D");
+        submitButton3D = new JButton("Générer en 3D");
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(new Listener(null,nbTabs,"Clear",this));
-        submitButton.addActionListener(new Listener(null,nbTabs,"Generate",this));
-        JPanel southComponents = subPanel(clearButton,submitButton,null);
+        submitButton2D.addActionListener(new Listener(null,nbTabs,"Generate 2D",this));
+        submitButton3D.addActionListener(new Listener(null,nbTabs,"Generate 3D",this));
+        JPanel southComponents = subPanel(submitButton2D,submitButton3D, null);
+        JPanel southComponents2 = subPanel(clearButton, southComponents, null);
 
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -66,7 +67,7 @@ public class Tab extends JPanel{
 
         aboveComponents.setLayout(new GridLayout(1,4));
         tab.add(aboveComponents);
-        tab.add(southComponents);
+        tab.add(southComponents2);
         tab.setLayout(new BoxLayout(tab,1));
 
         close = new JButton("Close");

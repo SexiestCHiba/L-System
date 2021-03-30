@@ -7,13 +7,10 @@ import lsystem.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.List;
 
-public class Listener implements ActionListener, KeyListener {
+public class Listener implements ActionListener, KeyListener, MouseWheelListener {
     Tab tab;
     MainFrame frame;
     Integer index;
@@ -36,7 +33,7 @@ public class Listener implements ActionListener, KeyListener {
             case "Close":
                 frame.getTab().removeTabAt(index-1);
                 frame.decreaseTab();
-                for(int i = 0; i <frame.getTab().getComponentCount(); i++){
+                for(int i = 0; i < frame.getTab().getComponentCount(); i++){
                     frame.getTab().setTitleAt(i,"Génération"+(i+1));
                 }
 
@@ -55,28 +52,28 @@ public class Listener implements ActionListener, KeyListener {
                 Listener kl = (Listener) tab.getTextField((byte) 0).getKeyListeners()[0];
                 kl.resetNbAxioms();
 
-                break;
-
-            case "Generate":
-                String axiom = tab.getAxiom();
-                List<String> rules = tab.getRules();
-                Parser parser = new Parser(axiom, rules, tab.getNbIterations());
+                break;            
+                
+            case "Generate 2D":
+            	String axiom2D = tab.getAxiom();
+                List<String> rules2D = tab.getRules();
+            	Parser parser2D = new Parser(axiom2D, rules2D, tab.getNbIterations());
                 if(Main.joglFrame.frame.isVisible()) {
-                    openDialog("Veuillez fermer la fenêtre 3D avant de lancer une nouvelle génération");
+                    openDialog("Veuillez fermer la fenêtre 2D ou 3D avant de lancer une nouvelle génération");
                 } else if(Main.joglFrame.parsedState == AbstractCanvas.State.LOAD) {
                         openDialog("Une génération est actuellement en cours, impossible d'en relancer un autre");
                     openDialog("Une génération est actuellement en cours, impossible d'en relancer un autre");
-                } else if (!parser.isCorrect()) {
+                } else if (!parser2D.isCorrect()) {
                     openDialog("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
                 } else {
-                    tab.submitButton.setIcon(staticIcon);
-                    tab.submitButton.setText("");
+                    tab.submitButton2D.setIcon(staticIcon);
+                    tab.submitButton2D.setText("");
                     parserThread = new Thread(() -> {
                         try {
-                            List<Pair<String, String>> lSystemRules = parser.parseRules();
-                            Main.joglFrame.setLSystem(axiom, lSystemRules, tab.getNbIterations());
+                            List<Pair<String, String>> lSystemRules = parser2D.parseRules();
+                            Main.joglFrame.setLSystem(axiom2D, lSystemRules, tab.getNbIterations());
 
-                            StringBuilder message = new StringBuilder("L-System 3D - {axiom:\"").append(axiom).append("\",rules:[");
+                            StringBuilder message = new StringBuilder("L-System 2D - {axiom:\"").append(axiom2D).append("\",rules:[");
                             for(int i = 0; i < lSystemRules.size(); ++i) {
                                 Pair<String, String> rule = lSystemRules.get(i);
                                 message.append("\"").append(rule.getLeft()).append("=").append(rule.getRight()).append("\"");
@@ -90,8 +87,48 @@ public class Listener implements ActionListener, KeyListener {
                             Main.joglFrame.parsedState = AbstractCanvas.State.FINISH_OR_NULL;
                             openDialog("Une erreur de type " + err.getClass().getSimpleName() + " est survenue lors de l'execution du parser: " + err.getMessage());
                         }
-                        tab.submitButton.setIcon(null);
-                        tab.submitButton.setText("Générer");
+                        tab.submitButton2D.setIcon(null);
+                        tab.submitButton2D.setText("Générer en 2D");
+                    });
+                    parserThread.start();
+                }
+                break;
+                
+            case "Generate 3D":
+            	String axiom3D = tab.getAxiom();
+                List<String> rules3D = tab.getRules();
+                Parser parser3D = new Parser(axiom3D, rules3D, tab.getNbIterations());
+                if(Main.joglFrame.frame.isVisible()) {
+                    openDialog("Veuillez fermer la fenêtre 2D ou 3D avant de lancer une nouvelle génération");
+                } else if(Main.joglFrame.parsedState == AbstractCanvas.State.LOAD) {
+                        openDialog("Une génération est actuellement en cours, impossible d'en relancer un autre");
+                    openDialog("Une génération est actuellement en cours, impossible d'en relancer un autre");
+                } else if (!parser3D.isCorrect()) {
+                    openDialog("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
+                } else {
+                    tab.submitButton3D.setIcon(staticIcon);
+                    tab.submitButton3D.setText("");
+                    parserThread = new Thread(() -> {
+                        try {
+                            List<Pair<String, String>> lSystemRules = parser3D.parseRules();
+                            Main.joglFrame.setLSystem(axiom3D, lSystemRules, tab.getNbIterations());
+
+                            StringBuilder message = new StringBuilder("L-System 3D - {axiom:\"").append(axiom3D).append("\",rules:[");
+                            for(int i = 0; i < lSystemRules.size(); ++i) {
+                                Pair<String, String> rule = lSystemRules.get(i);
+                                message.append("\"").append(rule.getLeft()).append("=").append(rule.getRight()).append("\"");
+                                if(i + 1 != lSystemRules.size())
+                                    message.append(",");
+                            }
+                            Main.joglFrame.frame.setTitle(message.append("]} - Nombres d'itérations: ").append(tab.getNbIterations()).toString());
+
+                            Main.joglFrame.setVisible(true);
+                        } catch (NumberFormatException err) {
+                            Main.joglFrame.parsedState = AbstractCanvas.State.FINISH_OR_NULL;
+                            openDialog("Une erreur de type " + err.getClass().getSimpleName() + " est survenue lors de l'execution du parser: " + err.getMessage());
+                        }
+                        tab.submitButton3D.setIcon(null);
+                        tab.submitButton3D.setText("Générer en 3D");
                     });
                     parserThread.start();
                 }
@@ -144,5 +181,13 @@ public class Listener implements ActionListener, KeyListener {
     }
     public void resetNbAxioms(){
         nbAxioms = 0;
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if(e.getWheelRotation() < 0)
+            tab.itSpinner.setValue(tab.itSpinner.getNextValue());
+        else
+            tab.itSpinner.setValue(tab.itSpinner.getPreviousValue());
     }
 }
