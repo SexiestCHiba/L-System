@@ -90,7 +90,7 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
                             openDialog("Une erreur de type " + err.getClass().getSimpleName() + " est survenue lors de l'execution du parser: " + err.getMessage());
                         }
                         tab.submitButton2D.setIcon(null);
-                        tab.submitButton2D.setText("Générer");
+                        tab.submitButton2D.setText("Générer en 2D");
                     });
                     parserThread.start();
                 }
@@ -130,7 +130,7 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
                             openDialog("Une erreur de type " + err.getClass().getSimpleName() + " est survenue lors de l'execution du parser: " + err.getMessage());
                         }
                         tab.submitButton3D.setIcon(null);
-                        tab.submitButton3D.setText("Générer");
+                        tab.submitButton3D.setText("Générer en 3D");
                     });
                     parserThread.start();
                 }
