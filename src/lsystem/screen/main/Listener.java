@@ -7,13 +7,10 @@ import lsystem.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.List;
 
-public class Listener implements ActionListener, KeyListener {
+public class Listener implements ActionListener, KeyListener, MouseWheelListener {
     Tab tab;
     MainFrame frame;
     Integer index;
@@ -36,7 +33,7 @@ public class Listener implements ActionListener, KeyListener {
             case "Close":
                 frame.getTab().removeTabAt(index-1);
                 frame.decreaseTab();
-                for(int i = 0; i <frame.getTab().getComponentCount(); i++){
+                for(int i = 0; i < frame.getTab().getComponentCount(); i++){
                     frame.getTab().setTitleAt(i,"Génération"+(i+1));
                 }
 
@@ -144,5 +141,13 @@ public class Listener implements ActionListener, KeyListener {
     }
     public void resetNbAxioms(){
         nbAxioms = 0;
+    }
+
+    @Override
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if(e.getWheelRotation() < 0)
+            tab.itSpinner.setValue(tab.itSpinner.getNextValue());
+        else
+            tab.itSpinner.setValue(tab.itSpinner.getPreviousValue());
     }
 }

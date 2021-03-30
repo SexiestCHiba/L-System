@@ -8,7 +8,7 @@ public class Tab extends JPanel{
 
     int nbTabs;
     int nbRules;
-    JSpinner nbIterations,itSpinner;
+    public JSpinner itSpinner;
     JTextField axiomeField,rulesField;
     JTextArea axiomList,rulesList;;
     JButton submitButton, close;
@@ -22,12 +22,10 @@ public class Tab extends JPanel{
         axiomList = textArea("Axiome : \n",nbTabs);
         rulesList = textArea("Règles : \n",nbTabs+10);
 
-        nbIterations = new JSpinner();
-        nbIterations.setModel(new SpinnerNumberModel(1, 1, 15, 1));
-
         JLabel itLabel  = new JLabel("Nombre d'itérations : ");
         itSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 30, 1));
         ((JSpinner.DefaultEditor) itSpinner.getEditor()).getTextField().setEditable(false);
+        itSpinner.addMouseWheelListener(new Listener(null,null,"Spinner",this));
 
         JLabel axiome = new JLabel("Axiome :");
         JLabel rules = new JLabel("Règle "+ nbRules+" :");
