@@ -16,7 +16,7 @@ public class MainFrame extends JFrame {
 	private int nbTabs;
 	boolean helpWindow = false;
 	private final JPanel basePanel;
-	private final JTabbedPane tabs;
+	public final JTabbedPane tabs;
 	private final JButton newGen;
 	private final JButton help;
 	private final int nbRules;
@@ -49,6 +49,7 @@ public class MainFrame extends JFrame {
         
         nbTabs++;
 		new Tab(nbTabs, nbRules, tabs,this);
+		renameTabs();
     }
 	public JTabbedPane getTab(){
 		return tabs;
@@ -97,6 +98,11 @@ public class MainFrame extends JFrame {
 			new Tab(nbTabs, nbRules, tabs,this);
 		}
 
+	}
+	public void renameTabs(){
+		for(int i =0;i<nbTabs;i++){
+			tabs.setTitleAt(i,("Génération"+(i+1)));
+		}
 	}
 
 }

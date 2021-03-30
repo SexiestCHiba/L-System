@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class Tab extends JPanel{
 
-    int nbTabs;
+    public int nbTabs;
     int nbRules;
     public JSpinner itSpinner;
     JTextField axiomeField,rulesField;
@@ -71,7 +71,7 @@ public class Tab extends JPanel{
         tab.setLayout(new BoxLayout(tab,1));
 
         close = new JButton("Close");
-        close.addActionListener(new Listener(frame,nbTabs,"Close",this));
+        close.addActionListener(new Listener(frame,this.nbTabs,"Close",this));
         tab.add(close);
 
 
