@@ -10,6 +10,7 @@ import lsystem.screen.AbstractListener;
 public class GLEventListener extends AbstractListener {
 
     private final float[] light_0_position = {1000f, 1000f, 1000f, 1f};
+    private boolean firstGen;
 
 
     public GLEventListener(GLCanvas swingGLCanvas) {
@@ -38,6 +39,7 @@ public class GLEventListener extends AbstractListener {
         gl.glDepthFunc(GL2.GL_LEQUAL);
         gl.glHint(GL2.GL_PERSPECTIVE_CORRECTION_HINT, GL2.GL_NICEST);
         super.init(glAutoDrawable);
+        firstGen = true;
     }
 
     @Override
@@ -55,10 +57,11 @@ public class GLEventListener extends AbstractListener {
         gl.glRotatef(90f, -1f, 0f, 0f);
         gl.glColor3f(0f, 1f, 0f);
         drawLSystem(gl, canvas.getLSystem());
+        firstGen = false;
         gl.glPopMatrix();
 
         DrawHelper.drawAxes(gl, glut);
-        DrawHelper.drawDebugInformation(gl, glut, canvas);
+        // DrawHelper.drawDebugInformation(gl, glut, canvas);
         gl.glFlush();
         fps++;
     }
@@ -67,10 +70,14 @@ public class GLEventListener extends AbstractListener {
         gl.glPushMatrix();
         gl.glRotatef(element.rotation[0]  * 360, 1f, 0f, 0f);
         gl.glRotatef(element.rotation[1]  * 360, 0f, 1f, 0f);
-        gl.glRotated(-Math.sin(element.rotation[0]) * 180, 0f, 0f, 1f);
-        gl.glRotated(-Math.sin(element.rotation[1]) * 180, 0f, 0f, 1f);
+        gl.glRotated(-Math.sin(element.rotation[0]) * 180 - Math.sin(element.rotation[1]) * 180, 0f, 0f, 1f);
         gl.glTranslated(-Math.sin(element.rotation[0]), -Math.sin(element.rotation[1]), -Math.sin(element.rotation[0] + element.rotation[1]));
+
         if(element.property == ElementProperties.DRAW) {
+            if(firstGen) {
+                canvas.camera[1] += 0.10f;
+                canvas.camera[2] += 0.10f;
+            }
             glut.glutSolidCylinder(0.25f, 1f, 10, 10);
             gl.glTranslatef(0f, 0f, 1f);
         }

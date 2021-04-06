@@ -1,5 +1,7 @@
 package lsystem.utils;
 
+import java.util.Objects;
+
 /**
  * tuple containing 2 unknown type elements
  *
@@ -41,7 +43,7 @@ public class Pair<U, K> {
 
     @Override
     public int hashCode() {
-        return 31 + left.hashCode() * right.hashCode();
+        return Objects.hash(left.hashCode(), right.hashCode());
     }
     
     @Override

@@ -17,7 +17,7 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
     String type;
     Integer nbAxioms = 0;
     Thread parserThread = null;
-    ImageIcon staticIcon = new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getClassLoader().getResource("loading-gif.gif")));
+    ImageIcon staticIcon = new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getClassLoader().getResource("./resources/loading-gif.gif")));
 
 
     public Listener(MainFrame frame, Integer index, String type, Tab tab){
