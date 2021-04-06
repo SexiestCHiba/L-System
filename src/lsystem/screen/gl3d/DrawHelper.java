@@ -3,7 +3,6 @@ package lsystem.screen.gl3d;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.screen.AbstractCanvas;
-import lsystem.screen.gl2d.Point2;
 
 public class DrawHelper {
 
@@ -87,14 +86,6 @@ public class DrawHelper {
 		glut.glutBitmapString(GLUT.BITMAP_HELVETICA_18,
 				"x=" + canvas.camera[0] + ", y=" + canvas.camera[1] + ", z=" + canvas.camera[2] + "\n yaw = "
 						+ canvas.camera[3] + "  pitch = " + canvas.camera[4] + " roll = " + canvas.camera[5]);
-	}
-
-	public static void drawStick(GL2 gl, Point2 origin, Point2 newOrigin) {
-
-		gl.glBegin(GL2.GL_LINES);
-		gl.glVertex2f(origin.getX(), origin.getY());
-		gl.glVertex2f(newOrigin.getX(), newOrigin.getY());
-		gl.glEnd();
 	}
 
 
