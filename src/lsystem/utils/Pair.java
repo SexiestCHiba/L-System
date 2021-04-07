@@ -38,7 +38,7 @@ public class Pair<U, K> {
             return false;
         }
         final Pair<?, ?> other = (Pair<?, ?>) obj;
-        return this.left.equals(other.getLeft()) && this.left.equals(other.getRight());
+        return this.left.equals(other.getLeft()) && this.right.equals(other.getRight());
     }
 
     @Override

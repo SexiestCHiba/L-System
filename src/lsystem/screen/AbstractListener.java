@@ -50,7 +50,7 @@ public abstract class AbstractListener implements GLEventListener {
 
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
-        glu.gluPerspective(60.0f, (float) width / height, 0.1f, 1000.0f);
+        glu.gluPerspective(60.0f, ((float) width) / height, 0.1f, 1000.0f);
     }
 
     public abstract void drawLSystem(GL2 gl, Element element);
