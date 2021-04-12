@@ -1,4 +1,4 @@
-package lsystem.screen;
+package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
@@ -9,6 +9,7 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.engine.Element;
 import lsystem.engine.Parser;
 import lsystem.engine.Rewrite;
+import lsystem.screen.Constants;
 import lsystem.utils.Pair;
 
 import javax.swing.*;

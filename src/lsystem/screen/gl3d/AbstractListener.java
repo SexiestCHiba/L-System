@@ -1,4 +1,4 @@
-package lsystem.screen;
+package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
@@ -13,6 +13,7 @@ public abstract class AbstractListener implements GLEventListener {
     protected final GLU glu;
     protected final GLUT glut;
     protected int fps;
+    boolean firstGen;
 
     public AbstractListener(AbstractCanvas swingGLCanvas) {
         this.canvas = swingGLCanvas;
