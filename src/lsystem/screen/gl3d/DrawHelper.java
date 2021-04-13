@@ -2,7 +2,8 @@ package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.util.gl2.GLUT;
-import lsystem.screen.AbstractCanvas;
+import lsystem.engine.Element;
+import lsystem.engine.ElementProperties;
 
 public class DrawHelper {
 
@@ -43,42 +44,28 @@ public class DrawHelper {
 		glut.glutBitmapCharacter(GLUT.BITMAP_HELVETICA_18, 'Z'); // draw the z axis
 	}
 
-	public static void drawRectangularPrism(GL2 gl, float leftBottomX, float leftBottomY, float leftBottomZ,
-			float rightUpX, float rightUpY, float rightUpZ) {
+	public static void drawLSystem(AbstractListener listener, GL2 gl, GLUT glut, Element element) {
 		gl.glPushMatrix();
-		gl.glBegin(GL2.GL_QUADS);
-		gl.glVertex3f(leftBottomX, leftBottomY, leftBottomZ);
-		gl.glVertex3f(rightUpX, leftBottomY, leftBottomZ);
-		gl.glVertex3f(rightUpX, rightUpY, leftBottomZ);
-		gl.glVertex3f(leftBottomX, rightUpY, leftBottomZ);
+		gl.glRotatef(element.rotation[0]  * 360, 1f, 0f, 0f);
+		gl.glRotatef(element.rotation[1]  * 360, 0f, 1f, 0f);
+		gl.glRotated(-Math.sin(element.rotation[0]) * 180 - Math.sin(element.rotation[1]) * 180, 0f, 0f, 1f);
+		gl.glTranslated(-Math.sin(element.rotation[0]), -Math.sin(element.rotation[1]), -Math.sin(element.rotation[0] + element.rotation[1]));
 
-		gl.glVertex3f(leftBottomX, leftBottomY, leftBottomZ);
-		gl.glVertex3f(leftBottomX, leftBottomY, rightUpZ);
-		gl.glVertex3f(leftBottomX, rightUpY, rightUpZ);
-		gl.glVertex3f(leftBottomX, rightUpY, leftBottomZ);
+		if(element.property == ElementProperties.DRAW) {
+			if(listener.firstGen) {
+				listener.canvas.camera[1] += 0.10f;
+				listener.canvas.camera[2] += 0.10f;
+			}
+			glut.glutSolidCylinder(0.25f, 1f, 10, 10);
+			gl.glTranslatef(0f, 0f, 1f);
+		}
 
-		gl.glVertex3f(rightUpX, leftBottomY, leftBottomZ);
-		gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
-		gl.glVertex3f(rightUpX, rightUpY, rightUpZ);
-		gl.glVertex3f(rightUpX, rightUpY, leftBottomZ);
-
-		gl.glVertex3f(leftBottomX, leftBottomY, rightUpZ);
-		gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
-		gl.glVertex3f(rightUpX, rightUpY, rightUpZ);
-		gl.glVertex3f(leftBottomX, rightUpY, rightUpZ);
-
-		gl.glVertex3f(leftBottomX, leftBottomY, leftBottomZ);
-		gl.glVertex3f(rightUpX, leftBottomY, leftBottomZ);
-		gl.glVertex3f(rightUpX, leftBottomY, rightUpZ);
-		gl.glVertex3f(leftBottomX, leftBottomY, rightUpZ);
-
-		gl.glVertex3f(leftBottomX, rightUpY, leftBottomZ);
-		gl.glVertex3f(rightUpX, rightUpY, leftBottomZ);
-		gl.glVertex3f(rightUpX, rightUpY, rightUpZ);
-		gl.glVertex3f(leftBottomX, rightUpY, rightUpZ);
-		gl.glEnd();
+		for(Element child : element.children) {
+			drawLSystem(listener, gl, glut, child);
+		}
 		gl.glPopMatrix();
 	}
+
 
 	public static void drawDebugInformation(GL2 gl, GLUT glut, AbstractCanvas canvas) {
 		gl.glRasterPos3f(canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1);

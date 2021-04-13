@@ -1,7 +1,6 @@
 package lsystem.screen.gl3d;
 
 import com.jogamp.opengl.glu.GLU;
-import lsystem.screen.AbstractCanvas;
 
 import java.awt.*;
 import java.awt.event.*;

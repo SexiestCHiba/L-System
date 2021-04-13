@@ -1,7 +1,5 @@
 package lsystem.screen.gl3d;
 
-import lsystem.screen.AbstractCanvas;
-
 
 public class GLCanvas extends AbstractCanvas {
 

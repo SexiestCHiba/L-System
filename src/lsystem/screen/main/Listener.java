@@ -2,7 +2,7 @@ package lsystem.screen.main;
 
 import lsystem.Main;
 import lsystem.engine.Parser;
-import lsystem.screen.AbstractCanvas;
+import lsystem.screen.gl3d.AbstractCanvas;
 import lsystem.utils.Pair;
 
 import javax.swing.*;
