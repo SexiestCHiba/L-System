@@ -10,9 +10,6 @@ import java.awt.event.WindowEvent;
 
 
 public class MainFrame extends JFrame {
-
-
-	private static final long serialVersionUID = -7898079642230075807L;
 	private int nbTabs;
 	boolean helpWindow = false;
 	private final JPanel basePanel;
@@ -21,8 +18,10 @@ public class MainFrame extends JFrame {
 	private final JButton help;
 	private final int nbRules;
 
+	/**
+	 * Create a new JFrame on which will be displayed all the GUI elements.
+	 */
 	public MainFrame(){
-
 		nbRules = 1;
     	nbTabs = 0;
     	basePanel = new JPanel();
@@ -45,18 +44,20 @@ public class MainFrame extends JFrame {
         this.add(tabs);
         this.add(toolBar, BorderLayout.NORTH);
         this.setPreferredSize(windowDimension);
-        
-        nbTabs++;
-		new Tab(nbTabs, nbRules, tabs,this);
+        newTab();
 		renameTabs();
     }
-	public JTabbedPane getTab(){
-		return tabs;
-	}
+
+	/**
+	 * Decrease the nbTabs variable by one.
+	 */
 	public void decreaseTab(){
 		nbTabs -=1;
 	}
 
+	/**
+	 * Create and display a new frame (and throws a message if one is already open) which contains a helping text (Uses the Constants class).
+	 */
 	public void newHelp() {
 		if(helpWindow){
 			JOptionPane.showMessageDialog(null, "Une fenêtre d'aide est déjà ouverte.");
@@ -89,15 +90,23 @@ public class MainFrame extends JFrame {
 			});
 		}
 	}
+
+	/**
+	 * Call the Tab class to create a new JPanel that will be added to the tabs variable of this class (JTabbedPane).
+	 */
 	public void newTab() {
 		if(nbTabs>2)
 			JOptionPane.showMessageDialog(null, "Nombre maximal de générations atteintes");
 		else {
 			nbTabs++;
-			new Tab(nbTabs, nbRules, tabs,this);
+			tabs.addTab("Génération" + nbTabs,new Tab(nbTabs,this));
 		}
 
 	}
+
+	/**
+	 * Checks the name of each tab and change it considering their order.
+	 */
 	public void renameTabs(){
 		for(int i =0;i<nbTabs;i++){
 			tabs.setTitleAt(i,("Génération"+(i+1)));

@@ -11,16 +11,20 @@ public class Tab extends JPanel{
     public JSpinner itSpinner;
     JTextField axiomeField,rulesField;
     JTextArea axiomList,rulesList;
-    JButton submitButton3D, close;
+    JButton submitButton3D;
 
-    public Tab(int nbTabs,int nbRules,JTabbedPane tabs,MainFrame frame) {
+    /**
+     * A method which create a new instance of the class JPanel ready to be added to the MainFrame's tabs variable (JTabbedPane).
+     * @param nbTabs -> the number of this tab, useful for the listener.
+     * @param frame -> the MainFrame instance that is useful to access all the components.
+     */
+    public Tab(int nbTabs,MainFrame frame) {
+
         this.nbRules = nbRules;
         this.nbTabs = nbTabs;
 
-        this.add(new JButton("Close"));
-
-        axiomList = textArea("Axiome : \n",nbTabs);
-        rulesList = textArea("Règles : \n",nbTabs+10);
+        axiomList = textArea("Axiome : \n");
+        rulesList = textArea("Règles : \n");
 
         JLabel itLabel  = new JLabel("Nombre d'itérations : ");
         itSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 30, 1));
@@ -28,7 +32,7 @@ public class Tab extends JPanel{
         itSpinner.addMouseWheelListener(new Listener(null,null,"Spinner",this));
 
         JLabel axiome = new JLabel("Axiome :");
-        JLabel rules = new JLabel("Règle "+ nbRules+" :");
+        JLabel rules = new JLabel("Règles  :");
 
         axiomeField = new JTextField();
         axiomeField.addKeyListener(new Listener(null,nbTabs,"Axiome",this));
@@ -40,8 +44,14 @@ public class Tab extends JPanel{
         submitButton3D = new JButton("Générer en 3D");
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(new Listener(null,nbTabs,"Clear",this));
+        clearButton.setBackground(Color.GREEN);
         submitButton3D.addActionListener(new Listener(null,nbTabs,"Generate 3D",this));
-        JPanel southComponents2 = subPanel(clearButton, submitButton3D, null);
+        submitButton3D.setBackground(Color.CYAN);
+        JButton close = new JButton("Close");
+        close.addActionListener(new Listener(frame,null,"Close",null));
+        close.setBackground(Color.RED);
+        JPanel southComponents = subPanel(submitButton3D,close,null);
+        southComponents = subPanel(clearButton, southComponents, null);
 
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -64,13 +74,16 @@ public class Tab extends JPanel{
 
         aboveComponents.setLayout(new GridLayout(1,4));
         this.add(aboveComponents);
-        this.add(southComponents2);
+        this.add(southComponents);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-        tabs.addTab("Génération" + nbTabs,this);
     }
 
-    public JTextArea textArea(String texte, int nb){
+    /**
+     * Create and return a newly created TextArea component.
+     * @param texte -> the text that will be added in the returned component.
+     * @return A JTextArea component.
+     */
+    public JTextArea textArea(String texte){
         JTextArea res = new JTextArea();
         res.setText(texte);
         res.setEditable(false);
@@ -79,6 +92,13 @@ public class Tab extends JPanel{
         return res;
     }
 
+    /**
+     * Fuse two components into a JPanel component organized with given GridBagConstraints.
+     * @param a -> the first component to add in the JPanel.
+     * @param b -> the second component to add in the JPanel.
+     * @param gc -> the GridBagConstraints given to organise the two fused components.
+     * @return A JPanel component.
+     */
     public JPanel subPanel(Component a, Component b,GridBagConstraints gc){
         JPanel res = new JPanel();
         if(gc == null){
@@ -94,31 +114,51 @@ public class Tab extends JPanel{
         return res;
     }
 
+    /**
+     * An accessor to the axiomList and the rulesList
+     * @param i -> a byte which indicates which component to return (axiomList or rulesList).
+     * @return A JTextArea component.
+     */
     public JTextArea getTextArea(byte i){
         return (i == 0) ? axiomList : rulesList;
     }
 
+    /**
+     * An accessor to the axiomField and the rulesField.
+     * @param i -> a byte which indicates which component to return (axiomField or rulesField).
+     * @return A JTextField component.
+     */
     public JTextField getTextField(byte i){
         return (i == 0) ? axiomeField : rulesField;
     }
 
-    public void changeList(String stringToAdd, JTextArea list, int nbAxioms) {
-        if(nbAxioms > 0)
+    /**
+     * Checks if the maximal axioms number has been reach, if not, add the given String into the axiomList or into the rulesList.
+     * @param stringToAdd -> the String to add into the JTextArea.
+     * @param list -> the JTextArea where to add the String (axiomList or rulesList).
+     * @param nb -> the number of Axioms that are already created (maximum 1).
+     */
+    public void changeList(String stringToAdd, JTextArea list, int nb) {
+        if(nb > 0)
             JOptionPane.showMessageDialog(null, "Nombre maximal d'axiomes créés");
         else {
             list.append(stringToAdd);
-            if (stringToAdd.equals(";"))
-                nbAxioms++;
         }
 
     }
 
+    /**
+     * @return A string which contains the axiom entered by the user.
+     */
     public String getAxiom(){
         String str = axiomList.getText();
         str = str.substring(10).replaceAll(";", "");
         return str;
     }
 
+    /**
+     * @return A list of Strings corresponding to the different rules the user has entered.
+     */
     public java.util.List<String> getRules(){
         String str = rulesList.getText();
         str = str.substring(10).replaceAll(";", "");
@@ -126,15 +166,11 @@ public class Tab extends JPanel{
         return Arrays.asList(strsplit);
     }
 
+    /**
+     * @return The number of iterations selected by the user thanks to the JSpinner.
+     */
     public int getNbIterations(){
         return (int) itSpinner.getValue();
     }
 
-    public JButton closeButton(MainFrame frame) {
-        close = new JButton("Close");
-        int size = 17;
-        close.setPreferredSize(new Dimension(size, size));
-        close.addActionListener(new Listener(frame,this.nbTabs,"Close",this));
-        return close;
-    }
 }

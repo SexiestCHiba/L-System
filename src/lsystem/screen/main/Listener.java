@@ -15,7 +15,7 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
     MainFrame frame;
     Integer index;
     String type;
-    Integer nbAxioms = 0;
+    Integer nbAxioms= 0;
     Thread parserThread = null;
     ImageIcon staticIcon = new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getClassLoader().getResource("./resources/loading-gif.gif")));
 
@@ -37,14 +37,16 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
                 }
                 frame.decreaseTab();
                 frame.renameTabs();
-
                 break;
+
             case "Help":
                 frame.newHelp();
                 break;
+
             case "Tab":
                 frame.newTab();
                 break;
+
             case "Clear":
                 tab.getTextArea((byte) 0).setText("Axiome : \n");
                 tab.getTextArea((byte) 1).setText("Règles : \n");
@@ -53,6 +55,7 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
                 Listener kl = (Listener) tab.getTextField((byte) 0).getKeyListeners()[0];
                 kl.resetNbAxioms();
                 break;
+
             case "Generate 3D":
             	String axiom3D = tab.getAxiom();
                 List<String> rules3D = tab.getRules();
@@ -92,7 +95,6 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
                     parserThread.start();
                 }
                 break;
-
         }
 
     }
