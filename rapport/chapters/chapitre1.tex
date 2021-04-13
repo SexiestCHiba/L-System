@@ -1,0 +1,23 @@
+\chapter{Introduction}
+%\placeholderwarning
+\section{Sujet et consiges}
+%\paragraph{(optionnel) Pourquoi ce sujet est intéressant?} 
+Ce projet a pour objectif de réaliser une application appliquant des principes de programmation orientée objet en language de programmation Java. Nous avons eut le choix entre 6 sujets différents et, après études des pro-positions, notre choix s’est finalement porté sur le "Générateurs de floresvidéos-ludiques" et donc la réalisation d’un simulateur de L-système végétalproduisant une image 2D et 3D de l’objet par le biais de règles de réécritures.
+
+\info{Pour cela nous avions quelques consignes a respecter :
+\begin{itemize}
+    \item Intégrer un parser de L-système.
+    \item Créer un moteur de réécriture.
+    \item Créer un moteur de rendu graphique.
+\end{itemize}}
+
+Après lecture des consignes nous avons pu entamer nos recherches.
+
+\section{Mise en place du projet}
+Nos recherches se sont premièrement portées sur le L-Système (principalement sur Wikipedia\footnote{\href[textcolor=blue]{https://en.wikipedia.org/wiki/L-system}{https://en.wikipedia.org/wiki/L-system}}) pour comprendre son fonctionnement nous donnant des informations sur comment construire notre parser et notre moteur de réécriture. Nous nous sommes ensuite renseigné sur les différents moteurs de rendu graphique que nous pouvions utiliser et notre choix c'est finalement porté sur  JOGL (Java Open Graphics Library \footnote{\href[textcolor=blue]{https://jogamp.org/jogl/www/}{https://jogamp.org/jogl/www/}}) qui était conseillé dans la liste des sujets, pouvant gérer un rendu 2D et un rendu 3D.
+\\
+\\
+Suite a ça nous avons réfléchit a la structure de notre code, une première ébauche sur laquelle nous pourrions nous baser pour débuter notre projet ainsi qu'un ordre de priorité, certaines parties étant necessaires pour que d'autres fonctionnent ou puissent être amorcées (comme le parser, les bases du système de réécriture ou encore les différents moteurs de rendu).
+\\
+Puis, pour terminer notre mise en place, nous avons décidé que nous rajouterions une interface ainsi qu'une fenêtre d'aide a notre futur code dans le but de faciliter son utilisation.
+
