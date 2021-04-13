@@ -1,9 +1,7 @@
 package lsystem.screen.main;
 
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class Tab extends JPanel{
@@ -12,8 +10,8 @@ public class Tab extends JPanel{
     int nbRules;
     public JSpinner itSpinner;
     JTextField axiomeField,rulesField;
-    JTextArea axiomList,rulesList;;
-    JButton submitButton2D, submitButton3D, close;
+    JTextArea axiomList,rulesList;
+    JButton submitButton3D, close;
 
     public Tab(int nbTabs,int nbRules,JTabbedPane tabs,MainFrame frame) {
         this.nbRules = nbRules;
@@ -39,15 +37,11 @@ public class Tab extends JPanel{
         rulesField = new JTextField();
         rulesField.addKeyListener(new Listener(null,nbTabs+10,"Règles",this));
         rulesField.setPreferredSize(new Dimension(120,20));
-
-        submitButton2D = new JButton("Générer en 2D");
         submitButton3D = new JButton("Générer en 3D");
         JButton clearButton = new JButton("Clear");
         clearButton.addActionListener(new Listener(null,nbTabs,"Clear",this));
-        submitButton2D.addActionListener(new Listener(null,nbTabs,"Generate 2D",this));
         submitButton3D.addActionListener(new Listener(null,nbTabs,"Generate 3D",this));
-        JPanel southComponents = subPanel(submitButton2D,submitButton3D, null);
-        JPanel southComponents2 = subPanel(clearButton, southComponents, null);
+        JPanel southComponents2 = subPanel(clearButton, submitButton3D, null);
 
         GridBagConstraints gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -71,10 +65,11 @@ public class Tab extends JPanel{
         aboveComponents.setLayout(new GridLayout(1,4));
         this.add(aboveComponents);
         this.add(southComponents2);
-        this.setLayout(new BoxLayout(this,1));
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        tabs.addTab("Génération"+String.valueOf(nbTabs),this);
+        tabs.addTab("Génération" + nbTabs,this);
     }
+
     public JTextArea textArea(String texte, int nb){
         JTextArea res = new JTextArea();
         res.setText(texte);
@@ -83,6 +78,7 @@ public class Tab extends JPanel{
 
         return res;
     }
+
     public JPanel subPanel(Component a, Component b,GridBagConstraints gc){
         JPanel res = new JPanel();
         if(gc == null){
@@ -97,12 +93,15 @@ public class Tab extends JPanel{
         gc.gridy = 0;
         return res;
     }
+
     public JTextArea getTextArea(byte i){
         return (i == 0) ? axiomList : rulesList;
     }
+
     public JTextField getTextField(byte i){
         return (i == 0) ? axiomeField : rulesField;
     }
+
     public void changeList(String stringToAdd, JTextArea list, int nbAxioms) {
         if(nbAxioms > 0)
             JOptionPane.showMessageDialog(null, "Nombre maximal d'axiomes créés");
@@ -113,17 +112,20 @@ public class Tab extends JPanel{
         }
 
     }
+
     public String getAxiom(){
         String str = axiomList.getText();
         str = str.substring(10).replaceAll(";", "");
         return str;
     }
+
     public java.util.List<String> getRules(){
         String str = rulesList.getText();
         str = str.substring(10).replaceAll(";", "");
         String[] strsplit =  str.split("\n");
         return Arrays.asList(strsplit);
     }
+
     public int getNbIterations(){
         return (int) itSpinner.getValue();
     }

@@ -74,6 +74,6 @@ public abstract class AbstractCanvas {
 
     public enum State {
         LOAD,
-        FINISH_OR_NULL;
+        FINISH_OR_NULL
     }
 }

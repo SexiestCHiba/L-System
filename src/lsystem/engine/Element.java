@@ -18,9 +18,5 @@ public class Element {
         this.parent = parent;
         this.rotation = rotation;
     }
-    
-    public int getRotation2D () {
-    	return (int) rotation[0];
-    }
 
 }

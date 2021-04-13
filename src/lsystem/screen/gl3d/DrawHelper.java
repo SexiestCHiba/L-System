@@ -67,6 +67,7 @@ public class DrawHelper {
 	}
 
 
+	@SuppressWarnings("unused")
 	public static void drawDebugInformation(GL2 gl, GLUT glut, AbstractCanvas canvas) {
 		gl.glRasterPos3f(canvas.camera[0], canvas.camera[1], canvas.camera[2] - 1);
 		gl.glColor3f(1f, 1f, 1f);
