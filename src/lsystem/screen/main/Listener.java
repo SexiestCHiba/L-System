@@ -25,7 +25,6 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
         this.frame = frame;
         this.index = index;
         this.type = type;
-        System.getProperty("os.name");
     }
 
     @Override
