@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * check if given axiom and rules are correct and parse {@link Rewrite rewritten} word to an {@link Element} object
+ */
 public class Parser {
 
     private final String axiom;
@@ -37,7 +40,12 @@ public class Parser {
     	 return bl;
     }
 
-    
+    /**
+     *
+     * @param stringToCheck check if the string respect the syntax
+     * @param type to help the program know if the string is an axiom or a rule to check if is correct
+     * @return {@code true} if {@code stringToCheck} respect the syntax, {@code false} otherwise
+     */
     private boolean isCorrect(String stringToCheck, Type type) {
         if(type == Type.RULE && !stringToCheck.contains("="))
             return false;
@@ -91,6 +99,12 @@ public class Parser {
     	return rules;
     }
 
+    /**
+     * convert a rewritten string to an organized L-System stored like a tree as an {@link Element} object
+     * @param word rewritten word
+     * @return the organized L-System object
+     * @throws NumberFormatException if an number has been written incorrectly in {@code word} param
+     */
     public static Element parse(String word) throws NumberFormatException {
         char[] numbers = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '+', '-'};
         Element root = null;
@@ -146,6 +160,13 @@ public class Parser {
         return root;
     }
 
+    /**
+     * Add some pre condition before execute {@link Float#parseFloat(String)} like if {@code number} give a {@code +}
+     * or an empty {@link String}, method will return 0.25° and {@code -} will return 0.25°
+     * @param number the number which will be converted
+     * @return the converted float from {@code number} param
+     * @throws NumberFormatException throw by {@link Float#parseFloat(String)}
+     */
     private static float getFloat(String number) throws NumberFormatException {
         float n;
         if(number.equals("") || number.equals("+"))
