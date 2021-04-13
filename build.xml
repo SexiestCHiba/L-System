@@ -10,7 +10,7 @@
         <pathelement location="${project.bin.dir}"/>
     </path>
     <target name="compile" description="Compilation des classes" depends="init">
-        <javac srcdir="${project.sources.dir}" destdir="${project.bin.dir}" debug="on" optimize="off" deprecation="on" includeantruntime="false">
+        <javac srcdir="${project.sources.dir}" encoding="utf8" destdir="${project.bin.dir}" debug="on" optimize="off" deprecation="on" includeantruntime="false">
             <classpath refid="project.classpath"/>
         </javac>
         <copy todir="${basedir}/${project.bin.dir}/${project.resources.dir}">
@@ -26,6 +26,7 @@
     <target name="run" description="execution" depends="compile">
         <java classname="lsystem.Main" fork="true">
             <jvmarg value="-ea"/>
+            <jvmarg value="-Dfile.encoding=UTF-8"/>
             <jvmarg value="-XX:+UseG1GC"/>
             <jvmarg value="-XX:+ParallelRefProcEnabled"/>
             <classpath refid="project.classpath"/>
