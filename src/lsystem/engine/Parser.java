@@ -162,7 +162,7 @@ public class Parser {
 
     /**
      * Add some pre condition before execute {@link Float#parseFloat(String)} like if {@code number} give a {@code +}
-     * or an empty {@link String}, method will return 0.25° and {@code -} will return 0.25°
+     * or an empty {@link String}, method will return 0.25 degrees and {@code -} will return 25 degrees
      * @param number the number which will be converted
      * @return the converted float from {@code number} param
      * @throws NumberFormatException throw by {@link Float#parseFloat(String)}

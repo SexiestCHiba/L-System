@@ -3,10 +3,9 @@ package lsystem.utils;
 import java.util.Objects;
 
 /**
- * tuple containing 2 unknown type elements
- *
- * @param <U> left
- * @param <K> right
+ * tuple containing 2 generic type elements
+ * @param <U> left side
+ * @param <K> right side
  */
 public class Pair<U, K> {
 
