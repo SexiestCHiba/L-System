@@ -25,6 +25,7 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
         this.frame = frame;
         this.index = index;
         this.type = type;
+        System.getProperty("os.name");
     }
 
     @Override
@@ -149,9 +150,9 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
 
         byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
 
-        if(nbAxioms==0 && ke.getKeyCode() != KeyEvent.VK_BACK_SPACE)
+        if(nbAxioms==0 && ke.getKeyChar() != '\b')
             tab.changeList(String.valueOf(ke.getKeyChar()), tab.getTextArea(i),nbAxioms);
-        if(ke.getKeyCode() == KeyEvent.VK_BACK_SPACE){
+        if(ke.getKeyChar() == '\b'){
             String str = tab.getTextArea(i).getText();
             if(str.length()>10) {
                 if (!(str.endsWith(";\n") || str.endsWith(";"))){

@@ -19,6 +19,8 @@ public class Tab extends JPanel{
         this.nbRules = nbRules;
         this.nbTabs = nbTabs;
 
+        this.add(new JButton("Close"));
+
         axiomList = textArea("Axiome : \n",nbTabs);
         rulesList = textArea("Règles : \n",nbTabs+10);
 
@@ -70,10 +72,6 @@ public class Tab extends JPanel{
         this.add(aboveComponents);
         this.add(southComponents2);
         this.setLayout(new BoxLayout(this,1));
-        this.add(new JButton("Close"));
-
-
-
 
         tabs.addTab("Génération"+String.valueOf(nbTabs),this);
     }
