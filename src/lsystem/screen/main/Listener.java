@@ -151,7 +151,7 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
 
         if(nbAxioms==0 && ke.getKeyCode() != KeyEvent.VK_BACK_SPACE)
             tab.changeList(String.valueOf(ke.getKeyChar()), tab.getTextArea(i),nbAxioms);
-        if(ke.getKeyChar() == '\b'){
+        if(ke.getKeyCode() == KeyEvent.VK_BACK_SPACE){
             String str = tab.getTextArea(i).getText();
             if(str.length()>10) {
                 if (!(str.endsWith(";\n") || str.endsWith(";"))){
