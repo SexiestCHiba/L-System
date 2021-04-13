@@ -1,7 +1,9 @@
 package lsystem.screen.main;
 
 import javax.swing.*;
+import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class Tab extends JPanel{
@@ -16,8 +18,6 @@ public class Tab extends JPanel{
     public Tab(int nbTabs,int nbRules,JTabbedPane tabs,MainFrame frame) {
         this.nbRules = nbRules;
         this.nbTabs = nbTabs;
-
-        JPanel tab = new JPanel();
 
         axiomList = textArea("Axiome : \n",nbTabs);
         rulesList = textArea("Règles : \n",nbTabs+10);
@@ -65,17 +65,17 @@ public class Tab extends JPanel{
         aboveComponents.add(lists);
         aboveComponents.add(Iterations);
 
+
         aboveComponents.setLayout(new GridLayout(1,4));
-        tab.add(aboveComponents);
-        tab.add(southComponents2);
-        tab.setLayout(new BoxLayout(tab,1));
-
-        close = new JButton("Close");
-        close.addActionListener(new Listener(frame,this.nbTabs,"Close",this));
-        tab.add(close);
+        this.add(aboveComponents);
+        this.add(southComponents2);
+        this.setLayout(new BoxLayout(this,1));
+        this.add(new JButton("Close"));
 
 
-        tabs.addTab("Génération"+String.valueOf(nbTabs), tab);
+
+
+        tabs.addTab("Génération"+String.valueOf(nbTabs),this);
     }
     public JTextArea textArea(String texte, int nb){
         JTextArea res = new JTextArea();
@@ -128,5 +128,13 @@ public class Tab extends JPanel{
     }
     public int getNbIterations(){
         return (int) itSpinner.getValue();
+    }
+
+    public JButton closeButton(MainFrame frame) {
+        close = new JButton("Close");
+        int size = 17;
+        close.setPreferredSize(new Dimension(size, size));
+        close.addActionListener(new Listener(frame,this.nbTabs,"Close",this));
+        return close;
     }
 }

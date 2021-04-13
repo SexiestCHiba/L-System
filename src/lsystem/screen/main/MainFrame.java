@@ -21,7 +21,6 @@ public class MainFrame extends JFrame {
 	private final JButton help;
 	private final int nbRules;
 
-
 	public MainFrame(){
 
 		nbRules = 1;

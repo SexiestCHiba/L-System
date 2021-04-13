@@ -33,7 +33,6 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
             case "Close":
                 Component selected = frame.tabs.getSelectedComponent();
                 if (selected != null) {
-
                     frame.tabs.remove(selected);
                 }
                 frame.decreaseTab();
@@ -150,7 +149,7 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
 
         byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
 
-        if(nbAxioms==0 && ke.getKeyChar() !='\b')
+        if(nbAxioms==0 && ke.getKeyCode() != KeyEvent.VK_BACK_SPACE)
             tab.changeList(String.valueOf(ke.getKeyChar()), tab.getTextArea(i),nbAxioms);
         if(ke.getKeyChar() == '\b'){
             String str = tab.getTextArea(i).getText();
