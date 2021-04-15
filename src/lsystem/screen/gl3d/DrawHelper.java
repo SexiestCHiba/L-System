@@ -5,6 +5,9 @@ import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.engine.Element;
 import lsystem.engine.ElementProperties;
 
+/**
+ * static function use when to draw some figures
+ */
 public class DrawHelper {
 
 	public static void placeCamera(GL2 gl, AbstractCanvas canvas) {
@@ -44,6 +47,13 @@ public class DrawHelper {
 		glut.glutBitmapCharacter(GLUT.BITMAP_HELVETICA_18, 'Z'); // draw the z axis
 	}
 
+	/**
+	 * draw the L-System, move the camera and then use recursive call to draw branches of {@code element}
+	 * @param listener use to move the camera depending of the size if the L-System
+	 * @param gl use to move cursor
+	 * @param glut use to draw pre implemented function like {@link GLUT#glutSolidCylinder(double, double, int, int)}
+	 * @param element working branch of the {@link Element LSystem}
+	 */
 	public static void drawLSystem(AbstractListener listener, GL2 gl, GLUT glut, Element element) {
 		gl.glPushMatrix();
 		gl.glRotatef(element.rotation[0]  * 360, 1f, 0f, 0f);
@@ -65,7 +75,6 @@ public class DrawHelper {
 		}
 		gl.glPopMatrix();
 	}
-
 
 	@SuppressWarnings("unused")
 	public static void drawDebugInformation(GL2 gl, GLUT glut, AbstractCanvas canvas) {

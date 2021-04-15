@@ -15,8 +15,8 @@ public class Tab extends JPanel{
 
     /**
      * A method which create a new instance of the class JPanel ready to be added to the MainFrame's tabs variable (JTabbedPane).
-     * @param nbTabs -> the number of this tab, useful for the listener.
-     * @param frame -> the MainFrame instance that is useful to access all the components.
+     * @param nbTabs  the number of this tab, useful for the listener.
+     * @param frame the MainFrame instance that is useful to access all the components.
      */
     public Tab(int nbTabs,MainFrame frame) {
 
@@ -80,7 +80,7 @@ public class Tab extends JPanel{
 
     /**
      * Create and return a newly created TextArea component.
-     * @param texte -> the text that will be added in the returned component.
+     * @param texte the text that will be added in the returned component.
      * @return A JTextArea component.
      */
     public JTextArea textArea(String texte){
@@ -94,9 +94,9 @@ public class Tab extends JPanel{
 
     /**
      * Fuse two components into a JPanel component organized with given GridBagConstraints.
-     * @param a -> the first component to add in the JPanel.
-     * @param b -> the second component to add in the JPanel.
-     * @param gc -> the GridBagConstraints given to organise the two fused components.
+     * @param a the first component to add in the JPanel.
+     * @param b the second component to add in the JPanel.
+     * @param gc the GridBagConstraints given to organise the two fused components.
      * @return A JPanel component.
      */
     public JPanel subPanel(Component a, Component b,GridBagConstraints gc){
@@ -116,7 +116,7 @@ public class Tab extends JPanel{
 
     /**
      * An accessor to the axiomList and the rulesList
-     * @param i -> a byte which indicates which component to return (axiomList or rulesList).
+     * @param i a byte which indicates which component to return (axiomList or rulesList).
      * @return A JTextArea component.
      */
     public JTextArea getTextArea(byte i){
@@ -125,7 +125,7 @@ public class Tab extends JPanel{
 
     /**
      * An accessor to the axiomField and the rulesField.
-     * @param i -> a byte which indicates which component to return (axiomField or rulesField).
+     * @param i a byte which indicates which component to return (axiomField or rulesField).
      * @return A JTextField component.
      */
     public JTextField getTextField(byte i){
@@ -134,9 +134,9 @@ public class Tab extends JPanel{
 
     /**
      * Checks if the maximal axioms number has been reach, if not, add the given String into the axiomList or into the rulesList.
-     * @param stringToAdd -> the String to add into the JTextArea.
-     * @param list -> the JTextArea where to add the String (axiomList or rulesList).
-     * @param nb -> the number of Axioms that are already created (maximum 1).
+     * @param stringToAdd the String to add into the JTextArea.
+     * @param list the JTextArea where to add the String (axiomList or rulesList).
+     * @param nb the number of Axioms that are already created (maximum 1).
      */
     public void changeList(String stringToAdd, JTextArea list, int nb) {
         if(nb > 0)

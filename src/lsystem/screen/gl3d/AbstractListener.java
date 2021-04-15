@@ -7,6 +7,9 @@ import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.gl2.GLUT;
 import lsystem.engine.Element;
 
+/**
+ * use to setup viewport
+ */
 public abstract class AbstractListener implements GLEventListener {
 
     protected final AbstractCanvas canvas;
@@ -21,6 +24,10 @@ public abstract class AbstractListener implements GLEventListener {
         this.glut = canvas.glut;
     }
 
+    /**
+     * init and enable openGL functionalities
+     * @param glAutoDrawable openGL drawable surface
+     */
     @Override
     public void init(GLAutoDrawable glAutoDrawable) {
         GL2 gl = glAutoDrawable.getGL().getGL2();
@@ -44,6 +51,12 @@ public abstract class AbstractListener implements GLEventListener {
     public void dispose(GLAutoDrawable glAutoDrawable) {
     }
 
+    /**
+     * call when window is resized or moved
+     * @param glAutoDrawable openGL drawable surface
+     * @param width window width
+     * @param height window height
+     */
     @Override
     public void reshape(GLAutoDrawable glAutoDrawable, int x, int y, int width, int height) {
         GL2 gl = glAutoDrawable.getGL().getGL2();

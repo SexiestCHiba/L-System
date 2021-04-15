@@ -1,4 +1,4 @@
-package lsystem;
+package lsystem.engine;
 
 public enum Type {
 	

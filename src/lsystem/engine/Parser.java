@@ -1,6 +1,5 @@
 package lsystem.engine;
 
-import lsystem.Type;
 import lsystem.screen.Constants;
 import lsystem.utils.Pair;
 

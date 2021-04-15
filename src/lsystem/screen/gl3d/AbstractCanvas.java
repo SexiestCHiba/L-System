@@ -58,8 +58,12 @@ public abstract class AbstractCanvas {
                 lSystem = null;
                 parsedState = State.FINISH_OR_NULL;
                 // after setting lSystem to null, the object can be large (up to 4gb during our tests) and it's stored
-                // long time in memory
-                // the partial gc only clear the object itself and absolutely not all of its children from memory
+                // long time in memory.
+                // the partial gc only clear the object itself and absolutely not all of its children from memory.
+                // Doing a full garbage collector will pause the program (stop the world) depending of your computer performance
+                // but we use -XX:+ParallelRefProcEnabled launch argument which should decrease time used by gc and use
+                // -XX:+UseG1GC to force jre 1.8 to use G1GC (G1GC is default on jre 11+), if you have jre 15+ you should use
+                // ZGC which is very quick compared to G1GC and have a lower CPU usage
                 System.gc();
             }
         });
@@ -71,8 +75,8 @@ public abstract class AbstractCanvas {
     protected abstract void addEventsListeners();
 
     /**
-     * if {@code bl} is true, we start the animator and then display the window
-     * @param bl
+     *
+     * @param bl if true, we start the animator and then display the window, if false stop the animator and hide the window
      */
     public void setVisible(boolean bl) {
         if(bl)

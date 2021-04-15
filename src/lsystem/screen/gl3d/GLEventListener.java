@@ -5,6 +5,10 @@ import com.jogamp.opengl.GLAutoDrawable;
 import lsystem.engine.Element;
 import lsystem.screen.Constants;
 
+/**
+ * use to draw the 3d scene
+ * @see AbstractListener
+ */
 public class GLEventListener extends AbstractListener {
 
     private final float[] light_0_position = {1000f, 1000f, 1000f, 1f};
@@ -15,6 +19,10 @@ public class GLEventListener extends AbstractListener {
     }
 
 
+    /**
+     * init and enable openGL functionalities
+     * @param glAutoDrawable openGL drawable surface
+     */
     @Override
     public void init(GLAutoDrawable glAutoDrawable) {
         GL2 gl = glAutoDrawable.getGL().getGL2();
@@ -39,6 +47,10 @@ public class GLEventListener extends AbstractListener {
         firstGen = true;
     }
 
+    /**
+     * call at each frame (without pause if fps are lower than you screen refresh rate)
+     * @param glAutoDrawable openGL drawable surface
+     */
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         for (int i = 0; i < canvas.camera.length; i++) {
@@ -62,11 +74,21 @@ public class GLEventListener extends AbstractListener {
         gl.glFlush();
         fps++;
     }
+
+
     @Override
     public void drawLSystem(GL2 gl, Element element) {
         DrawHelper.drawLSystem(this, gl, glut, element);
     }
 
+
+    /**
+     * call when window is resized or moved
+     * @see AbstractListener#reshape(GLAutoDrawable, int, int, int, int)
+     * @param glAutoDrawable openGL drawable surface
+     * @param width window width
+     * @param height window height
+     */
     @Override
     public void reshape(GLAutoDrawable glAutoDrawable, int x, int y, int width, int height) {
         super.reshape(glAutoDrawable, x, y, width, height);

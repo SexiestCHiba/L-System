@@ -48,6 +48,11 @@ public class GLMouseListener implements MouseListener, MouseMotionListener, Mous
     public void mouseExited(MouseEvent e) {
     }
 
+    /**
+     * use to move camera rotation without move
+     * @see #mouseDragged(MouseEvent)
+     * @see #mouseReleased(MouseEvent)
+     */
     @Override
     public void mouseDragged(MouseEvent e) {
         if(origine != null) {
@@ -65,6 +70,9 @@ public class GLMouseListener implements MouseListener, MouseMotionListener, Mous
     public void mouseMoved(MouseEvent e) {
     }
 
+    /**
+     * use to move forward or backward
+     */
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) {
         canvas.camera[2] += Math.cos(Math.toRadians(canvas.camera[4]))*MULTIPLIER* e.getWheelRotation()*Math.cos(Math.toRadians(Math.abs(360-canvas.camera[3])));

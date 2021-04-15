@@ -33,12 +33,12 @@
         </java>
     </target>
     <target name="javadoc">
-        <javadoc2 sourcepath="src" destdir="doc" access="private">
+        <javadoc sourcepath="src" destdir="doc" access="private" encoding="utf8" overview="overview.html" >
             <fileset dir="src" defaultexcludes="yes">
                 <include name="**"/>
             </fileset>
 	    <classpath refid="project.classpath"/>
-        </javadoc2>
+        </javadoc>
     </target>
     <target name="packaging" depends="compile">
         <mkdir dir="${project.bin.dir}/META-INF" />

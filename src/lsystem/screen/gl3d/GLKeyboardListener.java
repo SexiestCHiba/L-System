@@ -13,6 +13,9 @@ public class GLKeyboardListener implements KeyListener {
         this.canvas = swingGLCanvas;
     }
 
+    /**
+     * use to move camera depending of key used
+     */
     @Override
     public void keyTyped(KeyEvent e) {
 

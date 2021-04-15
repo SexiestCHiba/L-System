@@ -16,10 +16,12 @@ public class Element {
      */
     public final ElementProperties property;
     public final Element parent;
+
     /**
      * Rotation applied to this element, 3-dim tab which represent yaw, pitch and roll rotation
      */
     public final float[] rotation;
+
     /**
      * Branches of the tree
      */
