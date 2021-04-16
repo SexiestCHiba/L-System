@@ -3,7 +3,7 @@
 \section{Manuel d'utilisation}
 
 \subsection{Préambule}
-Notre application a été développé et pensé pour les versions de java supérieurs ou égales à la version 8u281.
+Notre application a été développée et pensée pour les versions de java supérieures ou égales à la version 8u281.
 L'application fonctionne sur Linux avec une interface tournant sur les moteurs graphiques Xorg et Wayland et sur Windows 10.
 
 Les archives jar de Jogl doivent se trouver dans le dossier lib selon le modèle ci-dessous (image)
@@ -16,29 +16,16 @@ Blablabla commande ant run blablabla
 
 \subsection{Utilisation de l'interface utilisateur}
 
-comment utiliser les menus
+\paragraph{Une fois l'application lancée,} une fenêtre s'affiche \ref{mainframe}. Elle contient une barre de naivaguation grâce à laquelle vous pouvez ouvrir soit une nouvelle génération, soit une fenêtre d'aide, ainsi qu'un onglet de génération.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.5]{pics/MainFrameGUI.PNG}
+    \caption{Fenêtre principale}
+    \label{mainframe}
+\end{figure}
+Il ne vous reste ensuite plus qu'à renseinger votre axiome, ainsi que vos règles et de cniquer sur le bouton \button{Générer en 3D}. Le bouton \button{Close} permet de fermer l'onglet de génération et le bouton \button{Clear} de supprimer votre axiome et vos règles précedemment écrites. Grâce au compteur à droite, vous êtes en mesure de définir le nombre d'itérations de votre génération.
 
-\subsection{Navigation dans l'interface graphique en 3D}
-
-\chapter{Experimentations et Usages}
-
-\section{Manuel d'utilisation}
-
-\subsection{Préambule}
-Notre application a été développé et pensé pour les versions de java supérieurs ou égales à la version 8u281.
-L'application fonctionne sur Linux avec une interface tournant sur les moteurs graphiques Xorg et Wayland et sur Windows 10.
-
-Les archives jar de Jogl doivent se trouver dans le dossier lib selon le modèle ci-dessous (image)
-
-\info{Nous ne pouvons pas vous garantir si l'application fonctionne sur Mac OS X, aucun des membres de notre n'en possède un.}
-
-\subsection{Lancement de l'application}
-
-Blablabla commande ant run blablabla
-
-\subsection{Utilisation de l'interface utilisateur}
-
-comment utiliser les menus
+\info{Vous pouvez ouvrir de nouveaux onglets de génération grâce au bouton \button{Nouvelle génération} mais sachez qu'un maximum de trois fenêtres est accepté}
 
 \subsection{Navigation dans l'interface graphique en 3D}
 
@@ -46,17 +33,17 @@ Pour naviguer dans l'espace 3D, vous pouvez utiliser votre clavier ainsi que vot
 
 \paragraph{Liste des commandes au clavier : }
 \begin{itemize}
-    \item \textbf{Z} $\xrightarrow{}$ Avancer
-    \item \textbf{S} $\xrightarrow{}$ Reculer
-    \item \textbf{Q} $\xrightarrow{}$ Aller à gauche
-    \item \textbf{D} $\xrightarrow{}$ Aller à droite
-    \item \textbf{A} $\xrightarrow{}$ Tourner la caméra à gauche
-    \item \textbf{E} $\xrightarrow{}$ Tourner la caméra à droite
-    \item \textbf{W} $\xrightarrow{}$ Prendre de la hauteur
-    \item \textbf{X} $\xrightarrow{}$ Perde de la hauteur
-    \end{itemize}
+    \item \textbf{Z} $\xrightarrow{} Avancer$
+    \item \textbf{S} $\xrightarrow{} Reculer$
+    \item \textbf{Q} $\xrightarrow{} Aller \ à \ gauche$
+    \item \textbf{D} $\xrightarrow{} Aller \ à \ droite$
+    \item \textbf{A} $\xrightarrow{} Tourner \ la \ caméra \ à \ gauche$
+    \item \textbf{E} $\xrightarrow{} Tourner \ la \ caméra \ à \ droite$
+    \item \textbf{W} $\xrightarrow{} Prendre \ de \ la \ hauteur$
+    \item \textbf{X} $\xrightarrow{} Perde \ de \ la \ hauteur$
+\end{itemize}
 \paragraph{Liste des commandes à la souris :}
-    \begin{itemize}
+\begin{itemize}
     \item \textbf{Mollette Avant} $\xrightarrow{}$ Zommer
     \item \textbf{Mollette Arrière} $\xrightarrow{}$ Dézoomer
     \item \textbf{Clic Droit} $\xrightarrow{}$ Maintenir puis bouger la souris pour changer l'orientation de la caméra
@@ -66,21 +53,6 @@ Pour naviguer dans l'espace 3D, vous pouvez utiliser votre clavier ainsi que vot
 \problem{Vous ne pouvez pas utiliser 2 touches ou plus en même temps pour naviguer par exemple Z et D pour aller la direction nord-est  est impossible, tourner votre caméra dans la direction où vous voulez aller puis appuyer sur Z.}
 
 Fermez la fenetre 3D pour pouvoir générer un nouveau L-Systeme sans avoir à rouvrir l'application
-
-\section{Tests de notre logiciel}
-
-\subsection{exemple test 1}
-
-\subsection{exemple test 2}
-
-\subsection{Possibles problèmes}
-
-StackOverflowError quand on met trop d'itérations
-
-\section{Mesure de performance}
-\problem{Vous ne pouvez pas utiliser 2 touches ou plus en même temps pour naviguer par exemple Z et D pour aller la direction nord-est  est impossible, tourner votre caméra dans la direction que vous voulez aller pour appuyer sur Z.}
-
-Fermer la fenetre 3D pour pouvoir générer un nouveau L-Systeme sans avoir à rouvrir l'application
 
 \section{Tests de notre logiciel}
 
