@@ -3,4 +3,17 @@
 \section{Moteur de réécriture}
 \section{Moteur graphique}\label{src:interface3d}
 \section{Interface principale}\label{sec:menu}
+\subsection{Composition de l'interface}
+\paragraph{L'interface}
+ utilisateur de notre logiciel à été conçue grâce à la bibliothèqye \textit{Swing} de Java. Elle se compose de trois classes, une contenant la fenêtre principale \textbf{(MainFrame)}, un autre permettant de créer des onglets \textbf{(Tab)} et une troisième classe gérant les événements \textbf{(Listener)}.
+\subsection{Classes de l'interface}
+\subsubsection{MainFrame}
+\paragraph{La classe MainFrame} est une classe héritant de la classe JFrame de Swing. Elle permet de créer une fenêtre de base, de taille prédéfinie dans laquelle peuvent être placés des composants graphiques. Elle comprend aussi un bouton de fermeture qui, une fois cliqué, permet l'arrêt du programme.\\
+Elle comporte ainsi une instance de la classe JTabbedPane \label{jtpane}, un conteneur graphique donc le but est de disposer ses composants sous la forme d'onglets.
+
+\subsubsection{Tab}
+\paragraph{La classe Tab } est une classe héritant de la classe JPanel de Swing. JPanel est un composant de base dans lequel il est possible d'ajouter d'autres composants graphiques. Les intances de Tab crées sont ensuites ajoutées par la classe MainFrame à son composant de la classe JTabbedPane \ref{jtpane}.
+
+\subsubsection{Listener}
+\paragraph{La classe Listener} est une classe implémentant certaines classes Listener de Swing \textbf{(ActionListener, KeyListener et MouseWheelListener)}. Elle permet de capter toutes les actions effectuées par l'utilisateur et d'appeler les méthodes correspondantes des classes de l'interface. Elle permet ainsi de créer de nouveaux onglets \textbf{(Nouvelles instances de Tab)} mais aussi d'en fermer ou bien encore de lancer la génération du modèle.
 \section{Pair ou un tuple a 2 entrées en java}
