@@ -31,64 +31,64 @@
 \newcommand{\button}[1]{\textit{\fbox{#1}}}
 \newcommand{\classe}[1]{\textit{\textbf{#1}}}
 \newmdenv[
-	rightline=false,
-	topline=false,
-	bottomline=false,
-	backgroundcolor=BurntOrange!5,
-	fontcolor=BrickRed,
-	linecolor=Red,
-	linewidth=1pt]{problemenv}
-
+rightline=false,
+topline=false,
+bottomline=false,
+backgroundcolor=BurntOrange!5,
+fontcolor=BrickRed,
+linecolor=Red,
+linewidth=1pt]{problemenv}
+ 
 \newcommand{\problem}[1]{
-	\begin{problemenv}
-		\sffamily
-		#1
-	\end{problemenv}
+\begin{problemenv}
+\sffamily
+#1
+\end{problemenv}
 }
 
 \newmdenv[
-	rightline=false,
-	topline=false,
-	bottomline=false,
-	backgroundcolor=ForestGreen!5,
-	fontcolor=OliveGreen,
-	linecolor=Green,
-	linewidth=1pt]{resultenv}
+rightline=false,
+topline=false,
+bottomline=false,
+backgroundcolor=ForestGreen!5,
+fontcolor=OliveGreen,
+linecolor=Green,
+linewidth=1pt]{resultenv}
 
 \newcommand{\result}[1]{
-	\begin{resultenv}
-		\sffamily
-		#1
-	\end{resultenv}
+\begin{resultenv}
+\sffamily
+#1
+\end{resultenv}
 }
 
 \newmdenv[
-	rightline=false,
-	topline=false,
-	bottomline=false,
-	backgroundcolor=Cyan!5,
-	fontcolor=Blue,
-	linecolor=NavyBlue,
-	linewidth=1pt]{infoenv}
+rightline=false,
+topline=false,
+bottomline=false,
+backgroundcolor=Cyan!5,
+fontcolor=Blue,
+linecolor=NavyBlue,
+linewidth=1pt]{infoenv}
 
 \newcommand{\info}[1]{
-	\begin{infoenv}
-		\sffamily
-		#1
-	\end{infoenv}
+\begin{infoenv}
+\sffamily
+#1
+\end{infoenv}
 }
 
 \newcommand{\img}[1]{
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.8\textwidth]{#1}
-	\end{figure}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{#1}	
+\end{figure}
 }
 
 \newcommand{\imgwlegend}[2]{
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{#1}
+		\includegraphics[width=0.8\textwidth]{#1}	
 		\caption{#2}
 	\end{figure}
 }
@@ -102,7 +102,7 @@
 \renewenvironment{abstract}[1]
 {\bigskip\selectlanguage{#1}%
 	\begin{center}\bfseries\abstractname\end{center}}
-	{\par\bigskip}
+{\par\bigskip}
 
 % Gestion des keywords
 
@@ -119,7 +119,7 @@
 \titlehead{
 	\includegraphics[width=0.25\textwidth]{pics/LOGO-UNICAEN_V-2.1-N.png}
 	\hfill
-%\includegraphics[width=0.25\textwidth]{pics/}
+	%\includegraphics[width=0.25\textwidth]{pics/}
 }
 \subject{
 	\small
@@ -147,28 +147,28 @@
 	\small
 	\hfill\\
 	Antonin \bsc{Boyon}\\
-	Thomas \bsc{Lalong}\\
-	Quentin \bsc{Legot}\\
-	Arthur \bsc{Page}
+    Thomas \bsc{Lalong}\\ 
+    Quentin \bsc{Legot}\\
+    Arthur \bsc{Page}
 }
 \date{}
 
 \newcommand{\placeholderwarning}{
-	\problem{CECI EST UN PLACEHOLDER. À REMPLACER AVEC LES DONNÉES INDIQUÉES.}
+\problem{CECI EST UN PLACEHOLDER. À REMPLACER AVEC LES DONNÉES INDIQUÉES.}
 }
 
 \makeglossary
 %redaction guide -> https://docs.google.com/document/d/1YfxGWD0GbRxs-OLxRxoA8Sg8OuVYTSKK8HX1ScFYlFA
 \begin{document}
 
-
+	
 	\maketitle
 	\pagenumbering{Roman}
-
+	
 	\tableofcontents
 	\listoffigures
 	\clearpage
-
+	
 	%\begin{abstractpage}
 	%	\begin{abstract}{french}
 	%		\lipsum[1]
@@ -181,16 +181,16 @@
 	%	%\keywords{test lol boup incroyable rassuré}
 	%\end{abstractpage}
 
-
-
-
+	
+	
+	
 	\pagenumbering{arabic}
-	\info{Placeholder info}
-	\problem{Placeholder problem}
-	\result{Placeholder result}
-
-	\input{chapters/chapitre1.tex}
-
+    \info{Placeholder info}
+    \problem{Placeholder problem}
+    \result{Placeholder result}
+    
+    \input{chapters/chapitre1.tex}
+    
 	\input{chapters/chapitre2.tex}
 	\input{chapters/chapitre3.tex}
 	\input{chapters/chapitre4.tex}
@@ -200,18 +200,18 @@
 	%\input{chapters/conclusion.tex}
 	\cleardoublepage
 	\pagebreak
-
+	
 	\pagenumbering{roman}
 	\chapter{Annexes}
-	\section{Remerciement}
-	Triss Jacquiot pour le modèle de rapport bien plus beau que l'original
-	\addcontentsline{toc}{section}{6.2\quad{}Bibliographie}
-	\begin{thebibliography}{}
-		\bibitem{ano05}
-		A. Nonymous et al.\ 2005
-		\bibitem{oe04}
-		A.N. Other \& S.O.M. Ebody 2004
-	\end{thebibliography}
-
-
+        \section{Remerciement}
+		    Triss Jacquiot pour le modèle de rapport bien plus beau que l'original
+		\addcontentsline{toc}{section}{6.2\quad{}Bibliographie}
+		    \begin{thebibliography}{}
+		    \bibitem{ano05}
+                A. Nonymous et al.\ 2005
+            \bibitem{oe04}
+                A.N. Other \& S.O.M. Ebody 2004
+		    \end{thebibliography}
+	
+	
 \end{document}
