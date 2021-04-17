@@ -4,6 +4,15 @@
 
 \section{Moteur de réécriture}
 
+Le moteur de réécriture est chargé d'appliquer les règles de réécritures itérativement à partir de l'axiome pour obtenir le mot final.
+Nous avons d'un coté l'axiome qui est le mot de départ et une liste de règle qui contient 2 données: le mot a remplacer et son remplaçant.
+Le mot est réécrit le mot en 2 temps:\\
+\begin{itemize}
+    \item On change toutes les occurrences du mot à remplacer par \$\{identifiant de la règle\}
+    \item On remplace toutes les occurrences de \$\{identifiant de la règle\} apr la règle associé
+\end{itemize}
+On répète cette opération n fois, pour obtenir le mot final.
+
 \section{Moteur graphique}\label{src:interface3d}
 
 \section{Interface principale}\label{sec:menu}
