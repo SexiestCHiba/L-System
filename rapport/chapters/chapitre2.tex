@@ -3,14 +3,28 @@
 \section{Principe et fonctionnement}
 
 \subsection{Qu'est-ce que le le L-Système ?}
-Le L-système \footnote{Le système de Lindebmayer}, inventé en 1968 par un biologiste hongrois du nom de Aristid Lindenmayer, est un système de réécriture \footnote{Modèle de calcul transformant des objets syntaxiques comme des mots, des termes ou encore des graphes en appliquant des règles données.} utilisé pour la modélisation de processus de developpement et de prolifération de bactéries ou de plantes.
+Le L-Système \footnote{Le système de Lindebmayer}, inventé en 1968 par un biologiste hongrois du nom de Aristid Lindenmayer, est un système de réécriture \footnote{Modèle de calcul transformant des objets syntaxiques comme des mots, des termes ou encore des graphes en appliquant des règles données.} utilisé pour la modélisation de processus de developpement et de prolifération de bactéries ou de plantes.
 
 \subsection{Comment fonctionne-t-il ?}
 Ce système de réécriture fonctionne par le biais de plusieurs spécificités :
 \begin{itemize}
-    \item Un alphabet : celui-ci représente l'ensemble des variables utilisées pour former des mots dans le L-système.
-    \item Un axiom : il représente le point de départ, l'état initial du système de réécriture.
-    \item Des règles : 
+    \item Un alphabet : celui-ci est l'ensemble des variables et des constantes utilisées.
+    \item Un axiome : il représente le point de départ, l'état initial du système.
+    \item Des règles de réécriture : elles définissent les règles de développement du L-Système en utilisant l'alphabet donné dans le but de créer un mot.
 \end{itemize}
+En additionnant tout ces aspects, nous obtenons alors notre L-Système, commençant par l'axiome étant la base, puis, créant au fur et a mesure un mot grâce aux règles données (Dans la limite du nombre d'itérations imposés \footnote{Le nombre d'itérations ou nombre de générations correspond au nombre de réécriture de l'axiome pour obtenir le mot final} ), tout ceci étant possible grâce a l'alphabet qui les composes.
+Ce mot passera ensuite par un moteur graphique dans le but d'être modélisé.
 
-\section{}
+\section{Notre L-Système}
+
+\subsection{Alphabet}
+Notre alphabet est composés de plusieurs constantes :
+\begin{itemize}[label=\textbullet]
+    \item Peut
+    \item Etre
+    \item Faire
+    \item Une liste
+\end{itemize}
+\subsection{Axiome, règles de réécritures et nombre d'itérations}
+Pour l'axiome, les règles de réécritures et le nombre d'itérations, ils seront définis par l'utilisateur dans les zones de textes de l'interface prévus a cet effet. 
+Un bouton "Aide" est présent sur cette même interface aidant a comprendre et mettre en place le L-Système.
