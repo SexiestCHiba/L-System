@@ -40,8 +40,8 @@ public class Constants {
 			+ "\r\n"
 			+ "Les expressions sont de la forme {X = 2X0.2YZ}\r\n"
 			+ "\r\n"
-			+ "On pourra changer de direction avec l'alphabet{x,y,z}\r\n"
-			+ "x y et z font par défault une rotation de 45° autour de leur axe.\r\n"
+			+ "On pourra changer de direction avec l'alphabet{x,y}\r\n"
+			+ "x et y font par défault une rotation de 45° autour de leur axe.\r\n"
 			+ "Exemple:\r\n"
 			+ "	x = 45°\r\n"
 			+ "	2x = 90°\r\n"
@@ -50,14 +50,12 @@ public class Constants {
 			+ "\r\n"
 			+ "	X = X2y0.2Z0.2x\r\n"
 			+ "\r\n"
-			+ "On pourra ajouter plus tard ce qui suit :\r\n"
-			+ "\r\n"
-			+ "On peut ajouter le principe d'ouverture et de fermeture des branches aux expressions,\r\n"
-			+ "on utilisera donc pour ce faire les \"[ ]\".\r\n"
+			+ "On ajoute le principe d'ouverture et de fermeture des branches aux expressions,\r\n"
+			+ "on utilise donc pour ce faire les \"[ ]\".\r\n"
 			+ "\r\n"
 			+ "Ainsi, dans l'expression:	{X = [X]+Y}\r\n"
 			+ "\r\n"
-			+ "On exécutera d'abord l'instruction entre crochets, puis, une fois son nombre maximum d'itérations\r\n"
+			+ "On exécute d'abord l'instruction entre crochets, puis, une fois son nombre maximum d'itérations\r\n"
 			+ "atteint, on ajoutera un mouvement Y.";
 }
 
