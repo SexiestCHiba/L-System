@@ -5,21 +5,30 @@ import lsystem.engine.Parser;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 import java.util.List;
 
 public class Listener extends AbstractListener implements KeyListener, MouseWheelListener {
     Tab tab;
+    Example ex;
     MainFrame frame;
-    Integer index;
     Integer nbAxioms= 0;
 
-
-    public Listener(MainFrame frame, Integer index, String type, Tab tab){
+    public Listener(String type, MainFrame frame,Tab tab){
         super(type);
-        this.tab = tab;
         this.frame = frame;
-        this.index = index;
+        this.tab = tab;
     }
+    public Listener(String type, MainFrame frame, Example ex){
+        super(type);
+        this.frame = frame;
+        this.ex = ex;
+    }
+    public Listener(String type, MainFrame frame){
+        super(type);
+        this.frame = frame;
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -29,7 +38,7 @@ public class Listener extends AbstractListener implements KeyListener, MouseWhee
                 if (selected != null) {
                     frame.tabs.remove(selected);
                 }
-                frame.decreaseTab();
+                frame.nbTabs-=1;
                 frame.renameTabs();
                 break;
 
@@ -38,11 +47,23 @@ public class Listener extends AbstractListener implements KeyListener, MouseWhee
                 break;
 
             case "Tab":
-                frame.newTab();
+                frame.newComponent((byte) 1);
                 break;
-            case "example":
-                frame.newExample();
+
+            case "Example1":
+                Parser parser = new Parser("Y", Arrays.asList("Y=X+[[Y]-Y]-X[-XY]+Y", "X=XX"), 5);
+                frame.generateLSystem(this, parser, ex.exemple1);
                 break;
+
+            case "Example2":
+                Parser parser1 = new Parser("X", Arrays.asList("X=XY", "Y=X"), 5);
+                frame.generateLSystem(this, parser1 , ex.exemple2);
+                break;
+
+            case "Example":
+                frame.newComponent((byte)0);
+                break;
+
             case "Clear":
                 tab.getTextArea((byte) 0).setText("Axiome : \n");
                 tab.getTextArea((byte) 1).setText("Règles : \n");
@@ -65,7 +86,7 @@ public class Listener extends AbstractListener implements KeyListener, MouseWhee
     @Override
     public void openDialog(String message) {
         JOptionPane.showMessageDialog(null, message);
-        new Listener(null, index, "Clear", tab);
+        new Listener("Clear",null, tab);
     }
 
     @Override

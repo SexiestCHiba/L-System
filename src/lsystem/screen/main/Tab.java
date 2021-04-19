@@ -23,26 +23,26 @@ public class Tab extends JPanel{
         JLabel itLabel  = new JLabel("Nombre d'itérations : ");
         itSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 30, 1));
         ((JSpinner.DefaultEditor) itSpinner.getEditor()).getTextField().setEditable(false);
-        itSpinner.addMouseWheelListener(new Listener(null,null,"Spinner",this));
+        itSpinner.addMouseWheelListener(new Listener("Spinner",null,this));
 
         JLabel axiome = new JLabel("Axiome :");
         JLabel rules = new JLabel("Règles  :");
 
         axiomeField = new JTextField();
-        axiomeField.addKeyListener(new Listener(null,frame.nbTabs,"Axiome",this));
+        axiomeField.addKeyListener(new Listener("Axiome",null,this));
         axiomeField.setPreferredSize(new Dimension(120,20));
 
         rulesField = new JTextField();
-        rulesField.addKeyListener(new Listener(null,frame.nbTabs + 10,"Règles",this));
+        rulesField.addKeyListener(new Listener("Règles",null,this));
         rulesField.setPreferredSize(new Dimension(120,20));
         submitButton = new JButton("Générer en 3D");
         JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(new Listener(null,frame.nbTabs,"Clear",this));
+        clearButton.addActionListener(new Listener("Clear",null,this));
         clearButton.setBackground(Color.GREEN);
-        submitButton.addActionListener(new Listener(frame, frame.nbTabs,"Generate 3D",this));
+        submitButton.addActionListener(new Listener("Generate 3D",frame,this));
         submitButton.setBackground(Color.CYAN);
         JButton close = new JButton("Close");
-        close.addActionListener(new Listener(frame,null,"Close",null));
+        close.addActionListener(new Listener("Close",frame));
         close.setBackground(Color.RED);
         JPanel southComponents = subPanel(submitButton,close,null);
         southComponents = subPanel(clearButton, southComponents, null);

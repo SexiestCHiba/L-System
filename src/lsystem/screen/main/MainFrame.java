@@ -38,13 +38,13 @@ public class MainFrame extends JFrame {
 
     	JToolBar toolBar = new JToolBar();
         newGen = new JButton("Nouvelle génération");
-        newGen.addActionListener(new Listener(this,null,"Tab",null));
+        newGen.addActionListener(new Listener("Tab",this));
         toolBar.add(newGen);
         example = new JButton("Exemples");
-        example.addActionListener(new Listener(this, null, "example", null));
+        example.addActionListener(new Listener("Example", this));
         toolBar.add(example);
         help = new JButton("Aide");
-        help.addActionListener(new Listener(this,null,"Help",null));
+        help.addActionListener(new Listener("Help",this));
         toolBar.add(help);
 
         this.setTitle("L-system interface");
@@ -55,16 +55,11 @@ public class MainFrame extends JFrame {
         this.add(tabs);
         this.add(toolBar, BorderLayout.NORTH);
         this.setPreferredSize(windowDimension);
-        newTab();
+        newComponent((byte)1);
 		renameTabs();
+		this.setResizable(false);
     }
 
-	/**
-	 * Decrease the nbTabs variable by one.
-	 */
-	public void decreaseTab(){
-		nbTabs -=1;
-	}
 
 	/**
 	 * Create and display a new frame (and throws a message if one is already open) which contains a helping text (Uses the Constants class).
@@ -102,36 +97,36 @@ public class MainFrame extends JFrame {
 		}
 	}
 
-	/**
-	 * Call the Tab class to create a new JPanel that will be added to the tabs variable of this class (JTabbedPane).
-	 */
-	public void newTab() {
-		if(nbTabs>2)
-			JOptionPane.showMessageDialog(null, "Nombre maximal d'onglets atteintes");
-		else {
-			nbTabs++;
-			tabs.addTab("Génération" + nbTabs,new Tab(this));
-		}
-
-	}
 
 	/**
 	 * Checks the name of each tab and change it considering their order.
 	 */
 	public void renameTabs(){
 		for(int i =0;i<nbTabs;i++){
-			tabs.setTitleAt(i,("Génération"+(i+1)));
+			if(!tabs.getTitleAt(i).equals("Exemples"))
+				tabs.setTitleAt(i,("Génération"+(i+1)));
+		}
+	}
+	/**
+	 * Call the Tab or the Exemple class to create a new JPanel that will be added to the tabs variable of this class (JTabbedPane).
+	 */
+
+	public void newComponent(byte i ){
+		if(nbTabs > 2)
+			JOptionPane.showMessageDialog(null, "Nombre maximal d'onglets atteint");
+		else {
+			nbTabs++;
+			switch(i){
+				case 1:
+					tabs.addTab("Génération" + nbTabs,new Tab(this));
+					break;
+				case 0:
+					tabs.addTab("Exemples" ,new Example(this));
+					break;
+			}
 		}
 	}
 
-    public void newExample() {
-	    if(nbTabs > 2)
-            JOptionPane.showMessageDialog(null, "Nombre maximal d'onglets atteintes");
-        else {
-            nbTabs++;
-            tabs.addTab("Exemples", new Example(this));
-        }
-    }
 
     public void generateLSystem(AbstractListener listener, Parser parser, JButton submitButton) {
         if(Main.joglFrame.frame.isVisible()) {
