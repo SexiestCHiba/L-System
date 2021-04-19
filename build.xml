@@ -13,7 +13,7 @@
         <javac srcdir="${project.sources.dir}" encoding="utf8" destdir="${project.bin.dir}" debug="on" optimize="off" deprecation="on" includeantruntime="false">
             <classpath refid="project.classpath"/>
         </javac>
-        <copy todir="${basedir}/${project.bin.dir}/${project.resources.dir}">
+        <copy todir="${basedir}/${project.bin.dir}">
             <fileset dir="${basedir}/${project.resources.dir}">
                 <exclude name="**/*.java"/>
             </fileset>
