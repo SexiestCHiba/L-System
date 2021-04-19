@@ -23,8 +23,8 @@ public class Tab extends JPanel{
         this.nbRules = nbRules;
         this.nbTabs = nbTabs;
 
-        axiomList = textArea("Axiome : \n");
-        rulesList = textArea("Règles : \n");
+        axiomList = textArea("Axiome :");
+        rulesList = textArea("Règles :");
 
         JLabel itLabel  = new JLabel("Nombre d'itérations : ");
         itSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 30, 1));
@@ -132,20 +132,7 @@ public class Tab extends JPanel{
         return (i == 0) ? axiomeField : rulesField;
     }
 
-    /**
-     * Checks if the maximal axioms number has been reach, if not, add the given String into the axiomList or into the rulesList.
-     * @param stringToAdd the String to add into the JTextArea.
-     * @param list the JTextArea where to add the String (axiomList or rulesList).
-     * @param nb the number of Axioms that are already created (maximum 1).
-     */
-    public void changeList(String stringToAdd, JTextArea list, int nb) {
-        if(nb > 0)
-            JOptionPane.showMessageDialog(null, "Nombre maximal d'axiomes créés");
-        else {
-            list.append(stringToAdd);
-        }
 
-    }
 
     /**
      * @return A string which contains the axiom entered by the user.

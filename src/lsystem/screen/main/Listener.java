@@ -107,32 +107,23 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
     @Override
     public void keyTyped(KeyEvent ke) {
 
-        byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
 
-        if(nbAxioms==0 && ke.getKeyChar() != '\b')
-            tab.changeList(String.valueOf(ke.getKeyChar()), tab.getTextArea(i),nbAxioms);
-        if(ke.getKeyChar() == '\b'){
-            String str = tab.getTextArea(i).getText();
-            if(str.length()>10) {
-                if (!(str.endsWith(";\n") || str.endsWith(";"))){
-                    str = str.substring(10, str.length() - 1);
-                    tab.getTextArea(i).setText(type + " : \n" + str);
-                }
-            }
-        }
     }
 
     @Override
     public void keyPressed(KeyEvent ke) {
 
-        byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
-
         if(ke.getKeyCode() == KeyEvent.VK_ENTER) {
+            byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
+            String text = tab.getTextField(i).getText();
+            text = ((text.charAt(text.length()-1)==';') ? "\n"+text : "\n"+text+";");
             tab.getTextField(i).setText(null);
-            String str = ";";
-            tab.changeList(str, tab.getTextArea(i),nbAxioms);
-            if(i == 0)
+            if(nbAxioms > 0 && i == 0)
+                JOptionPane.showMessageDialog(null, "Nombre maximal d'axiomes créés");
+            else {
+                tab.getTextArea(i).append(text);
                 nbAxioms ++;
+            }
         }
     }
 
