@@ -65,8 +65,8 @@ public class Listener extends AbstractListener implements KeyListener, MouseWhee
                 break;
 
             case "Clear":
-                tab.getTextArea((byte) 0).setText("Axiome : \n");
-                tab.getTextArea((byte) 1).setText("Règles : \n");
+                tab.getTextArea((byte) 0).setText("Axiome :");
+                tab.getTextArea((byte) 1).setText("Règles  :");
                 tab.getTextField((byte) 0).setText("");
                 tab.getTextField((byte) 1).setText("");
                 Listener kl = (Listener) tab.getTextField((byte) 0).getKeyListeners()[0];

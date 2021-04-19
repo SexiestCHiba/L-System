@@ -3,6 +3,7 @@ package lsystem.screen.main;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class Tab extends JPanel{
 
@@ -133,7 +134,7 @@ public class Tab extends JPanel{
      */
     public String getAxiom() {
         String str = axiomList.getText();
-        str = str.substring(10).replaceAll(";", "");
+        str = str.substring(9).replaceAll(";", "");
         return str;
     }
 
@@ -142,9 +143,9 @@ public class Tab extends JPanel{
      */
     public java.util.List<String> getRules(){
         String str = rulesList.getText();
-        str = str.substring(10).replaceAll(";", "");
+        str = str.substring(9).replaceAll(";", "");
         String[] strsplit =  str.split("\n");
-        return Arrays.asList(strsplit);
+        return Arrays.stream(strsplit).filter(p -> !p.equals("")).collect(Collectors.toList()); // To eliminate empty string from the list
     }
 
     /**

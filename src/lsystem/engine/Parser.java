@@ -69,17 +69,17 @@ public class Parser {
             		return false;
             }
             if(old == '.'){
-                for(int y = (type == Type.RULE ? 0 : 1); y < 12; y++){
+                for(int y = (type == Type.RULE ? 0 : 1); y < 10; y++){
                     if(temp == Constants.VALID_CHARS[y])
                         return false;
                 }
             }
             old = temp;
             for(char validChar : Constants.VALID_CHARS){
-                if(temp == validChar)
-                    break;
                 if(validChar == ' ')
                     return false;
+                if(temp == validChar)
+                    break;
             }
         }
         return bracket == 0;
@@ -156,6 +156,7 @@ public class Parser {
                 }
             }
         }
+        assert root == null;
         return root;
     }
 
