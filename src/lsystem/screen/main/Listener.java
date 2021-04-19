@@ -77,9 +77,9 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
 
     @Override
     public void keyPressed(KeyEvent ke) {
+        byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
+        if(ke.getKeyCode() == KeyEvent.VK_ENTER && tab.getTextField(i).getText().length() > 0){
 
-        if(ke.getKeyCode() == KeyEvent.VK_ENTER) {
-            byte i = (byte) ((type.equals("Axiome")) ? 0 :  1);
             String text = tab.getTextField(i).getText();
             text = ((text.charAt(text.length()-1)==';') ? "\n"+text : "\n"+text+";");
             tab.getTextField(i).setText(null);
