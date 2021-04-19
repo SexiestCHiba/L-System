@@ -178,5 +178,12 @@ public class Parser {
         return n;
     }
 
-    
+
+    public int getNbIterations() {
+        return nbIterations;
+    }
+
+    public String getAxiom() {
+        return axiom;
+    }
 }

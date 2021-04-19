@@ -41,7 +41,7 @@ public class Constants {
 			+ "\tX = X20yY-X\r\n"
 			+ "\r\n"
 			+ "On ajoute le principe de branches aux expressions, on utilise donc pour ce faire les crochets \"[ ]\".\r\n"
-			+ "Elles permettent de controler l'évolution de l'arbre en appliquant la rotation qu'il lui est appliqué à tout"
+			+ "Elles permettent de controler l'évolution de l'arbre en appliquant la rotation qu'il lui est appliqué à tout\r\n"
 			+ "les elements étant à l'intérieur des crochets"
 			+ "\r\n"
 			+ "Ainsi, dans l'expression:\r\n"

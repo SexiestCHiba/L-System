@@ -18,13 +18,21 @@ Ce mot passera ensuite par un moteur graphique dans le but d'être modélisé.
 \section{Notre L-Système}
 
 \subsection{Alphabet}
-Notre alphabet est composés de plusieurs constantes :
-\begin{itemize}[label=\textbullet]
-    \item Peut
-    \item Etre
-    \item Faire
-    \item Une liste
+Notre alphabet est composés de plusieurs règles et constantes:\\
+\begin{itemize}
+    \item X permet de dessiner une branche et Y de dessinera rien, il permet avec certaines règles de contrôler l'évolution de notre L-Système.
+    \item Il est possible de modifier l'angle d'une branche en utilisant par exemple les +, -, -35, +64y, qui donnera 
+respectivement une orientation de 25° et -25° sur l'axe de rotation x, une rotation de -35° sur l'axe X et une orientation de 64° sur l'axe de rotation y; il n'est pas possible de modifier l'orientation de l'axe de rotation Z.
+\item Enfin il est possible d'utiliser les crochets [] pour contrôler l'évolution et obtenir des branches à votre arbres, ces crochets vont conserver l'état, c'est à dire qu'une rotation appliqué aux crochets s'appliquera a tout les éléments étant à l'intérieur des crochets, par exemple: +[XYX] appliquera une rotation de 25° à XYX. Il est possible d'imbriquer des crochets.
 \end{itemize}
+
 \subsection{Axiome, règles de réécritures et nombre d'itérations}
 Pour l'axiome, les règles de réécritures et le nombre d'itérations, ils seront définis par l'utilisateur dans les zones de textes de l'interface prévus a cet effet. 
 Un bouton "Aide" est présent sur cette même interface aidant a comprendre et mettre en place le L-Système.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.8\linewidth]{pics/aideGUI.png}
+    \caption{Fenêtre d'aide}
+    \label{fig:my_label}
+\end{figure}

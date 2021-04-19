@@ -6,22 +6,16 @@ import java.util.Arrays;
 
 public class Tab extends JPanel{
 
-    public int nbTabs;
-    int nbRules;
     public JSpinner itSpinner;
-    JTextField axiomeField,rulesField;
-    JTextArea axiomList,rulesList;
-    JButton submitButton3D;
+    JTextField axiomeField, rulesField;
+    JTextArea axiomList, rulesList;
+    JButton submitButton;
 
     /**
      * A method which create a new instance of the class JPanel ready to be added to the MainFrame's tabs variable (JTabbedPane).
-     * @param nbTabs  the number of this tab, useful for the listener.
      * @param frame the MainFrame instance that is useful to access all the components.
      */
-    public Tab(int nbTabs,MainFrame frame) {
-
-        this.nbRules = nbRules;
-        this.nbTabs = nbTabs;
+    public Tab(MainFrame frame) {
 
         axiomList = textArea("Axiome : \n");
         rulesList = textArea("Règles : \n");
@@ -35,22 +29,22 @@ public class Tab extends JPanel{
         JLabel rules = new JLabel("Règles  :");
 
         axiomeField = new JTextField();
-        axiomeField.addKeyListener(new Listener(null,nbTabs,"Axiome",this));
+        axiomeField.addKeyListener(new Listener(null,frame.nbTabs,"Axiome",this));
         axiomeField.setPreferredSize(new Dimension(120,20));
 
         rulesField = new JTextField();
-        rulesField.addKeyListener(new Listener(null,nbTabs+10,"Règles",this));
+        rulesField.addKeyListener(new Listener(null,frame.nbTabs + 10,"Règles",this));
         rulesField.setPreferredSize(new Dimension(120,20));
-        submitButton3D = new JButton("Générer en 3D");
+        submitButton = new JButton("Générer en 3D");
         JButton clearButton = new JButton("Clear");
-        clearButton.addActionListener(new Listener(null,nbTabs,"Clear",this));
+        clearButton.addActionListener(new Listener(null,frame.nbTabs,"Clear",this));
         clearButton.setBackground(Color.GREEN);
-        submitButton3D.addActionListener(new Listener(null,nbTabs,"Generate 3D",this));
-        submitButton3D.setBackground(Color.CYAN);
+        submitButton.addActionListener(new Listener(frame, frame.nbTabs,"Generate 3D",this));
+        submitButton.setBackground(Color.CYAN);
         JButton close = new JButton("Close");
         close.addActionListener(new Listener(frame,null,"Close",null));
         close.setBackground(Color.RED);
-        JPanel southComponents = subPanel(submitButton3D,close,null);
+        JPanel southComponents = subPanel(submitButton,close,null);
         southComponents = subPanel(clearButton, southComponents, null);
 
         GridBagConstraints gc = new GridBagConstraints();
@@ -59,11 +53,11 @@ public class Tab extends JPanel{
         gc.weightx = 0;
         gc.weighty = 0.5;
 
-        JPanel lists = subPanel(axiomList,rulesList,gc);
-        JPanel fields = subPanel(axiomeField,rulesField,gc);
-        JPanel labels = subPanel(axiome,rules,gc);
+        JPanel lists = subPanel(axiomList, rulesList,gc);
+        JPanel fields = subPanel(axiomeField, rulesField,gc);
+        JPanel labels = subPanel(axiome, rules, gc);
 
-        JPanel Iterations = subPanel(itLabel,itSpinner,gc);
+        JPanel Iterations = subPanel(itLabel, itSpinner, gc);
 
         JPanel aboveComponents = new JPanel();
         aboveComponents.add(labels);

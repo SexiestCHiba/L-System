@@ -1,20 +1,28 @@
 package lsystem.screen.main;
 
 
+import lsystem.Main;
+import lsystem.engine.Parser;
 import lsystem.screen.Constants;
+import lsystem.screen.gl3d.AbstractCanvas;
+import lsystem.utils.Pair;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 
 public class MainFrame extends JFrame {
-	private int nbTabs;
+
+    Thread parserThread = null;
+    public int nbTabs;
 	boolean helpWindow = false;
 	private final JPanel basePanel;
 	public final JTabbedPane tabs;
 	private final JButton newGen;
+    private final JButton example;
 	private final JButton help;
 	private final int nbRules;
 
@@ -32,6 +40,9 @@ public class MainFrame extends JFrame {
         newGen = new JButton("Nouvelle génération");
         newGen.addActionListener(new Listener(this,null,"Tab",null));
         toolBar.add(newGen);
+        example = new JButton("Exemples");
+        example.addActionListener(new Listener(this, null, "example", null));
+        toolBar.add(example);
         help = new JButton("Aide");
         help.addActionListener(new Listener(this,null,"Help",null));
         toolBar.add(help);
@@ -96,10 +107,10 @@ public class MainFrame extends JFrame {
 	 */
 	public void newTab() {
 		if(nbTabs>2)
-			JOptionPane.showMessageDialog(null, "Nombre maximal de générations atteintes");
+			JOptionPane.showMessageDialog(null, "Nombre maximal d'onglets atteintes");
 		else {
 			nbTabs++;
-			tabs.addTab("Génération" + nbTabs,new Tab(nbTabs,this));
+			tabs.addTab("Génération" + nbTabs,new Tab(this));
 		}
 
 	}
@@ -112,5 +123,52 @@ public class MainFrame extends JFrame {
 			tabs.setTitleAt(i,("Génération"+(i+1)));
 		}
 	}
+
+    public void newExample() {
+	    if(nbTabs > 2)
+            JOptionPane.showMessageDialog(null, "Nombre maximal d'onglets atteintes");
+        else {
+            nbTabs++;
+            tabs.addTab("Exemples", new Example(this));
+        }
+    }
+
+    public void generateLSystem(Listener listener, Parser parser, JButton submitButton) {
+        if(Main.joglFrame.frame.isVisible()) {
+            listener.openDialog("Veuillez fermer la fenêtre 2D ou 3D avant de lancer une nouvelle génération");
+        } else if(Main.joglFrame.parsedState == AbstractCanvas.State.LOAD) {
+            listener.openDialog("Une génération est actuellement en cours, impossible d'en relancer un autre");
+        } else if (!parser.isCorrect()) {
+            listener.openDialog("Vos règles ou votre axiome ne sont pas correctement écrites, veuillez recommencer");
+        } else {
+            String initialText = submitButton.getText();
+            parserThread = new Thread(() -> {
+                try {
+                    submitButton.setIcon(listener.staticIcon);
+                    submitButton.setText("");
+                    List<Pair<String, String>> lSystemRules = parser.parseRules();
+                    Main.joglFrame.setLSystem(parser.getAxiom(), lSystemRules, parser.getNbIterations());
+
+                    StringBuilder message = new StringBuilder("L-System 3D - {axiom:\"").append(parser.getAxiom()).append("\",rules:[");
+                    for(int i = 0; i < lSystemRules.size(); ++i) {
+                        Pair<String, String> rule = lSystemRules.get(i);
+                        message.append("\"").append(rule.getLeft()).append("=").append(rule.getRight()).append("\"");
+                        if(i + 1 != lSystemRules.size())
+                            message.append(",");
+                    }
+                    Main.joglFrame.frame.setTitle(message.append("]} - Nombres d'itérations: ").append(parser.getNbIterations()).toString());
+
+                    Main.joglFrame.setVisible(true);
+                } catch (NumberFormatException err) {
+                    Main.joglFrame.parsedState = AbstractCanvas.State.FINISH_OR_NULL;
+                    listener.openDialog("Une erreur de type " + err.getClass().getSimpleName() + " est survenue lors de l'execution du parser: " + err.getMessage());
+                }
+                submitButton.setIcon(null);
+                submitButton.setText(initialText);
+            });
+
+            parserThread.start();
+        }
+    }
 
 }
