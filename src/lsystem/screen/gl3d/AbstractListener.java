@@ -33,7 +33,7 @@ public abstract class AbstractListener implements GLEventListener {
         GL2 gl = glAutoDrawable.getGL().getGL2();
 
         gl.glClearColor(0f, 0f, 0f, 1.0f);
-
+        gl.setSwapInterval(0);
         new Thread(() -> {
             while (canvas.frame.isVisible()) {
                 try {

@@ -47,34 +47,6 @@ public class DrawHelper {
 		glut.glutBitmapCharacter(GLUT.BITMAP_HELVETICA_18, 'Z'); // draw the z axis
 	}
 
-	/**
-	 * draw the L-System, move the camera and then use recursive call to draw branches of {@code element}
-	 * @param listener use to move the camera depending of the size if the L-System
-	 * @param gl use to move cursor
-	 * @param glut use to draw pre implemented function like {@link GLUT#glutSolidCylinder(double, double, int, int)}
-	 * @param element working branch of the {@link Element LSystem}
-	 */
-	public static void drawLSystem(AbstractListener listener, GL2 gl, GLUT glut, Element element) {
-		gl.glPushMatrix();
-		gl.glRotatef(element.rotation[0]  * 360, 1f, 0f, 0f);
-		gl.glRotatef(element.rotation[1]  * 360, 0f, 1f, 0f);
-		gl.glRotated(-Math.sin(element.rotation[0]) * 180 - Math.sin(element.rotation[1]) * 180, 0f, 0f, 1f);
-		gl.glTranslated(-Math.sin(element.rotation[0]), -Math.sin(element.rotation[1]), -Math.sin(element.rotation[0] + element.rotation[1]));
-
-		if(element.property == ElementProperties.DRAW) {
-			if(listener.firstGen) {
-				listener.canvas.camera[1] += 0.10f;
-				listener.canvas.camera[2] += 0.10f;
-			}
-			glut.glutSolidCylinder(0.25f, 1f, 10, 10);
-			gl.glTranslatef(0f, 0f, 1f);
-		}
-
-		for(Element child : element.children) {
-			drawLSystem(listener, gl, glut, child);
-		}
-		gl.glPopMatrix();
-	}
 
 	@SuppressWarnings("unused")
 	public static void drawDebugInformation(GL2 gl, GLUT glut, AbstractCanvas canvas) {

@@ -3,6 +3,7 @@ package lsystem.screen.gl3d;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import lsystem.engine.Element;
+import lsystem.engine.ElementProperties;
 import lsystem.screen.Constants;
 
 /**
@@ -76,9 +77,32 @@ public class GLEventListener extends AbstractListener {
     }
 
 
+    /**
+     * draw the L-System, move the camera and then use recursive call to draw branches of {@code element}
+     * @param gl use to move cursor
+     * @param element working branch of the {@link Element LSystem}
+     */
     @Override
     public void drawLSystem(GL2 gl, Element element) {
-        DrawHelper.drawLSystem(this, gl, glut, element);
+        gl.glPushMatrix();
+        gl.glRotatef(element.rotation[0]  * 360, 1f, 0f, 0f);
+        gl.glRotatef(element.rotation[1]  * 360, 0f, 1f, 0f);
+        gl.glRotated(-Math.sin(element.rotation[0]) * 180 - Math.sin(element.rotation[1]) * 180, 0f, 0f, 1f);
+        gl.glTranslated(-Math.sin(element.rotation[0]), -Math.sin(element.rotation[1]), -Math.sin(element.rotation[0] + element.rotation[1]));
+
+        if(element.property == ElementProperties.DRAW) {
+            if(firstGen) {
+                canvas.camera[1] += 0.10f;
+                canvas.camera[2] += 0.10f;
+            }
+            glut.glutSolidCylinder(0.25f, 1f, 10, 10);
+            gl.glTranslatef(0f, 0f, 1f);
+        }
+
+        for(Element child : element.children) {
+            drawLSystem(gl, child);
+        }
+        gl.glPopMatrix();
     }
 
 
