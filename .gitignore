@@ -21,3 +21,7 @@ doc/
 
 # generated jar files
 build/
+
+# tests files
+
+result.txt
