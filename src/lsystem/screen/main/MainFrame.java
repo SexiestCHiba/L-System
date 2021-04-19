@@ -133,7 +133,7 @@ public class MainFrame extends JFrame {
         }
     }
 
-    public void generateLSystem(Listener listener, Parser parser, JButton submitButton) {
+    public void generateLSystem(AbstractListener listener, Parser parser, JButton submitButton) {
         if(Main.joglFrame.frame.isVisible()) {
             listener.openDialog("Veuillez fermer la fenêtre 2D ou 3D avant de lancer une nouvelle génération");
         } else if(Main.joglFrame.parsedState == AbstractCanvas.State.LOAD) {

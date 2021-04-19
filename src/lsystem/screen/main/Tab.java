@@ -131,7 +131,7 @@ public class Tab extends JPanel{
     /**
      * @return A string which contains the axiom entered by the user.
      */
-    public String getAxiom(){
+    public String getAxiom() {
         String str = axiomList.getText();
         str = str.substring(10).replaceAll(";", "");
         return str;

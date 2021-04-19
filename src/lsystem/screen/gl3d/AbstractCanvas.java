@@ -65,6 +65,7 @@ public abstract class AbstractCanvas {
                 // -XX:+UseG1GC to force jre 1.8 to use G1GC (G1GC is default on jre 11+), if you have jre 15+ you should use
                 // ZGC which is very quick compared to G1GC and have a lower CPU usage
                 System.gc();
+                camera = new float[]{0f, 1f, 5f, 0f, 0f, 0f}; // reset default camera position
             }
         });
         frame.getContentPane().add(glCanvas, BorderLayout.CENTER);

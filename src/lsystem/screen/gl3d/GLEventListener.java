@@ -92,8 +92,8 @@ public class GLEventListener extends AbstractListener {
 
         if(element.property == ElementProperties.DRAW) {
             if(firstGen) {
-                canvas.camera[1] += 0.10f;
-                canvas.camera[2] += 0.10f;
+                canvas.camera[1] = (float) Math.min(50f, canvas.camera[1] + 0.10f-Math.sin(element.rotation[1]));
+                canvas.camera[2] = Math.min(50f, canvas.camera[2] + 0.10f);
             }
             glut.glutSolidCylinder(0.25f, 1f, 10, 10);
             gl.glTranslatef(0f, 0f, 1f);

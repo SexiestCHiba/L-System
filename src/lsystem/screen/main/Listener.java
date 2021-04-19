@@ -7,20 +7,18 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 
-public class Listener implements ActionListener, KeyListener, MouseWheelListener {
+public class Listener extends AbstractListener implements KeyListener, MouseWheelListener {
     Tab tab;
     MainFrame frame;
     Integer index;
-    String type;
     Integer nbAxioms= 0;
-    ImageIcon staticIcon = new ImageIcon(Toolkit.getDefaultToolkit().createImage(getClass().getClassLoader().getResource("./loading-gif.gif")));
 
 
     public Listener(MainFrame frame, Integer index, String type, Tab tab){
+        super(type);
         this.tab = tab;
         this.frame = frame;
         this.index = index;
-        this.type = type;
     }
 
     @Override
@@ -64,7 +62,8 @@ public class Listener implements ActionListener, KeyListener, MouseWheelListener
 
     }
 
-    void openDialog(String message) {
+    @Override
+    public void openDialog(String message) {
         JOptionPane.showMessageDialog(null, message);
         new Listener(null, index, "Clear", tab);
     }
