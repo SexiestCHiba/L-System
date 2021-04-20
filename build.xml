@@ -58,7 +58,8 @@
         <junit printsummary="true" haltonerror="no" haltonfailure="no" showoutput="true">
             <classpath refid="project.classpath"/>
             <formatter type="plain"/>
-            <test fork="true" name="lsystem.TestLSystem" outfile="result" />
+            <test fork="true" name="lsystem.TestLSystem" outfile="test1" />
+            <test fork="true" name="lsystem.StressTest" outfile="test2" />
         </junit>
     </target>
 </project>

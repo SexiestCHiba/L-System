@@ -156,7 +156,7 @@ public class Parser {
                 }
             }
         }
-        assert root == null;
+        assert root != null;
         return root;
     }
 

@@ -1,7 +1,5 @@
 \chapter{Élements techniques}
 
-\section{Parser}\label{sec:parser}
-
 \section{Moteur de réécriture}
 
 Le moteur de réécriture est chargé d'appliquer les règles de réécritures itérativement à partir de l'axiome pour obtenir le mot final.
@@ -11,12 +9,76 @@ Le mot est réécrit en 2 temps :\\
     \item On change toutes les occurrences du mot à remplacer par \$\{identifiant de la règle\}.
     \item On remplace toutes les occurrences de \$\{identifiant de la règle\} par la règle associée.
 \end{itemize}
-On répète cette opération n fois, pour obtenir le mot final.
+On répète cette opération n fois, pour obtenir le mot final.\\
 
-\section{Moteur graphique}\label{src:interface3d}
+L'algorithme de réécriture est séparé en 3 parties:\\
 
-Nous utilisons Java OpenGL pour afficher une fenêtre 3D, gl2 pour afficher les lignes de la grille, glu pour placer la caméra et GLUT pour afficher les cylindres.
-Pour naviguer dans l'espace 3D, voir la section \ref{sec:nav_3d}
+\begin{algorithm}
+\DontPrintSemicolon
+\KwIn{axiom: $String$, rules : $List[Tuple[String, String]$, recurrence: $Integer$}
+\KwOut{Le mot réécrit itérativement: $String$}
+\caption{{\sc Rewrite} Fonction principale appelé par la fenêtre principale}
+$rewritten \gets \emptyset$\;
+\For{$i \gets 0$ \textbf{à} $recurrence$} {
+    $toRewrite \gets replaceRulesByID(rewritten, rules)$\;
+    $rewritten \gets = replaceIDByRuleApplication(toRewrite, rules)$\;
+}
+$rewritten = rewritten.replace("[", "Y[")$\;
+\Return{$rewritten$}\;
+\end{algorithm}
+
+\begin{algorithm}
+\DontPrintSemicolon
+\KwIn{rewritten: $String$, rules : $List[Tuple[String, String]$}
+\KwOut{Le mot partiellement réécrit}
+\caption{{\sc replaceRulesByID} remplace les occurrences des différentes règles par \$\{id\}}
+$toRewrite \gets rewritten$\;
+\For{$i \gets 0$ \textbf{à} $rules.size()$}{
+    $pair \gets rules.get(i)$\;
+    $toRwrite \gets toRewrite.replace(pair[0], "\$\{" + i + "\}")$\;
+}
+\Return{$toRewrite$}
+
+\end{algorithm}
+
+\begin{algorithm}
+\DontPrintSemicolon
+\KwIn{toRewrite: $String$, rules : $List[Tuple[String, String]$}
+\KwOut{Le mot entièrement réécrit}
+\caption{{\sc replaceIDByRuleApplication} remplace les occurrences \$\{id\} par la définition des différentes règles}
+$rewritten \gets toRewrite$\;
+\For{$i \gets 0$ \textbf{à} $rules.size()$}{
+$rewritten \gets rewritten.replace("\$\{" + i + "\}", rules.get(i)[1]$\;
+}
+\Return{$rewritten$}
+\end{algorithm}
+
+\clearpage
+
+\section{Parser}
+\label{sec:parser}
+
+Le rôle du parser est à partir d'un mot réécrit par le moteur de réécriture de convertir celui-ci en une structure de données plus facilement manipulable afin de l'afficher dans le moteur graphique.
+En appliquant les règles précédemment énoncé, il construit un arbre grâce la structure de données suivante
+
+\begin{algorithm}
+\DontPrintSemicolon
+\caption{{\sc Element} Branche de l'arbre, si parent est vide alors, cet element est la racine}
+\Struct{Element}{
+propery: $ElementProperty$ \Comment{enumérateur, valeurs possibles: $DRAW$ ou $NOTHING$}\;
+parent: $Element$\;
+rotation: $Float[3]$\;
+children: $List[Element]$\;
+}
+\end{algorithm}
+
+
+\section{Moteur graphique}
+\label{sec:interface3d}
+
+Nous utilisons Java OpenGL pour afficher une fenêtre 3D, gl2 pour afficher les lignes de la grille, glu pour placer la caméra et GLUT pour afficher les cylindres.\\
+Pour naviguer dans l'espace 3D, voir la section \ref{sec:nav_3d}.\\
+Pour afficher le L-Système nous utilisons une méthode récursive.
 
 \begin{figure}[h!]
     \centering
@@ -27,13 +89,13 @@ Pour naviguer dans l'espace 3D, voir la section \ref{sec:nav_3d}
 
 \clearpage
 
-\section{Interface principale}\label{sec:menu}
+\section{Interface principale}
+\label{sec:menu}
 
 \subsection{Composition de l'interface}
 
-\paragraph{L'interface}
-utilisateur de notre logiciel a été conçu grâce à la bibliothèque \Swing \ de \Java. Elle se compose de trois classes, une contenant la fenêtre principale \classe{MainFrame}, une autre permettant de créer des onglets, \classe{Tab} et une troisième classe gérant les événements, \classe{Listener}.
-
+\paragraph{L'interface} utilisateur de notre logiciel a été conçu grâce à la bibliothèque \Swing \ de \Java. Elle se compose de trois classes, une contenant la fenêtre principale \classe{MainFrame}, une autre permettant de créer des onglets, \classe{Tab} et une troisième classe gérant les événements, \classe{Listener}.
+ 
 \subsection{Classes de l'interface}
 
 \subsubsection{MainFrame}
@@ -47,5 +109,6 @@ Elle comporte aussi une instance de la classe JTabbedPane \label{jtpane}, un con
 
 \subsubsection{Listener}
 
-\paragraph{La classe \classe{Listener}} est une classe implémentant certaines classes Listener de \Swing (\classe{ActionListener, KeyListener et MouseWheelListener}). Elle permet de capter toutes les actions effectuées par l'utilisateur et d'appeler les méthodes correspondantes des classes de l'interface. Elle permet ainsi de créer de nouveaux onglets (Nouvelles instances de Tab) mais aussi d'en fermer ou bien encore de lancer la génération du modèle.
+\paragraph{La classe \classe{Listener}} est une classe implémentant certaines classes Listener de \\\Swing (\classe{ActionListener, KeyListener et MouseWheelListener}). Elle permet de capter toutes les actions effectuées par l'utilisateur et d'appeler les méthodes correspondantes des classes de l'interface. Elle permet ainsi de créer de nouveaux onglets (Nouvelles instances de Tab) mais aussi d'en fermer ou bien encore de lancer la génération du modèle.
+
 \section{Pair ou un tuple a 2 entrées en java}

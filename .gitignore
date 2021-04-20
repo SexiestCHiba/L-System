@@ -15,6 +15,9 @@ hs_err_pid*.log
 # log files
 rapport/
 !rapport/rapport.tex
+!rapport/pics/*.png
+!rapport/pics/*.PNG
+!rapport/pics/*.jpg
 
 # javadoc files
 doc/
@@ -24,4 +27,4 @@ build/
 
 # tests files
 
-result.txt
+test*.txt

@@ -22,7 +22,7 @@ Pour compiler puis executer le programme, executez la commande: ant run
 
 Pour générer une archive jar dans le répertoire build/, executez la commande: ant packaging
 
-Pour générer la javadoc dans le répertoire dans le dossier doc/, executez la commande: ant javadoc
+Pour générer la javadoc dans le dossier doc/, executez la commande: ant javadoc
 Ouvrez ensuite le fichier index.html ou overview-summary.html dans un navigateur.
 
 Pour effectuer les tests, executez la commande: ant tests
