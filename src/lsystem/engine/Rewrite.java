@@ -55,7 +55,7 @@ public class Rewrite {
             System.out.println(i + " / " + recurrences + " : " + rewritten.length());
         }
         rewritten = rewritten.replace("[", "Y[");
-        System.out.println(rewritten);
+        // System.out.println(rewritten);
         return rewritten;
     }
 
