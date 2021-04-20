@@ -13,13 +13,13 @@ import static org.junit.Assert.assertNotNull;
 public class StressTest {
 
     /**
-     * require at least 1GB of free ram
+     * require at least 3GB of free ram
      */
     @Test
     public void stressTest1() {
         long millis = System.currentTimeMillis();
         GLCanvas joglFrame = new GLCanvas();
-        Parser parser = new Parser("Y", Arrays.asList("Y=X+[[Y]-Y]-X[-XY]+Y", "X=XX"), 12);
+        Parser parser = new Parser("Y", Arrays.asList("Y=X+[[Y]-Y]-X[-XY]+Y", "X=XX"), 11);
         List<Pair<String, String>> lSystemRules = parser.parseRules();
         joglFrame.setLSystem(parser.getAxiom(), lSystemRules, parser.getNbIterations());
         System.out.println(joglFrame.getLSystem());
