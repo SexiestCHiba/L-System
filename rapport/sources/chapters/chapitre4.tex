@@ -10,14 +10,16 @@ Le mot est réécrit en 2 temps :\\
     \item On remplace toutes les occurrences de \$\{identifiant de la règle\} par la règle associée.
 \end{itemize}
 On répète cette opération n fois, pour obtenir le mot final.\\
-
+\\
+\\
+\\
 L'algorithme de réécriture est séparé en 3 parties:\\
 
 \begin{algorithm}
 \DontPrintSemicolon
 \KwIn{axiom: $String$, rules : $List[Tuple[String, String]$, recurrence: $Integer$}
 \KwOut{Le mot réécrit itérativement: $String$}
-\caption{{\sc Rewrite} Fonction principale appelé par la fenêtre principale}
+\caption{Rewrite Fonction principale appelée par la fenêtre principale}
 $rewritten \gets \emptyset$\;
 \For{$i \gets 0$ \textbf{à} $recurrence$} {
     $toRewrite \gets replaceRulesByID(rewritten, rules)$\;
@@ -26,16 +28,16 @@ $rewritten \gets \emptyset$\;
 $rewritten = rewritten.replace("[", "Y[")$\;
 \Return{$rewritten$}\;
 \end{algorithm}
-
+\newpage
 \begin{algorithm}
 \DontPrintSemicolon
 \KwIn{rewritten: $String$, rules : $List[Tuple[String, String]$}
 \KwOut{Le mot partiellement réécrit}
-\caption{{\sc replaceRulesByID} remplace les occurrences des différentes règles par \$\{id\}}
+\caption{replaceRulesByID remplace les occurrences des différentes règles par \$\{id\}}
 $toRewrite \gets rewritten$\;
 \For{$i \gets 0$ \textbf{à} $rules.size()$}{
     $pair \gets rules.get(i)$\;
-    $toRwrite \gets toRewrite.replace(pair[0], "\$\{" + i + "\}")$\;
+    $toRewrite \gets toRewrite.replace(pair[0], "\$\{" + i + "\}")$\;
 }
 \Return{$toRewrite$}
 
@@ -45,7 +47,7 @@ $toRewrite \gets rewritten$\;
 \DontPrintSemicolon
 \KwIn{toRewrite: $String$, rules : $List[Tuple[String, String]$}
 \KwOut{Le mot entièrement réécrit}
-\caption{{\sc replaceIDByRuleApplication} remplace les occurrences \$\{id\} par la définition des différentes règles}
+\caption{replaceIDByRuleApplication remplace les occurrences \$\{id\} par la définition des différentes règles}
 $rewritten \gets toRewrite$\;
 \For{$i \gets 0$ \textbf{à} $rules.size()$}{
 $rewritten \gets rewritten.replace("\$\{" + i + "\}", rules.get(i)[1]$\;
@@ -59,11 +61,11 @@ $rewritten \gets rewritten.replace("\$\{" + i + "\}", rules.get(i)[1]$\;
 \label{sec:parser}
 
 Le rôle du parser est à partir d'un mot réécrit par le moteur de réécriture de convertir celui-ci en une structure de données plus facilement manipulable afin de l'afficher dans le moteur graphique.
-En appliquant les règles précédemment énoncé, il construit un arbre grâce la structure de données suivante
+En appliquant les règles précédemment énoncées, il construit un arbre grâce à la structure de données suivante.
 
 \begin{algorithm}
 \DontPrintSemicolon
-\caption{{\sc Element} Branche de l'arbre, si parent est vide alors, cet element est la racine}
+\caption{Element Branche de l'arbre, si parent est vide alors, cet élément est la racine}
 \Struct{Element}{
 propery: $ElementProperty$ \Comment{enumérateur, valeurs possibles: $DRAW$ ou $NOTHING$}\;
 parent: $Element$\;
@@ -76,9 +78,15 @@ children: $List[Element]$\;
 \section{Moteur graphique}
 \label{sec:interface3d}
 
-Nous utilisons Java OpenGL pour afficher une fenêtre 3D, gl2 pour afficher les lignes de la grille, glu pour placer la caméra et GLUT pour afficher les cylindres.\\
+Nous utilisons \Java \ OpenGL pour afficher une fenêtre 3D, gl2 pour afficher les lignes de la grille, glu pour placer la caméra et GLUT pour afficher les cylindres.\\
 Pour naviguer dans l'espace 3D, voir la section \ref{sec:nav_3d}.\\
 Pour afficher le L-Système nous utilisons une méthode récursive.
+
+Les classes GLKeyboardListener et GLMouseListener écoutent respectivement le clavier et la souris.\\
+
+GLCanvas crée la fenêtre (grâce à AbstractCanvas), GLEventListener initialise et affiche l'environnement 3D.\\
+
+DrawHelper est une classe utilitaire qui permet d'afficher certains éléments afin d'alléger la méthode display située dans GLEventListener.
 
 \begin{figure}[h!]
     \centering
@@ -100,15 +108,20 @@ Pour afficher le L-Système nous utilisons une méthode récursive.
 
 \subsubsection{MainFrame}
 
-\paragraph{La classe \classe{MainFrame}} est une classe héritant de la classe JFrame de \Swing. Elle permet de créer une fenêtre de base, de taille prédéfinie dans laquelle peuvent être placés des composants graphiques. Elle comprend aussi un bouton de fermeture qui, une fois cliqué, permet l'arrêt du programme.\\
-Elle comporte aussi une instance de la classe JTabbedPane \label{jtpane}, un conteneur graphique donc le but est de disposer ses composants sous la forme d'onglets.
+\paragraph{La classe \classe{MainFrame}} est une classe héritant de la classe JFrame de \Swing. Elle permet de créer une fenêtre de base, de taille prédéfinie, dans laquelle peuvent être placés des composants graphiques. Elle comprend aussi un bouton de fermeture qui, une fois cliqué, permet l'arrêt du programme.\\
+Elle comporte aussi une instance de la classe JTabbedPane \label{jtpane}, un conteneur graphique dont le but est de disposer ses composants sous la forme d'onglets.
 
 \subsubsection{Tab}
 
-\paragraph{La classe \classe{Tab}} est une classe héritant de la classe JPanel de \Swing. JPanel est un composant de base dans lequel il est possible d'ajouter d'autres composants graphiques. Les intances de \classe{Tab} créées sont ensuite ajoutées par la classe \classe{MainFrame} à son composant de la classe JTabbedPane \ref{jtpane}.
+\paragraph{La classe \classe{Tab}} est une classe héritant de la classe JPanel de \Swing. JPanel est un composant de base dans lequel il est possible d'ajouter d'autres composants graphiques. Les instances de \classe{Tab} créées sont ensuite ajoutées par la classe \classe{MainFrame} à son composant de la classe JTabbedPane \ref{jtpane}.
 
 \subsubsection{Listener}
 
 \paragraph{La classe \classe{Listener}} est une classe implémentant certaines classes Listener de \\\Swing (\classe{ActionListener, KeyListener et MouseWheelListener}). Elle permet de capter toutes les actions effectuées par l'utilisateur et d'appeler les méthodes correspondantes des classes de l'interface. Elle permet ainsi de créer de nouveaux onglets (Nouvelles instances de Tab) mais aussi d'en fermer ou bien encore de lancer la génération du modèle.
 
 \section{Pair ou un tuple a 2 entrées en java}
+
+Nous avons utilisé les classes génériques afin de créer une classe nommé Pair, elle possède 2 paramètres génériques nous permettant de lui assigner des éléments de n'importe quel type.\\
+Une fois instanciée avec ces 2 éléments, son contenu n'est plus modifiable, ce qui en fait un uplet à 2 éléments (couple).\\
+Nous l'utilisons ici pour stocker les règles, la partie gauche du couple stocke le contenu qui va être remplacé dans l'axiome et la partie droite le remplaçant.\\
+Nous l'utilisons seulement dans ce projet pour stocker des \string mais il est possible de stocker n'importe quelle instance d'un objet.
