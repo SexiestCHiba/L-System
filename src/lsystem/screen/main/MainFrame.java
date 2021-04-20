@@ -8,6 +8,7 @@ import lsystem.screen.gl3d.AbstractCanvas;
 import lsystem.utils.Pair;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -30,6 +31,11 @@ public class MainFrame extends JFrame {
 	 * Create a new JFrame on which will be displayed all the GUI elements.
 	 */
 	public MainFrame(){
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | IllegalAccessException | UnsupportedLookAndFeelException | InstantiationException e) {
+			e.printStackTrace();
+		}
 		nbRules = 1;
     	nbTabs = 0;
     	basePanel = new JPanel();

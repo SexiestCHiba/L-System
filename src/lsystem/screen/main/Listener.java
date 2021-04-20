@@ -90,8 +90,7 @@ public class Listener extends AbstractListener implements KeyListener, MouseWhee
     }
 
     @Override
-    public void keyTyped(KeyEvent ke) {
-
+    public void keyTyped(KeyEvent e) {
 
     }
 
