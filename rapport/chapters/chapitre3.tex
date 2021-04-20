@@ -4,8 +4,10 @@
 L'organisation du projet a été soumit a un ordre de priorité car, comme cité dans "Mise en place du projet" (voir section \ref{sec:MEPprog}), certaines parties étaient nécessaires pour que d'autres fonctionnent ou puissent être amorcées :
 \begin{itemize}
     \item En premier lieu nous fallait créer l'alphabet de notre L-Système (voir section \ref{sec:Alphabet}).
-    \item
-    \item
+    \item Mise en place de méthode Parser\#isCorrect() pour vérifier certains que la syntaxe du l-système est correcte.
+    \item Mise en place d'un moteur de réécriture.
+    \item Mis en place d'un parser qui transforme le mot obtenu par le moteur de réécriture en une structure de données plus facilement lisible afin d'être afficher par le moteur graphique.
+    \item affichage du L-Système dans le moteur graphique
 \end{itemize}
 
 \section{Structure du projet}
@@ -17,13 +19,16 @@ L'organisation du projet a été soumit a un ordre de priorité car, comme cité
     \end{itemize}
     \item screen
     \begin{itemize}
-        \item gl3d: Tout les objets relatifs a l'affichage 3d du L-Systeme, voir la section \label{src:interface3d}
-        \item main: Tout les objets relatifs au menu, voir la section \label{sec:menu}
+        \item gl3d: Tout les objets relatifs a l'affichage 3d du L-Systeme, voir la section \ref{sec:interface3d}
+        \item main: Tout les objets relatifs au menu, voir la section \ref{sec:menu}
     \end{itemize}
     \item utils: contient l'objet Pair qui est essentiel au fonctionnement du projet
 \end{itemize}
 
-À détailler un peu plus
-
-\problem{!!!! Ajouter le diagramme de classe !!!!!}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.7\linewidth]{pics/diagram.png}
+    \caption{Diagramme de classe de notre projet}
+    \label{fig:class_diagram}
+\end{figure}
 
