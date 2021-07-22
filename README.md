@@ -3,8 +3,11 @@
 ## Contributors:
 
 [Antonin Boyon](https://github.com/Detextra)
+
 [Arthur Page](https://github.com/Arthur7770)
+
 [Quentin Legot](https://github.com/SexiestCHiba)
+
 [Thomas Lalong](https://github.com/Kyurah)
 
 ## Informations
